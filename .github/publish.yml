@@ -30,13 +30,6 @@ jobs:
          cache-version: 2
          packages: |
            any::DT
-           any::palmerpenguins
-           any::rmarkdown
-           any::tidyverse
-           any::mapview
-           any::renv
-           any::sf
-           any::yaml
 #
 #      - name: Install R Dependencies
 #        uses: r-lib/actions/setup-renv@v2
