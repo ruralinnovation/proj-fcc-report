@@ -1,5 +1,5 @@
 ---
-title: "Quick EDA about 0/0"
+title: "Quick EDA about BSL with 0 speeds Download/Upload"
 date: last-modified
 format: 
   html:
@@ -9,7 +9,7 @@ engine: knitr
 
 EDA to store quick notes about locations services with 0 uploads and 0 downloads.
 
-The data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in data/
+The data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in `data/`
 
 ```{sql}
 #| eval: false
@@ -40,7 +40,6 @@ group by brand_name, state_abbr, technology;
 ```
 
 ```{r}
-# data is data/
 zero_loc <- read.csv("data/zero_dl_up.csv")
 not_zero <- read.csv("data/not_zero_dl.csv")
 ```
