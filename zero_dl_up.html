@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2023-12-11">
 
-<title>FCC NBM EDA - Quick EDA about 0/0</title>
+<title>FCC NBM EDA - Quick EDA about BSL with 0 speeds Download/Upload</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -126,7 +126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./zero_dl_up.html" rel="" target="" aria-current="page">
- <span class="menu-text">Quick EDA about 0/0</span></a>
+ <span class="menu-text">Quick EDA about BSL with 0 speeds Download/Upload</span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools ms-auto">
@@ -147,7 +147,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quick EDA about 0/0</h1>
+<h1 class="title">Quick EDA about BSL with 0 speeds Download/Upload</h1>
 </div>
 
 
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p>EDA to store quick notes about locations services with 0 uploads and 0 downloads.</p>
-<p>The data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in data/</p>
+<p>The data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in <code>data/</code></p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -201,9 +201,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data is data/</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>zero_loc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/zero_dl_up.csv"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>not_zero <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/not_zero_dl.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>zero_loc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/zero_dl_up.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>not_zero <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/not_zero_dl.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Summary by technologies:</p>
