@@ -1,0 +1,89 @@
+---
+title: "Quick EDA about 0/0"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+EDA to store quick notes about locations services with 0 uploads and 0 downloads.
+
+The data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in data/
+
+```{sql}
+#| eval: false
+select 
+	state_abbr,
+	brand_name,
+	count(brand_name)
+from 
+	staging.june23
+where
+(max_advertised_download_speed = 0 AND
+	max_advertised_upload_speed = 0) = true
+group by brand_name, state_abbr, technology;
+
+-- first get all 0/0 then get all the non 0/0
+
+select 
+	state_abbr,
+	brand_name,
+	count(brand_name)
+from 
+	staging.june23
+where
+(max_advertised_download_speed = 0 AND
+	max_advertised_upload_speed = 0) = false
+group by brand_name, state_abbr, technology;
+
+```
+
+```{r}
+# data is data/
+zero_loc <- read.csv("data/zero_dl_up.csv")
+not_zero <- read.csv("data/not_zero_dl.csv")
+```
+
+Summary by technologies:
+
+```{r}
+agg_tech <- function(dat) {
+	aggregate(cbind(count = dat$count),
+						list(technology = dat$technology),
+						sum)
+}
+
+agg <- agg_tech(zero_loc) 
+agg_not <- agg_tech(not_zero)
+technology <- merge(agg, agg_not, by.x = "technology", by.y = "technology", all.x = TRUE, all.y = TRUE) 
+colnames(technology) <- c("technology",  "cnt_zero_dl", "cnt_non_zero")
+technology$rate_zero <- round(technology$cnt_zero_dl / (technology$cnt_zero_dl +  technology$cnt_non_zero), 4)
+technology
+```
+
+
+```{r}
+agg <- aggregate(cbind(count = zero_loc$count), 
+          list(brand_name = zero_loc$brand_name),
+          FUN = sum)
+agg_not <- aggregate(cbind(count = not_zero$count), 
+          list(brand_name = not_zero$brand_name),
+          FUN = sum)
+rate_zero <- merge(agg, agg_not, by.x = "brand_name", by.y = "brand_name", all.x = TRUE) 
+colnames(rate_zero) <- c("brand_name", "cnt_zero_dl", "cnt_non_zero")
+rate_zero$rate_zero <- rate_zero$cnt_zero_dl / (rate_zero$cnt_zero_dl +  rate_zero$cnt_non_zero)
+
+rate_zero[order(rate_zero$cnt_zero_dl, decreasing = TRUE),] |> head(n = 20)
+```
+
+I am bothered by those results 
+
+```{r}
+st_agg <- aggregate(cbind(count = zero_loc$count),
+           list(state_abbr = zero_loc$state_abbr),
+           sum) 
+
+st_agg[order(st_agg$count, decreasing = TRUE), ]
+
+```
