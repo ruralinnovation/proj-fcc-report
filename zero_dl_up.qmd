@@ -7,76 +7,121 @@ format:
 engine: knitr
 ---
 
-EDA to store quick notes about locations services with 0 uploads and 0 downloads.
+```{r}
+#| label: utility functions
+table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
+              extensions = 'Buttons', 
+                options = list(
+                          dom = 'Blfrtip',
+                          buttons = list('copy', 'print', list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download')
+                                    )
+                          )
+            )}
+# very lazish function, col should be a string 
+agg_count <- function(dat, col) {
+	agg <- aggregate(cbind(count = dat$count),
+		             list(name_col = dat[[col]]),
+					  sum)
+	colnames(agg) <- c(col, "count")
+	return(agg)
+}
+```
+
+The goals of this page is storing a quick EDA about broadband services locations with 0 MBps uploads and 0 MBps downloads. To be concise we are going to call them 0/0 speeds. 
+
+We have counted every services that have been declared with 0/0 speeds and associated with their States, ISP and technology. To clarify that does not meen a location have 0/0 speeds only but that one ISP x technology is providing this kind of service in this location.  
 
 The data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in `data/`
 
 ```{sql}
+#| label: SQL query to get the data 
 #| eval: false
-select 
+SELECT 
 	state_abbr,
 	brand_name,
 	count(brand_name)
-from 
+FROM
 	staging.june23
-where
+WHERE
 (max_advertised_download_speed = 0 AND
 	max_advertised_upload_speed = 0) = true
-group by brand_name, state_abbr, technology;
+GROUP BY brand_name, state_abbr, technology;
 
 -- first get all 0/0 then get all the non 0/0
 
-select 
+SELECT 
 	state_abbr,
 	brand_name,
 	count(brand_name)
-from 
+FROM 
 	staging.june23
-where
+WHERE
 (max_advertised_download_speed = 0 AND
 	max_advertised_upload_speed = 0) = false
-group by brand_name, state_abbr, technology;
+GROUP BY brand_name, state_abbr, technology;
 
 ```
 
 ```{r}
+#| label: Load data
 zero_loc <- read.csv("data/zero_dl_up.csv")
 not_zero <- read.csv("data/not_zero_dl.csv")
 ```
 
-Summary by technologies:
+## Summary by technologies:
 
 ```{r}
-agg_tech <- function(dat) {
-	aggregate(cbind(count = dat$count),
-						list(technology = dat$technology),
-						sum)
-}
+#| label: 0/0 by tecnology
 
-agg <- agg_tech(zero_loc) 
-agg_not <- agg_tech(not_zero)
-technology <- merge(agg, agg_not, by.x = "technology", by.y = "technology", all.x = TRUE, all.y = TRUE) 
+agg <- agg_count(zero_loc, "technology") 
+agg_not <- agg_count(not_zero, "technology")
+
+technology <- merge(agg, agg_not, by.x = "technology", 
+					by.y = "technology", all.x = TRUE, all.y = TRUE) 
 colnames(technology) <- c("technology",  "cnt_zero_dl", "cnt_non_zero")
-technology$rate_zero <- round(technology$cnt_zero_dl / (technology$cnt_zero_dl +  technology$cnt_non_zero), 4)
-technology
+technology$rate_zero <- round(technology$cnt_zero_dl / 
+				(technology$cnt_zero_dl +  technology$cnt_non_zero), 4)
+
+table_with_options(technology)
 ```
 
+</br>
+
+We do not mind too much `70` (Unlicensed Terrestrial Fixed Wireless) because we are filtering it out but we are keeping `71` (Licensed Terrestrial Fixed Wireless) , `72` (Licensed-by-Rule Terrestrial Fixed Wireless)and `10` (Copper Wire). 
+
+To take that into account I will filter out the Unlicensed Terrestrial Fixed Wireless 
+
+## Summary by ISP
 
 ```{r}
-agg <- aggregate(cbind(count = zero_loc$count), 
-          list(brand_name = zero_loc$brand_name),
-          FUN = sum)
-agg_not <- aggregate(cbind(count = not_zero$count), 
-          list(brand_name = not_zero$brand_name),
-          FUN = sum)
-rate_zero <- merge(agg, agg_not, by.x = "brand_name", by.y = "brand_name", all.x = TRUE) 
-colnames(rate_zero) <- c("brand_name", "cnt_zero_dl", "cnt_non_zero")
-rate_zero$rate_zero <- rate_zero$cnt_zero_dl / (rate_zero$cnt_zero_dl +  rate_zero$cnt_non_zero)
+#| label: ISP with 0/0 
+zero_loc <- zero_loc[which(zero_loc$technology != 70), ]
+not_zero <- not_zero[which(not_zero$technology != 70), ]
 
-rate_zero[order(rate_zero$cnt_zero_dl, decreasing = TRUE),] |> head(n = 20)
+agg <- agg_count(zero_loc, "brand_name")
+agg_not <- agg_count(not_zero, "brand_name")
+
+rate_zero <- merge(agg, agg_not, 
+				   by.x = "brand_name", by.y = "brand_name"
+				   , all.x = TRUE) 
+
+colnames(rate_zero) <- c("brand_name", "cnt_zero_dl", "cnt_non_zero")
+rate_zero$rate_zero <- round(rate_zero$cnt_zero_dl /
+				 (rate_zero$cnt_zero_dl +  rate_zero$cnt_non_zero),
+							4)
+
+table_with_options(rate_zero[
+					order(rate_zero$cnt_zero_dl, decreasing = TRUE),])
 ```
 
-I am bothered by those results 
+::: {.column-margin}
+**402** ISPs are declaring services with 0/0 MBips (We have 2902 ISPs registered in FCC NBM)
+:::
+
+## Sumamry by States
 
 ```{r}
 st_agg <- aggregate(cbind(count = zero_loc$count),
@@ -86,3 +131,6 @@ st_agg <- aggregate(cbind(count = zero_loc$count),
 st_agg[order(st_agg$count, decreasing = TRUE), ]
 
 ```
+
+</br>
+One point of concern is that services with 0/0 speeds could be generated for various reasons. One coulb be  
