@@ -32,7 +32,7 @@ agg_count <- function(dat, col) {
 
 The goals of this page is storing a quick EDA about broadband services locations with 0 MBps uploads and 0 MBps downloads. To be concise we are going to call them 0/0 speeds. 
 
-We have counted every services that have been declared with 0/0 speeds and associated with their States, ISP and technology. To clarify that does not meen a location have 0/0 speeds only but that one ISP x technology is providing this kind of service in this location.  
+We have counted every services that have been declared with 0/0 speeds and associated with their States, ISP and technology. To clarify that does not mean a location have 0/0 speeds only but that one "ISP x technology" is provided with this kind of service in this location.  
 
 The data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in `data/`
 
@@ -92,7 +92,7 @@ table_with_options(technology)
 
 We do not mind too much `70` (Unlicensed Terrestrial Fixed Wireless) because we are filtering it out but we are keeping `71` (Licensed Terrestrial Fixed Wireless) , `72` (Licensed-by-Rule Terrestrial Fixed Wireless)and `10` (Copper Wire). 
 
-To take that into account I will filter out the Unlicensed Terrestrial Fixed Wireless 
+To take that into account I will filter out Unlicensed Terrestrial Fixed Wireless for the rest of this document.
 
 ## Summary by ISP
 
@@ -124,13 +124,30 @@ table_with_options(rate_zero[
 ## Sumamry by States
 
 ```{r}
-st_agg <- aggregate(cbind(count = zero_loc$count),
-           list(state_abbr = zero_loc$state_abbr),
-           sum) 
+#| label: States
+#| fig-column: margin 
+st_agg_zero <- agg_count(zero_loc, "state_abbr")
+st_agg_not <- agg_count(not_zero, "state_abbr")
 
-st_agg[order(st_agg$count, decreasing = TRUE), ]
+st_agg <- merge(st_agg_zero, st_agg_not, 
+				by.x = "state_abbr", by.y = "state_abbr",
+				all.x = TRUE, all.y = TRUE)
+colnames(st_agg) <- c("ST", "cnt_zero_dl", "cnt_non_zero")
+st_agg$rate_zero <- round(st_agg$cnt_zero_dl /
+				 	(st_agg$cnt_zero_dl +  st_agg$cnt_non_zero),
+							4) 
+library(ggplot2)
+
+ggplot(st_agg[!is.na(st_agg$rate_zero),], aes(rate_zero)) +
+  geom_boxplot(orientation = "y",
+  fill='#A4A4A4', color="black") +
+  coord_flip() +
+  theme_bw()
+
+table_with_options(st_agg[order(st_agg$rate_zero, decreasing = TRUE), ])
 
 ```
 
+
 </br>
-One point of concern is that services with 0/0 speeds could be generated for various reasons. One coulb be  
+One point of concern is that services with 0/0 speeds could be generated for various reasons. One could be that some technology offer very low downloads/uploads and that is rounding to `0` an other could be that the location is not actually deserved but the ISP think it can do it.
