@@ -3,6 +3,8 @@ project:
 
 website:
   title: "FCC NBM EDA"
+  repo-url: https://github.com/ruralinnovation/proj-fcc-report
+  repo-actions: [edit, issue]
   navbar:
     left:
       - href: index.qmd
