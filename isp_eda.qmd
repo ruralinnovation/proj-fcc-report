@@ -31,11 +31,12 @@ SELECT
     brand_name,
     state_abbr,
     technology,
+    provider_id,
     count(*) as cnt_services
 FROM
     staging.june23
 GROUP BY 
-    brand_name, state_abbr, technology
+    brand_name, provider_id, state_abbr, technology
 ORDER BY 
     cnt_services DESC;
 ```
@@ -52,9 +53,28 @@ table_with_options(isp)
 
 ## Numbers for context: 
 
-In June 2023 we have `r length(unique(isp$brand_name))` unique ISP brand name. 
+```{r}
+#|  label: filter sat
+filter_sat <- c(60, 61, 70)
+isp_slim <- isp[! isp$technology %in% filter_sat, ]
+```
+
+In June 2023 we have `r length(unique(isp$brand_name))` unique ISP brand name but only `r length(unique(isp_slim$brand_name))` if we remove the ISP that only offer Satellite or Unlicensed Wireless. 
+
+For the rest of the analysis I will not take into account Satellite data and Unlicensed Wireless.
+
 
 ```{r}
-isp_agg <- aggregate(isp["cnt_services"], isp["brand_name"], sum)
-head(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ])
+#| label: agg per brand name
+isp_agg <- aggregate(isp_slim["cnt_services"], isp_slim["brand_name"], sum)
+head(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ], 10)
 ```
+
+ ```{r}
+isp_slim$brand_name <- tolower(isp_slim$brand_name)
+#length(unique(isp_slim$brand_name))
+ ```
+
+It seems that we have:  
+    - brand name with and without capital letter (VERIZON, Verizon): if we `tolower` brand name we get `r length(unique(isp_slim$brand_name))` unique brand name.
+
