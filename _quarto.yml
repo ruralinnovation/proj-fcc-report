@@ -11,6 +11,7 @@ website:
         text: Home
       - about.qmd
       - zero_dl_up.qmd
+      - isp_eda.qmd
 
 format:
   html:

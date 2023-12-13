@@ -1,5 +1,5 @@
 ---
-title: "Quick EDA about BSL with 0 speeds Download/Upload"
+title: "EDA on 0/0 BSL"
 date: last-modified
 format: 
   html:

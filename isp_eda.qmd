@@ -1,0 +1,60 @@
+---
+title: "EDA on ISP"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+```{r}
+#| label: utility functions
+table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
+              extensions = 'Buttons', 
+                options = list(
+                          dom = 'Blfrtip',
+                          buttons = list('copy', 'print', list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download')
+                                    )
+                          )
+            )}
+```
+
+We are starting a first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).  
+
+The query that generated this first pass at it is here: 
+
+```SQL
+SELECT 
+    brand_name,
+    state_abbr,
+    technology,
+    count(*) as cnt_services
+FROM
+    staging.june23
+GROUP BY 
+    brand_name, state_abbr, technology
+ORDER BY 
+    cnt_services DESC;
+```
+
+It can be explored here: 
+
+
+```{r}
+#| label: read and display ISP
+isp <- read.csv("data/isp.csv")
+table_with_options(isp)
+```
+
+
+## Numbers for context: 
+
+In June 2023 we have `r length(unique(isp$brand_name))` unique ISP brand name. 
+
+```{r}
+isp_agg <- aggregate(isp["cnt_services"], isp["brand_name"], sum)
+head(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ])
+```
