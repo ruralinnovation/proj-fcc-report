@@ -63,18 +63,85 @@ In June 2023 we have `r length(unique(isp$brand_name))` unique ISP brand name bu
 
 For the rest of the analysis I will not take into account Satellite data and Unlicensed Wireless.
 
+Our first step will be to try having some "unique"  brand name so we can be confident we are correctly counting the same ISP (or not).  
 
-```{r}
-#| label: agg per brand name
-isp_agg <- aggregate(isp_slim["cnt_services"], isp_slim["brand_name"], sum)
-head(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ], 10)
-```
+## Organize a bit `brand_name` and `provider_id` 
 
  ```{r}
+ #| label: some cleaning
 isp_slim$brand_name <- tolower(isp_slim$brand_name)
-#length(unique(isp_slim$brand_name))
  ```
 
 It seems that we have:  
     - brand name with and without capital letter (VERIZON, Verizon): if we `tolower` brand name we get `r length(unique(isp_slim$brand_name))` unique brand name.
 
+```{r}
+#| label: agg per brand name
+isp_agg <- aggregate(isp_slim["cnt_services"], isp_slim["brand_name"], sum)
+table_with_options(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ])
+```
+
+I have done a smaller `.csv` just with `brand_name` `provider_id` and `cnt_services` just to inspect what is the relation between them (1 to 1 / 1 to many). Outside of typos we should not have many to many relation. 
+
+```sql
+SELECT
+    brand_name,
+    provider_id,
+    count(*) cnt_services
+FROM staging.june23
+GROUP BY brand_name, provider_id
+ORDER BY cnt_services desc;
+```
+
+```{r}
+isp_list <- read.csv("data/isp_prov.csv")
+isp_list$ct <- 1  
+isp_list$name_id <- ave(isp_list$ct, isp_list$provider_id, FUN = sum)
+#View(isp_list)
+```
+
+#### TCT
+
+```{r}
+#| label: TCT identify
+table_with_options(isp_list[grepl("^TCT ", isp_list$brand_name) ,])
+isp_list[isp_list$provider_id == 410172,]
+```
+
+TCT has some non-conventional names but nearly all of them has the same `provider_id`. An other "TCT" exist but with a different provider_id (`410172`) shared with two other brand name. I will assume that all of this `TCT XXX` are the same and provide them with a temporary name `TCT_131366`.
+
+```{r}
+#| label: TCT update
+isp_list$new_name[grepl("^TCT ", isp_list$brand_name)] <- "TCT_131366"
+```
+
+#### Windstream 
+
+Windtream present a similar case but the position of Windstream is not always the first word (` Georgia Windstream, LLC`). I went with the solution than TCT: `Windstream_131413`
+
+
+```{r}
+#| label: windstream identify and update
+table_with_options(isp_list[grepl("Windstream", isp_list$brand_name) ,]) 
+
+isp_list$new_name[grepl("Windstream", isp_list$brand_name)] <- "Windstream_131413" 
+```
+
+#### Acentek/Acentek
+
+It exists in both forms (`tolower()` will correct it) but it is also sharing it's `provider_id` with some non-conventional "name": 
+
+```{r}
+#| label: acentek
+table_with_options(isp_list[isp_list$provider_id == 130008,])
+isp_list$new_name[isp_list$provider_id == 130008] <- "acentek"
+```
+
+For now I will go with attributing them to Acentek but an other option will be to just remove them. 
+
+
+
+
+## TODO list:
+
+[ ] To check: 586211
