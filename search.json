@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "isp_eda.html",
-    "href": "isp_eda.html",
-    "title": "EDA on ISP",
-    "section": "",
-    "text": "Code\ntable_with_options &lt;- function(x){DT::datatable(x, rownames = FALSE,\n              extensions = 'Buttons', \n                options = list(\n                          dom = 'Blfrtip',\n                          buttons = list('copy', 'print', list(\n                            extend = 'collection',\n                            buttons = c('csv', 'excel'),\n                            text = 'Download')\n                                    )\n                          )\n            )}\nWe are starting a first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).\nThe query that generated this first pass at it is here:\nIt can be explored here:\nCode\nisp &lt;- read.csv(\"data/isp.csv\")\ntable_with_options(isp)"
-  },
-  {
-    "objectID": "isp_eda.html#numbers-for-context",
-    "href": "isp_eda.html#numbers-for-context",
-    "title": "EDA on ISP",
-    "section": "Numbers for context:",
-    "text": "Numbers for context:\n\n\nCode\nfilter_sat &lt;- c(60, 61, 70)\nisp_slim &lt;- isp[! isp$technology %in% filter_sat, ]\n\n\nIn June 2023 we have 2902 unique ISP brand name but only 2431 if we remove the ISP that only offer Satellite or Unlicensed Wireless.\nFor the rest of the analysis I will not take into account Satellite data and Unlicensed Wireless.\n\n\nCode\nisp_agg &lt;- aggregate(isp_slim[\"cnt_services\"], isp_slim[\"brand_name\"], sum)\nhead(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ], 10)\n\n\n                             brand_name cnt_services\n2008                        T-Mobile US     77601475\n150                            AT&T Inc     40836882\n2403                            Xfinity     37407824\n386          Charter Communications Inc     35707002\n2239                            VERIZON     30108687\n2238                            Verizon     14149009\n379                         CenturyLink     12193849\n2197 UNITED STATES CELLULAR CORPORATION      9923489\n802                            FRONTIER      7575793\n534                  Cox Communications      7502887\n\n\n::: {.cell}\n\nCode\nisp_slim$brand_name &lt;- tolower(isp_slim$brand_name)\n#length(unique(isp_slim$brand_name))\n\n:::\nIt seems that we have:\n- brand name with and without capital letter (VERIZON, Verizon): if we tolower brand name we get 2414 unique brand name."
-  },
-  {
     "objectID": "zero_dl_up.html",
     "href": "zero_dl_up.html",
     "title": "EDA on 0/0 BSL",
@@ -42,11 +28,32 @@
     "text": "Sumamry by States\n\n\nCode\nst_agg_zero &lt;- agg_count(zero_loc, \"state_abbr\")\nst_agg_not &lt;- agg_count(not_zero, \"state_abbr\")\n\nst_agg &lt;- merge(st_agg_zero, st_agg_not, \n                by.x = \"state_abbr\", by.y = \"state_abbr\",\n                all.x = TRUE, all.y = TRUE)\ncolnames(st_agg) &lt;- c(\"ST\", \"cnt_zero_dl\", \"cnt_non_zero\")\nst_agg$rate_zero &lt;- round(st_agg$cnt_zero_dl /\n                    (st_agg$cnt_zero_dl +  st_agg$cnt_non_zero),\n                            4) \nlibrary(ggplot2)\n\nggplot(st_agg[!is.na(st_agg$rate_zero),], aes(rate_zero)) +\n  geom_boxplot(orientation = \"y\",\n  fill='#A4A4A4', color=\"black\") +\n  coord_flip() +\n  theme_bw()\n\n\n\n\n\nCode\ntable_with_options(st_agg[order(st_agg$rate_zero, decreasing = TRUE), ])\n\n\n\n\n\n\n\n One point of concern is that services with 0/0 speeds could be generated for various reasons. One could be that some technology offer very low downloads/uploads and that is rounding to 0 an other could be that the location is not actually deserved but the ISP think it can do it."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": ".",
+    "objectID": "isp_eda.html",
+    "href": "isp_eda.html",
+    "title": "EDA on ISP",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Code\ntable_with_options &lt;- function(x){DT::datatable(x, rownames = FALSE,\n              extensions = 'Buttons', \n                options = list(\n                          dom = 'Blfrtip',\n                          buttons = list('copy', 'print', list(\n                            extend = 'collection',\n                            buttons = c('csv', 'excel'),\n                            text = 'Download')\n                                    )\n                          )\n            )}\nWe are starting a first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).\nThe query that generated this first pass at it is here:\nIt can be explored here:\nCode\nisp &lt;- read.csv(\"data/isp.csv\")\ntable_with_options(isp)"
+  },
+  {
+    "objectID": "isp_eda.html#numbers-for-context",
+    "href": "isp_eda.html#numbers-for-context",
+    "title": "EDA on ISP",
+    "section": "Numbers for context:",
+    "text": "Numbers for context:\n\n\nCode\nfilter_sat &lt;- c(60, 61, 70)\nisp_slim &lt;- isp[! isp$technology %in% filter_sat, ]\n\n\nIn June 2023 we have 2902 unique ISP brand name but only 2431 if we remove the ISP that only offer Satellite or Unlicensed Wireless.\nFor the rest of the analysis I will not take into account Satellite data and Unlicensed Wireless.\nOur first step will be to try having some “unique” brand name so we can be confident we are correctly counting the same ISP (or not)."
+  },
+  {
+    "objectID": "isp_eda.html#organize-a-bit-brand_name-and-provider_id",
+    "href": "isp_eda.html#organize-a-bit-brand_name-and-provider_id",
+    "title": "EDA on ISP",
+    "section": "Organize a bit brand_name and provider_id",
+    "text": "Organize a bit brand_name and provider_id\n::: {.cell}\n\nCode\nisp_slim$brand_name &lt;- tolower(isp_slim$brand_name)\n\n:::\nIt seems that we have:\n- brand name with and without capital letter (VERIZON, Verizon): if we tolower brand name we get 2414 unique brand name.\n\n\nCode\nisp_agg &lt;- aggregate(isp_slim[\"cnt_services\"], isp_slim[\"brand_name\"], sum)\ntable_with_options(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ])\n\n\n\n\n\n\n\nI have done a smaller .csv just with brand_name provider_id and cnt_services just to inspect what is the relation between them (1 to 1 / 1 to many). Outside of typos we should not have many to many relation.\nSELECT\n    brand_name,\n    provider_id,\n    count(*) cnt_services\nFROM staging.june23\nGROUP BY brand_name, provider_id\nORDER BY cnt_services desc;\n\n\nCode\nisp_list &lt;- read.csv(\"data/isp_prov.csv\")\nisp_list$ct &lt;- 1  \nisp_list$name_id &lt;- ave(isp_list$ct, isp_list$provider_id, FUN = sum)\n#View(isp_list)\n\n\n\nTCT\n\n\nCode\ntable_with_options(isp_list[grepl(\"^TCT \", isp_list$brand_name) ,])\n\n\n\n\n\n\n\nCode\nisp_list[isp_list$provider_id == 410172,]\n\n\n                                     brand_name provider_id cnt_services ct\n1584 The Tri-County Telephone Association, Inc.      410172         4260  1\n1957            Council Grove Telephone Company      410172         1992  1\n2025                                        TCT      410172         1681  1\n     name_id\n1584       3\n1957       3\n2025       3\n\n\nTCT has some non-conventional names but nearly all of them has the same provider_id. An other “TCT” exist but with a different provider_id (410172) shared with two other brand name. I will assume that all of this TCT XXX are the same and provide them with a temporary name TCT_131366.\n\n\nCode\nisp_list$new_name[grepl(\"^TCT \", isp_list$brand_name)] &lt;- \"TCT_131366\"\n\n\n\n\nWindstream\nWindtream present a similar case but the position of Windstream is not always the first word (Georgia Windstream, LLC). I went with the solution than TCT: Windstream_131413\n\n\nCode\ntable_with_options(isp_list[grepl(\"Windstream\", isp_list$brand_name) ,]) \n\n\n\n\n\n\n\nCode\nisp_list$new_name[grepl(\"Windstream\", isp_list$brand_name)] &lt;- \"Windstream_131413\" \n\n\n\n\nAcentek/Acentek\nIt exists in both forms (tolower() will correct it) but it is also sharing it’s provider_id with some non-conventional “name”:\n\n\nCode\ntable_with_options(isp_list[isp_list$provider_id == 130008,])\n\n\n\n\n\n\n\nCode\nisp_list$new_name[isp_list$provider_id == 130008] &lt;- \"acentek\"\n\n\nFor now I will go with attributing them to Acentek but an other option will be to just remove them."
+  },
+  {
+    "objectID": "isp_eda.html#todo-list",
+    "href": "isp_eda.html#todo-list",
+    "title": "EDA on ISP",
+    "section": "TODO list:",
+    "text": "TODO list:\n[ ] To check: 586211"
   },
   {
     "objectID": "about.html",
@@ -54,5 +61,12 @@
     "title": "About",
     "section": "",
     "text": "Sharing quick EDA about FCC data.\nFCC NBM: June 2023 release, downloaded 21-11-2023"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": ".",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   }
 ]
