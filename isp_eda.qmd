@@ -22,7 +22,9 @@ table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
             )}
 ```
 
-We are starting a first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).  
+We are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service). 
+
+TODO: I am at location level: add a small example to illustrate
 
 The query that generated this first pass at it is here: 
 
@@ -97,7 +99,7 @@ ORDER BY cnt_services desc;
 isp_list <- read.csv("data/isp_prov.csv")
 isp_list$ct <- 1  
 isp_list$name_id <- ave(isp_list$ct, isp_list$provider_id, FUN = sum)
-#View(isp_list)
+#View(isp_list[!is.na(isp_list$new_name),])
 ```
 
 #### TCT
@@ -139,9 +141,20 @@ isp_list$new_name[isp_list$provider_id == 130008] <- "acentek"
 
 For now I will go with attributing them to Acentek but an other option will be to just remove them. 
 
+#### Mediacom - Bolt
 
+```{r}
+table_with_options(isp_list[grepl("Mediacom|Bolt", isp_list$brand_name) ,]) 
+isp_list$new_name[isp_list$provider_id == 130804] <- "mediacom_bolt"
+```
 
+It appears that Bolt and Mediacom share the same `provider_id` and are together in some `brand_name`. I think we should regroup them but this definietly more domain knowledge than the one I have!
+
+```{r}
+table_with_options(isp_list[isp_list$provider_id == 131378,])
+```
 
 ## TODO list:
 
-[ ] To check: 586211
+[ ] Provider_id: 586211
+[ ] Provider_id: 131413

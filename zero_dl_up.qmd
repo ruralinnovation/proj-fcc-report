@@ -42,6 +42,7 @@ The data used to provide most of the analysis was done with this 2 SQL queries. 
 SELECT 
 	state_abbr,
 	brand_name,
+	technology,
 	count(brand_name)
 FROM
 	staging.june23
@@ -55,6 +56,7 @@ GROUP BY brand_name, state_abbr, technology;
 SELECT 
 	state_abbr,
 	brand_name,
+	technology,
 	count(brand_name)
 FROM 
 	staging.june23
@@ -92,14 +94,15 @@ table_with_options(technology)
 
 We do not mind too much `70` (Unlicensed Terrestrial Fixed Wireless) because we are filtering it out but we are keeping `71` (Licensed Terrestrial Fixed Wireless) , `72` (Licensed-by-Rule Terrestrial Fixed Wireless)and `10` (Copper Wire). 
 
-To take that into account I will filter out Unlicensed Terrestrial Fixed Wireless for the rest of this document.
+To take that into account I will filter out Unlicensed Terrestrial Fixed Wireless for the rest of this document. I alao filtered out 60 amd 61 to be consistant with our pipelines. 
 
 ## Summary by ISP
 
 ```{r}
-#| label: ISP with 0/0 
-zero_loc <- zero_loc[which(zero_loc$technology != 70), ]
-not_zero <- not_zero[which(not_zero$technology != 70), ]
+#| label: ISP with 0/0
+filter_sat <- c(60, 61, 70)
+zero_loc <- zero_loc[which(! zero_loc$technology %in% filter_sat), ]
+not_zero <- not_zero[which(! not_zero$technology %in% filter_sat), ]
 
 agg <- agg_count(zero_loc, "brand_name")
 agg_not <- agg_count(not_zero, "brand_name")
