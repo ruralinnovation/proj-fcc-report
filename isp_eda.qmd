@@ -24,8 +24,6 @@ table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
 
 We are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service). 
 
-TODO: I am at location level: add a small example to illustrate
-
 The query that generated this first pass at it is here: 
 
 ```SQL
@@ -42,6 +40,8 @@ GROUP BY
 ORDER BY 
     cnt_services DESC;
 ```
+
+The name of the column match FCC [description](https://us-fcc.app.box.com/v/bdc-data-downloads-output). We are just adding `cnt_services` which is a count of **services**. In one locations you can have multiple services with different providers, technology and speeds provides (sometimes one providers can have multiple technology and/or multiple speeds). 
 
 It can be explored here: 
 

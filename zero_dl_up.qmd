@@ -7,6 +7,8 @@ format:
 engine: knitr
 ---
 
+TODO: update the SQL query
+
 ```{r}
 #| label: utility functions
 table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
@@ -94,7 +96,7 @@ table_with_options(technology)
 
 We do not mind too much `70` (Unlicensed Terrestrial Fixed Wireless) because we are filtering it out but we are keeping `71` (Licensed Terrestrial Fixed Wireless) , `72` (Licensed-by-Rule Terrestrial Fixed Wireless)and `10` (Copper Wire). 
 
-To take that into account I will filter out Unlicensed Terrestrial Fixed Wireless for the rest of this document. I alao filtered out 60 amd 61 to be consistant with our pipelines. 
+To take that into account I will filter out Unlicensed Terrestrial Fixed Wireless for the rest of this document. I also filtered out 60 and 61 to be consistant with our pipelines. 
 
 ## Summary by ISP
 
