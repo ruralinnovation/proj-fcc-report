@@ -48,7 +48,9 @@ It can be explored here:
 
 ```{r}
 #| label: read and display ISP
-isp <- read.csv("data/isp.csv")
+isp <- read.csv("data/isp_v2.csv")
+colnames(isp) <- c("brand_name", "state_abbr", "technology",
+"provider_id", "cnt_services", "cnt_total_locations", "cnt_block_presence")
 table_with_options(isp)
 ```
 
@@ -144,17 +146,92 @@ For now I will go with attributing them to Acentek but an other option will be t
 #### Mediacom - Bolt
 
 ```{r}
+#| label: Mediacom bolt
 table_with_options(isp_list[grepl("Mediacom|Bolt", isp_list$brand_name) ,]) 
 isp_list$new_name[isp_list$provider_id == 130804] <- "mediacom_bolt"
 ```
 
 It appears that Bolt and Mediacom share the same `provider_id` and are together in some `brand_name`. I think we should regroup them but this definietly more domain knowledge than the one I have!
 
+#### Comporium 
+
 ```{r}
+#| label: comporium
+table_with_options(isp_list[isp_list$provider_id == 131125,])
+isp_list$new_name[isp_list$provider_id == 131125] <- "comporium"
+```
+
+For this one I am for renaming them "comporium"
+
+#### Armstrong
+
+```{r}
+#| label: Armstrong
+table_with_options(isp_list[isp_list$provider_id == 130071,])
+isp_list$new_name[isp_list$provider_id == 130071] <- "armstrong"
+```
+
+Idem label to "armstrong"?
+
+#### TEC 
+
+```{r}
+#| label: TEC
+table_with_options(isp_list[isp_list$provider_id == 131311,])
+isp_list$new_name[isp_list$provider_id == 131311] <- "TEC"
+```
+
+#### PUD 
+
+```{r}
+#| label: PUD
+table_with_options(isp_list[isp_list$provider_id == 290075,])
+isp_list$new_name[isp_list$provider_id == 290075] <- "PUD"
+```
+
+Label to "PUD" ?
+
+#### GoNetspeed?
+
+I am unsure about that one. We can regroup the two `GoNetspeed` but we are lacking information for the rest. 
+
+```{r}
+#| label: gotnetspeed
 table_with_options(isp_list[isp_list$provider_id == 131378,])
 ```
 
+### Multiple brand_name with same `provider_id`
+
+- provider_id: 131413, same provider id than windstream but probably a different entity?
+
+- provider_id 130485: look very similar (`SHLB` in the name 8/10)
+
+- list of `provider_id` associated with multiple brand name: 
+
+    * 130074
+
+    * 190233
+
+    * 160127
+
+    * 150277
+
+    * 150266
+
+    * 130183
+
+    * 300192
+
+    * 131362
+
+    * 130877
+
+    * 130757 (regroup Long lines?)
+
+
+
 ## TODO list:
 
-[ ] Provider_id: 586211
-[ ] Provider_id: 131413
+[ ] provider_id: 586211
+
+
