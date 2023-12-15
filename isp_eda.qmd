@@ -32,7 +32,9 @@ SELECT
     state_abbr,
     technology,
     provider_id,
-    count(*) as cnt_services
+    count(*) as cnt_services,
+	count(distinct location_id) as cnt_bcat_locations,
+	count(distinct block_geoid)
 FROM
     staging.june23
 GROUP BY 
