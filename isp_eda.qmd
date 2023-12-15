@@ -239,7 +239,7 @@ isp_list$new_name[isp_list$provider_id == 130484] <- "OmniTel"
 #### Hamilton
 
 ```{r}
-#| label: Omnitel
+#| label: Hamilton
 table_with_options(isp_list[isp_list$provider_id == 130887,])
 isp_list$new_name[isp_list$provider_id == 130887] <- "Hamilton"
 ```
