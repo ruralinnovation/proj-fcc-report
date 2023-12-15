@@ -45,9 +45,12 @@ ORDER BY
 
 The name of the column match FCC [description](https://us-fcc.app.box.com/v/bdc-data-downloads-output). 
 
-We are adding:  
--  `cnt_services`: count of **services**, in one location you can have multiple services with different providers, technology and speeds provides (sometimes one providers can have multiple technology and/or multiple speeds)
+We are adding: 
+
+-  `cnt_services`: count of **services**, in one location you can have multiple services with different providers, technology and speeds provides (sometimes one providers can have multiple technology and/or multiple speeds) 
+
 - `cnt_total_locations`: count of locations covered by this specific set of brand_name, provider_id, state_abbr and technology (here if a provider declare providing different speed in that location it will not be counted) 
+
 - `cnt_block_presence`: count of block were we meet the same set (brand_name, provider_id, state_abbr, technology)
 
 
@@ -55,11 +58,19 @@ It can be explored here:
 
 
 ```{r}
-#| label: read and display ISP
+#| label: read and display ISP  
 isp <- read.csv("data/isp_v2.csv")
 colnames(isp) <- c("brand_name", "state_abbr", "technology",
 "provider_id", "cnt_services", "cnt_total_locations", "cnt_block_presence")
-table_with_options(isp)
+
+isp$temp <- paste0(isp$brand_name, isp$provider_id)
+isp <- isp[order(isp$temp),]
+isp$ID <- cumsum(!duplicated(isp$temp))
+isp$ct[!duplicated(isp$ID)] <- 1 
+isp$multiple_name_id <- ave(isp$ct, isp$provider_id, FUN = function(x) sum(x , na.rm = TRUE))
+isp <- isp[,c("ID", "brand_name", "provider_id", "multiple_name_id", "state_abbr", "technology", 
+            "cnt_services", "cnt_total_locations", "cnt_block_presence")]
+table_with_options(isp[order(isp$cnt_services,decreasing = TRUE),])
 ```
 
 
@@ -86,6 +97,7 @@ isp_slim$brand_name <- tolower(isp_slim$brand_name)
 
 It seems that we have:  
     - brand name with and without capital letter (VERIZON, Verizon): if we `tolower` brand name we get `r length(unique(isp_slim$brand_name))` unique brand name.
+
 
 ```{r}
 #| label: agg per brand name
