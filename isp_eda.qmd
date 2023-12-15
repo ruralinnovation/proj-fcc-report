@@ -43,7 +43,13 @@ ORDER BY
     cnt_services DESC;
 ```
 
-The name of the column match FCC [description](https://us-fcc.app.box.com/v/bdc-data-downloads-output). We are just adding `cnt_services` which is a count of **services**. In one locations you can have multiple services with different providers, technology and speeds provides (sometimes one providers can have multiple technology and/or multiple speeds). 
+The name of the column match FCC [description](https://us-fcc.app.box.com/v/bdc-data-downloads-output). 
+
+We are adding:  
+-  `cnt_services`: count of **services**, in one location you can have multiple services with different providers, technology and speeds provides (sometimes one providers can have multiple technology and/or multiple speeds)
+- `cnt_total_locations`: count of locations covered by this specific set of brand_name, provider_id, state_abbr and technology (here if a provider declare providing different speed in that location it will not be counted) 
+- `cnt_block_presence`: count of block were we meet the same set (brand_name, provider_id, state_abbr, technology)
+
 
 It can be explored here: 
 
@@ -143,7 +149,7 @@ table_with_options(isp_list[isp_list$provider_id == 130008,])
 isp_list$new_name[isp_list$provider_id == 130008] <- "acentek"
 ```
 
-For now I will go with attributing them to Acentek but an other option will be to just remove them. 
+For now I will go with attributing them to "acentek"` but an other option will be to just remove them. 
 
 #### Mediacom - Bolt
 
@@ -202,15 +208,55 @@ I am unsure about that one. We can regroup the two `GoNetspeed` but we are lacki
 table_with_options(isp_list[isp_list$provider_id == 131378,])
 ```
 
+#### MHTC
+
+```{r}
+#| label: MHTC
+table_with_options(isp_list[isp_list$provider_id == 130862,])
+isp_list$new_name[isp_list$provider_id == 130862] <- "MHTC"
+```
+
+Label MHTC?
+
+#### Hardy
+
+```{r}
+#| label: Hardy
+table_with_options(isp_list[isp_list$provider_id == 130588,])
+isp_list$new_name[isp_list$provider_id == 130588] <- "Hardy"
+```
+
+label Hardy?
+
+#### OmniTel
+
+```{r}
+#| label: Omnitel
+table_with_options(isp_list[isp_list$provider_id == 130484,])
+isp_list$new_name[isp_list$provider_id == 130484] <- "OmniTel"
+```
+
+#### Hamilton
+
+```{r}
+#| label: Omnitel
+table_with_options(isp_list[isp_list$provider_id == 130887,])
+isp_list$new_name[isp_list$provider_id == 130887] <- "Hamilton"
+```
+
+label Hamilton?
+
 ### Multiple brand_name with same `provider_id`
 
-- provider_id: 131413, same provider id than windstream but probably a different entity?
+- provider_id: `131413`, same provider id than windstream but probably a different entity?
 
-- provider_id 130485: look very similar (`SHLB` in the name 8/10)
+- provider_id `130485`: look very similar (`SHLB` in the name 8/10)
 
 - list of `provider_id` associated with multiple brand name: 
 
     * 130074
+
+    * 131378
 
     * 190233
 
@@ -229,6 +275,32 @@ table_with_options(isp_list[isp_list$provider_id == 131378,])
     * 130877
 
     * 130757 (regroup Long lines?)
+
+    * 130778 (Manti 5/6)
+
+    * 330025
+
+    * 130254 (2/5 altafiber)
+
+    * 150334
+
+    * 130906
+
+    * 130425 (2/5 Lavaca)
+
+    * 130206
+
+    * 130453 (3/5  EFIBER)
+
+    * 140092 (3/5 Twin Valley)
+
+    * 140030
+
+    * 130142
+
+
+
+
 
 
 
