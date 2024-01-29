@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/ruralinnovation/proj-fcc-report/zero_dl_up.html</loc>
-    <lastmod>2023-12-15T17:45:33.336Z</lastmod>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/ntia_test.html</loc>
+    <lastmod>2024-01-29T18:35:33.515Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/ruralinnovation/proj-fcc-report/isp_eda.html</loc>
-    <lastmod>2023-12-15T17:45:31.136Z</lastmod>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/zero_dl_up.html</loc>
+    <lastmod>2024-01-29T18:35:33.515Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/ruralinnovation/proj-fcc-report/about.html</loc>
-    <lastmod>2023-12-15T17:45:28.588Z</lastmod>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/index.html</loc>
+    <lastmod>2024-01-29T18:35:33.515Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/ruralinnovation/proj-fcc-report/index.html</loc>
-    <lastmod>2023-12-15T17:45:31.396Z</lastmod>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/about.html</loc>
+    <lastmod>2024-01-29T18:35:33.507Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/isp_eda.html</loc>
+    <lastmod>2024-01-29T18:35:33.515Z</lastmod>
   </url>
 </urlset>

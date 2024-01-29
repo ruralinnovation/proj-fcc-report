@@ -1,1 +1,1 @@
-Sitemap: https://github.com/ruralinnovation/proj-fcc-report/sitemap.xml
+Sitemap: https://ruralinnovation.github.io/proj-fcc-report/sitemap.xml
