@@ -12,6 +12,7 @@ website:
       - about.qmd
       - zero_dl_up.qmd
       - isp_eda.qmd
+      - ntia_test.qmd 
 
 format:
   html:
