@@ -1,0 +1,251 @@
+---
+title: "Testing NTIA eligibility"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+```{r}
+#| label: utility functions
+table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
+              extensions = 'Buttons', 
+                options = list(
+                          dom = 'Blfrtip',
+                          buttons = list('copy', 'print', list(
+                            extend = 'collection',
+                            buttons = c('csv', 'excel'),
+                            text = 'Download')
+                                    )
+                          )
+            )}
+```
+
+The goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block. 
+
+The dataset to produce this comparison was done quickly and process with pgadmin. 
+
+## Base table
+
+```{sql}
+#| label: sql to get basic table
+#| eval: false
+-- we need the list of census block
+create table staging.us_ntia(
+	geoid_bl char(15)	
+);
+insert into 
+	staging.us_ntia
+select 
+	geoid20 as geoid_bl
+from 
+    sch_census_tiger.source_tiger_2020_blocks;
+
+
+-- we count all locations
+alter table staging.us_ntia 
+add column cnt_total_locations integer;
+update
+	staging.us_ntia as t1
+set 
+	cnt_total_locations = t2.cnt_total_locations
+from 
+	(select 
+	    block_geoid,
+	    count(distinct location_id) as cnt_total_locations
+    from 
+		staging.june23	
+    group by 
+		block_geoid)  as t2
+where   
+    t1.geoid_bl = t2.block_geoid;
+
+-- we count all bcat locations only
+-- this is needed for the case when we have locations but 0 mesures
+alter table staging.us_ntia 
+add column cnt_bcat_locations integer;
+update
+	staging.us_ntia as t1
+set 
+	cnt_bcat_locations = t2.cnt_bcat_locations
+from 
+	(select 
+	    block_geoid,
+	    count(distinct location_id) as cnt_bcat_locations
+	from 
+		staging.bcat_raw	
+	group by 
+		block_geoid)  as t2
+where    
+	t1.geoid_bl = t2.block_geoid;
+```
+
+## Creating counts of locations 
+
+```{sql}
+#| label: SQL to get the counts
+#| eval: false
+alter table staging.us_ntia
+add column cnt_25_3_past int,
+add column cnt_100_20_past int,
+add column cnt_100_20_not_dsl int,
+add column cnt_100_20_not_wireless int,
+add column cnt_100_20_not_dsl_wireless int;
+
+update
+	staging.us_ntia as t1
+set 
+	cnt_25_3_past = t2.cnt_25_3_past,
+	cnt_100_20_past = t2.cnt_100_20_past,
+	cnt_100_20_not_dsl = t2.cnt_100_20_not_dsl,
+	cnt_100_20_not_wireless = t2.cnt_100_20_not_wireless,
+	cnt_100_20_not_dsl_wireless = t2.cnt_100_20_not_dsl_wireless
+
+from(
+	select 
+		block_geoid as geoid_bl,
+		count(distinct case when 
+			(max_advertised_download_speed >= 25 and max_advertised_upload_speed >= 3) 
+			              then location_id end) as cnt_25_3_past,
+		count(distinct case when 
+			(max_advertised_download_speed >= 100 and max_advertised_upload_speed >= 20) 
+			              then location_id end) as cnt_100_20_past,
+		count(distinct case when 
+			(max_advertised_download_speed >= 100 and max_advertised_upload_speed >= 20
+			and technology <> 10) 
+			              then location_id end) as cnt_100_20_not_dsl,
+	    count(distinct case when 
+			(max_advertised_download_speed >= 100 and max_advertised_upload_speed >= 20
+			and technology NOT IN (71, 72)) 
+			              then location_id end) as cnt_100_20_not_wireless,
+		count(distinct case when 
+			(max_advertised_download_speed >= 100 and max_advertised_upload_speed >= 20
+			and technology NOT IN (10, 71, 72)) 
+			              then location_id end) as cnt_100_20_not_dsl_wireless
+	from 
+		staging.bcat_raw
+	group by 
+		block_geoid
+) as t2
+where    
+	t1.geoid_bl = t2.geoid_bl;
+
+-- we were focusing strickly in underserved hence 
+-- we removed unserved for counts
+alter table staging.us_ntia
+add column underserved_past int,
+add column underserved_not_dsl int,
+add column underserved_not_wireless int,
+add column underserved_not_dsl_wireless int;
+
+update
+	staging.us_ntia
+set 
+	underserved_past = cnt_25_3_past - cnt_100_20_past,
+	underserved_not_dsl = cnt_25_3_past - cnt_100_20_not_dsl,
+	underserved_not_wireless = cnt_25_3_past - cnt_100_20_not_wireless,
+	underserved_not_dsl_wireless = cnt_25_3_past - cnt_100_20_not_dsl_wireless;
+
+```
+
+
+## Recreating and generating previous and new categories
+
+```{sql}
+#| label: SQL query to get the various categories
+#| eval: false
+alter table staging.us_ntia 
+add column pct_100_20_past float,
+add column pct_25_3_past float,
+add column pct_100_20_not_dsl float,
+add column pct_100_20_not_wireless float,
+add column pct_100_20_not_dsl_wireless float;
+
+update
+	staging.us_ntia  as t1
+set 
+	pct_100_20_past = cnt_100_20_past/cnt_total_locations::float,
+	pct_25_3_past = cnt_25_3_past/cnt_total_locations::float,
+	pct_100_20_not_dsl = cnt_100_20_not_dsl / cnt_total_locations::float,
+	pct_100_20_not_wireless = cnt_100_20_not_wireless / cnt_total_locations::float,
+	pct_100_20_not_dsl_wireless = cnt_100_20_not_dsl_wireless / cnt_total_locations::float
+
+-- 2.f adding typologies
+
+alter table staging.us_ntia
+add column bl_100_20_area_past varchar(25),
+add column bl_25_3_area_past varchar(25),
+add column bl_100_20_area_not_dsl varchar(25),
+add column bl_100_20_area_not_wireless varchar(25),
+add column bl_100_20_area_not_dsl_wireless varchar(25);
+
+update
+	staging.us_ntia
+set 
+	bl_100_20_area_past = case 
+			when cnt_total_locations is null then 'not_reported'
+			when cnt_bcat_locations is null then 'unserved_area'
+			when pct_100_20_past < .2 and pct_25_3_past < .2 then 'unserved_area'
+			when pct_100_20_past < .2 then 'underserved_area'
+			else 'served_area' end,
+	bl_25_3_area_past  = case 
+			when cnt_total_locations is null then 'not_reported'
+			when cnt_bcat_locations is null then 'unserved_area'
+			when pct_25_3_past < .2 then 'unserved_area'
+			else 'served_area' end,
+	bl_100_20_area_not_dsl = case 
+			when cnt_total_locations is null then 'not_reported'
+			when cnt_bcat_locations is null then 'unserved_area'
+			when pct_100_20_not_dsl < .2 and pct_25_3_past < .2 then 'unserved_area'
+			when pct_100_20_not_dsl < .2 then 'underserved_area'
+			else 'served_area' end,
+	bl_100_20_area_not_wireless = case 
+			when cnt_total_locations is null then 'not_reported'
+			when cnt_bcat_locations is null then 'unserved_area'
+			when pct_100_20_not_wireless < .2 and pct_25_3_past < .2 then 'unserved_area'
+			when pct_100_20_not_wireless < .2 then 'underserved_area'
+			else 'served_area' end,
+	bl_100_20_area_not_dsl_wireless = case 
+			when cnt_total_locations is null then 'not_reported'
+			when cnt_bcat_locations is null then 'unserved_area'
+			when pct_100_20_not_dsl_wireless < .2 and pct_25_3_past < .2 then 'unserved_area'
+			when pct_100_20_not_dsl_wireless < .2 then 'underserved_area'
+			else 'served_area' end;
+
+
+-- 2.g category one variable for the types  
+alter table staging.us_ntia
+add column category_past varchar(25),
+add column category_not_dsl varchar(25),
+add column category_not_wireless varchar(25),
+add column category_not_dsl_wireless varchar(25);
+
+update staging.us_ntia
+set category_past =
+	case 
+		when bl_25_3_area_past = 'not_reported' then 'Not Reported'
+		when bl_100_20_area_past = 'unserved_area' then 'Unserved'
+		when bl_100_20_area_past = 'underserved_area' then 'Underserved'
+ 	else 'Served' end,
+	category_not_dsl =
+	case 
+		when bl_25_3_area_past = 'not_reported' then 'Not Reported'
+		when bl_100_20_area_not_dsl = 'unserved_area' then 'Unserved'
+		when bl_100_20_area_not_dsl = 'underserved_area' then 'Underserved'
+ 	else 'Served' end,
+	 category_not_wireless = 
+	 	case 
+		when bl_25_3_area_past = 'not_reported' then 'Not Reported'
+		when bl_100_20_area_not_wireless = 'unserved_area' then 'Unserved'
+		when bl_100_20_area_not_wireless = 'underserved_area' then 'Underserved'
+ 	else 'Served' end,
+	 category_not_dsl_wireless = 
+	 	case 
+		when bl_25_3_area_past = 'not_reported' then 'Not Reported'
+		when bl_100_20_area_not_dsl_wireless = 'unserved_area' then 'Unserved'
+		when bl_100_20_area_not_dsl_wireless = 'underserved_area' then 'Underserved'
+ 	else 'Served'
+	 end;
+```
+
