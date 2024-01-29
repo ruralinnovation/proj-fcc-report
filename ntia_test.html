@@ -101,6 +101,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.31/datatables.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet">
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -139,6 +154,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link" href="./isp_eda.html"> 
 <span class="menu-text">EDA on ISP</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./ntia_test.html" aria-current="page"> 
+<span class="menu-text">Testing NTIA eligibility</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
@@ -155,9 +174,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#base-table" id="toc-base-table" class="nav-link active" data-scroll-target="#base-table">Base table</a></li>
+  <li><a href="#creating-raw-data" id="toc-creating-raw-data" class="nav-link active" data-scroll-target="#creating-raw-data">Creating raw data</a>
+  <ul class="collapse">
+  <li><a href="#base-table" id="toc-base-table" class="nav-link" data-scroll-target="#base-table">Base table</a></li>
   <li><a href="#creating-counts-of-locations" id="toc-creating-counts-of-locations" class="nav-link" data-scroll-target="#creating-counts-of-locations">Creating counts of locations</a></li>
   <li><a href="#recreating-and-generating-previous-and-new-categories" id="toc-recreating-and-generating-previous-and-new-categories" class="nav-link" data-scroll-target="#recreating-and-generating-previous-and-new-categories">Recreating and generating previous and new categories</a></li>
+  </ul></li>
+  <li><a href="#some-aggregates" id="toc-some-aggregates" class="nav-link" data-scroll-target="#some-aggregates">Some aggregates</a>
+  <ul class="collapse">
+  <li><a href="#getting-data" id="toc-getting-data" class="nav-link" data-scroll-target="#getting-data">Getting data</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/ntia_test.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -207,6 +233,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block.</p>
 <p>The dataset to produce this comparison was done quickly and process with pgadmin.</p>
+<section id="creating-raw-data" class="level1">
+<h1>Creating raw data</h1>
 <section id="base-table" class="level2">
 <h2 class="anchored" data-anchor-id="base-table">Base table</h2>
 <div class="cell">
@@ -352,86 +380,126 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    pct_100_20_not_wireless <span class="op">=</span> cnt_100_20_not_wireless <span class="op">/</span> cnt_total_locations:<span class="ch">:float</span>,</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    pct_100_20_not_dsl_wireless <span class="op">=</span> cnt_100_20_not_dsl_wireless <span class="op">/</span> cnt_total_locations:<span class="ch">:float</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">-- 2.f adding typologies</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> staging.us_ntia</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_100_20_area_past <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_25_3_area_past <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_100_20_area_not_dsl <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_100_20_area_not_wireless <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_100_20_area_not_dsl_wireless <span class="dt">varchar</span>(<span class="dv">25</span>);</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    staging.us_ntia</span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> </span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    bl_100_20_area_past <span class="op">=</span> <span class="cf">case</span> </span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="kw">and</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'underserved_area'</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>,</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    bl_25_3_area_past  <span class="op">=</span> <span class="cf">case</span> </span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>,</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    bl_100_20_area_not_dsl <span class="op">=</span> <span class="cf">case</span> </span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_dsl <span class="op">&lt;</span> .<span class="dv">2</span> <span class="kw">and</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_dsl <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'underserved_area'</span></span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>,</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    bl_100_20_area_not_wireless <span class="op">=</span> <span class="cf">case</span> </span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_wireless <span class="op">&lt;</span> .<span class="dv">2</span> <span class="kw">and</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_wireless <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'underserved_area'</span></span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>,</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>    bl_100_20_area_not_dsl_wireless <span class="op">=</span> <span class="cf">case</span> </span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_dsl_wireless <span class="op">&lt;</span> .<span class="dv">2</span> <span class="kw">and</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_dsl_wireless <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'underserved_area'</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>;</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="co">-- 2.g category one variable for the types  </span></span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> staging.us_ntia</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> category_past <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> category_not_dsl <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> category_not_wireless <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> category_not_dsl_wireless <span class="dt">varchar</span>(<span class="dv">25</span>);</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span> staging.us_ntia</span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> category_past <span class="op">=</span></span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> </span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_25_3_area_past <span class="op">=</span> <span class="st">'not_reported'</span> <span class="cf">then</span> <span class="st">'Not Reported'</span></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_past <span class="op">=</span> <span class="st">'unserved_area'</span> <span class="cf">then</span> <span class="st">'Unserved'</span></span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_past <span class="op">=</span> <span class="st">'underserved_area'</span> <span class="cf">then</span> <span class="st">'Underserved'</span></span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Served'</span> <span class="cf">end</span>,</span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>    category_not_dsl <span class="op">=</span></span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> </span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_25_3_area_past <span class="op">=</span> <span class="st">'not_reported'</span> <span class="cf">then</span> <span class="st">'Not Reported'</span></span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_dsl <span class="op">=</span> <span class="st">'unserved_area'</span> <span class="cf">then</span> <span class="st">'Unserved'</span></span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_dsl <span class="op">=</span> <span class="st">'underserved_area'</span> <span class="cf">then</span> <span class="st">'Underserved'</span></span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Served'</span> <span class="cf">end</span>,</span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>     category_not_wireless <span class="op">=</span> </span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> </span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_25_3_area_past <span class="op">=</span> <span class="st">'not_reported'</span> <span class="cf">then</span> <span class="st">'Not Reported'</span></span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_wireless <span class="op">=</span> <span class="st">'unserved_area'</span> <span class="cf">then</span> <span class="st">'Unserved'</span></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_wireless <span class="op">=</span> <span class="st">'underserved_area'</span> <span class="cf">then</span> <span class="st">'Underserved'</span></span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Served'</span> <span class="cf">end</span>,</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>     category_not_dsl_wireless <span class="op">=</span> </span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> </span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_25_3_area_past <span class="op">=</span> <span class="st">'not_reported'</span> <span class="cf">then</span> <span class="st">'Not Reported'</span></span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_dsl_wireless <span class="op">=</span> <span class="st">'unserved_area'</span> <span class="cf">then</span> <span class="st">'Unserved'</span></span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_dsl_wireless <span class="op">=</span> <span class="st">'underserved_area'</span> <span class="cf">then</span> <span class="st">'Underserved'</span></span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Served'</span></span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>     <span class="cf">end</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> staging.us_ntia</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_100_20_area_past <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_25_3_area_past <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_100_20_area_not_dsl <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_100_20_area_not_wireless <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> bl_100_20_area_not_dsl_wireless <span class="dt">varchar</span>(<span class="dv">25</span>);</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    staging.us_ntia</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> </span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    bl_100_20_area_past <span class="op">=</span> <span class="cf">case</span> </span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="kw">and</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'underserved_area'</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    bl_25_3_area_past  <span class="op">=</span> <span class="cf">case</span> </span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    bl_100_20_area_not_dsl <span class="op">=</span> <span class="cf">case</span> </span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_dsl <span class="op">&lt;</span> .<span class="dv">2</span> <span class="kw">and</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_dsl <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'underserved_area'</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>,</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    bl_100_20_area_not_wireless <span class="op">=</span> <span class="cf">case</span> </span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_wireless <span class="op">&lt;</span> .<span class="dv">2</span> <span class="kw">and</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_wireless <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'underserved_area'</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>,</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    bl_100_20_area_not_dsl_wireless <span class="op">=</span> <span class="cf">case</span> </span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_total_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'not_reported'</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> cnt_bcat_locations <span class="kw">is</span> <span class="kw">null</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_dsl_wireless <span class="op">&lt;</span> .<span class="dv">2</span> <span class="kw">and</span> pct_25_3_past <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'unserved_area'</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            <span class="cf">when</span> pct_100_20_not_dsl_wireless <span class="op">&lt;</span> .<span class="dv">2</span> <span class="cf">then</span> <span class="st">'underserved_area'</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="st">'served_area'</span> <span class="cf">end</span>;</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> staging.us_ntia</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> category_past <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> category_not_dsl <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> category_not_wireless <span class="dt">varchar</span>(<span class="dv">25</span>),</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> category_not_dsl_wireless <span class="dt">varchar</span>(<span class="dv">25</span>);</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span> staging.us_ntia</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> category_past <span class="op">=</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> </span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_25_3_area_past <span class="op">=</span> <span class="st">'not_reported'</span> <span class="cf">then</span> <span class="st">'Not Reported'</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_past <span class="op">=</span> <span class="st">'unserved_area'</span> <span class="cf">then</span> <span class="st">'Unserved'</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_past <span class="op">=</span> <span class="st">'underserved_area'</span> <span class="cf">then</span> <span class="st">'Underserved'</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Served'</span> <span class="cf">end</span>,</span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>    category_not_dsl <span class="op">=</span></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">case</span> </span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_25_3_area_past <span class="op">=</span> <span class="st">'not_reported'</span> <span class="cf">then</span> <span class="st">'Not Reported'</span></span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_dsl <span class="op">=</span> <span class="st">'unserved_area'</span> <span class="cf">then</span> <span class="st">'Unserved'</span></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_dsl <span class="op">=</span> <span class="st">'underserved_area'</span> <span class="cf">then</span> <span class="st">'Underserved'</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Served'</span> <span class="cf">end</span>,</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>     category_not_wireless <span class="op">=</span> </span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> </span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_25_3_area_past <span class="op">=</span> <span class="st">'not_reported'</span> <span class="cf">then</span> <span class="st">'Not Reported'</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_wireless <span class="op">=</span> <span class="st">'unserved_area'</span> <span class="cf">then</span> <span class="st">'Unserved'</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_wireless <span class="op">=</span> <span class="st">'underserved_area'</span> <span class="cf">then</span> <span class="st">'Underserved'</span></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Served'</span> <span class="cf">end</span>,</span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>     category_not_dsl_wireless <span class="op">=</span> </span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a>        <span class="cf">case</span> </span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_25_3_area_past <span class="op">=</span> <span class="st">'not_reported'</span> <span class="cf">then</span> <span class="st">'Not Reported'</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_dsl_wireless <span class="op">=</span> <span class="st">'unserved_area'</span> <span class="cf">then</span> <span class="st">'Unserved'</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>        <span class="cf">when</span> bl_100_20_area_not_dsl_wireless <span class="op">=</span> <span class="st">'underserved_area'</span> <span class="cf">then</span> <span class="st">'Underserved'</span></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">'Served'</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>     <span class="cf">end</span>;</span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="co">-- useful stuffs</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> staging.us_ntia</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="kw">add</span> <span class="kw">column</span> geoid_st <span class="dt">varchar</span>(<span class="dv">2</span>);</span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a><span class="kw">update</span> staging.us_ntia</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> geoid_st <span class="op">=</span> <span class="kw">left</span>(geoid_bl, <span class="dv">2</span>);</span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a><span class="kw">alter</span> <span class="kw">table</span> staging.us_ntia owner <span class="kw">to</span> mda_team;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</section>
+</section>
+<section id="some-aggregates" class="level1">
+<h1>Some aggregates</h1>
+<section id="getting-data" class="level2">
+<h2 class="anchored" data-anchor-id="getting-data">Getting data</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    geoid_st,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_total_locations) <span class="kw">as</span> cnt_total_locaction,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_25_3_past) <span class="kw">as</span> cnt_25_3_past,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(underserved_past) <span class="kw">as</span> cnt_underserved_past,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(underserved_not_dsl) <span class="kw">as</span> cnt_underserved_not_dsl,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(underserved_not_wireless) <span class="kw">as</span> cnt_underserved_not_wireless,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(underserved_not_dsl_wireless) <span class="kw">as</span> cnt_underseved_not_dsl_wireless</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> staging.us_ntia</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">group</span> <span class="kw">by</span> geoid_st</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cnt_st_ntia <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/cnt_st_ntia.csv"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(cnt_st_ntia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-be1bb2e5dddaec4b0556" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-be1bb2e5dddaec4b0556">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[[1,2,4,5,6,8,9,10,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,44,45,46,47,48,49,50,51,53,54,55,56,60,66,69,72,78],[2176002,281309,2696640,1359311,10224300,1968886,1091195,401523,123208,7426863,3796648,308967,738037,4166670,2713360,1372819,1204229,1851005,1875873,631930,1857192,1954671,4076669,2098318,1319976,2509891,488043,797960,983845,518391,2578933,860769,4715750,4273900,348661,4515985,1698280,1504496,4848216,339030,2153216,399171,2730981,9844791,1018752,285333,2920197,2540953,906872,2313423,262998,8794,36960,9760,1179988,32285],[1879566,195771,2554329,1194851,9927978,1833772,1084526,399984,123062,7168327,3542478,299236,648537,3979440,2553421,1305618,1135320,1647795,1625228,596373,1820787,1943832,3758689,1972370,1098358,2186003,392959,747616,941584,495576,2562973,759721,4610809,3998845,343740,4340757,1562522,1392868,4613596,336912,2067123,376429,2579120,9216827,975517,254539,2589055,2325930,696439,2089796,223246,8794,36799,9714,1107156,31754],[78176,22844,109432,64638,147946,88608,1289,9207,5,122914,100898,837,63772,90364,58375,63830,47106,64020,72988,39578,19537,4140,87029,70500,40605,68915,47088,29865,11247,10903,2828,59995,13033,135892,1428,87118,104337,61723,53008,382,55820,12008,44527,233210,20438,30498,67255,76110,28803,198104,20940,7032,18792,12,32119,0],[83428,24209,111689,69544,152880,90980,1289,9207,5,141878,128679,837,65078,92960,60942,78835,48057,79849,74118,40549,19537,4143,88456,73373,43212,68915,47103,34256,15668,11072,2831,64039,14210,141758,1431,90055,118569,63143,59970,382,57932,13220,47047,253384,21132,31284,68204,83471,28807,203053,21439,7032,33513,8005,32119,0],[93735,23407,177683,99093,347493,126784,2295,10641,85,181769,127093,1005,97663,220196,178625,126788,103332,92528,87399,40694,27848,7982,214950,156615,48954,185792,56840,76549,21891,12131,5536,86433,22372,160500,5588,240416,176441,74598,82673,1733,72351,15344,66882,688782,43361,31533,86686,107282,33964,233849,39376,7032,18792,12,51131,0],[99335,24772,180914,104883,354499,129748,2295,10641,85,203317,157912,1005,99118,224094,181808,152539,104314,109235,88910,41680,27848,7985,217208,160317,51730,185792,56858,86794,27481,12301,5546,93094,23621,166916,5592,245235,192457,76116,90209,1733,74961,16563,69566,719993,44266,32323,87639,115629,33968,239087,40011,7032,33513,8005,51131,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>geoid_st<\/th>\n      <th>cnt_total_locaction<\/th>\n      <th>cnt_25_3_past<\/th>\n      <th>cnt_underserved_past<\/th>\n      <th>cnt_underserved_not_dsl<\/th>\n      <th>cnt_underserved_not_wireless<\/th>\n      <th>cnt_underseved_not_dsl_wireless<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"className":"dt-right","targets":[0,1,2,3,4,5,6]},{"name":"geoid_st","targets":0},{"name":"cnt_total_locaction","targets":1},{"name":"cnt_25_3_past","targets":2},{"name":"cnt_underserved_past","targets":3},{"name":"cnt_underserved_not_dsl","targets":4},{"name":"cnt_underserved_not_wireless","targets":5},{"name":"cnt_underseved_not_dsl_wireless","targets":6}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>We will probably need to calculate that on some rate, unsure if I want that on total number of location or by our previous count. (I skept because it was not on requirement TM, and I was running out of time)</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
