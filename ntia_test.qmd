@@ -258,7 +258,7 @@ alter table staging.us_ntia owner to mda_team;
 
 # Some aggregates
 
-##  Getting data
+##  Count by states
 
 ```{sql}
 #| label: aggregate of count at states level
@@ -276,8 +276,6 @@ group by geoid_st
 ```
 
 ```{r}
-#| label: read and display as df
-
 cnt_st_ntia <- read.csv("data/cnt_st_ntia.csv")
 
 table_with_options(cnt_st_ntia)
@@ -285,5 +283,24 @@ table_with_options(cnt_st_ntia)
 
 We will probably need to calculate that on some rate, unsure if I want that on total number of location or by our previous count. (I skept because it was not on requirement TM, and I was running out of time)
 
+## Eligibility underserved / dsl&wireless
 
+```{sql}
+#| label: aggregate of eligibility at states level
+#| eval: false
+select
+    geoid_st,
+    count(*) as numb_bl,
+    sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,
+    sum(case when category_not_dsl = 'Underserved' then 1 else 0 end) as cnt_underserved_past,
+    sum(case when category_not_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_past,
+    sum(case when category_not_dsl_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_past
+from staging.us_ntia
+group by geoid_st
+```
 
+```{r}
+eligibiliy_st_ntia <- read.csv("data/cnt_eligibility_underserved.csv")
+
+table_with_options(eligibiliy_st_ntia)
+```
