@@ -335,7 +335,7 @@ lines(pot_val, conf_interval[, "upr"], col =" blue", lty = 2)
 
 - still strong relation 
 
-- it seems MS has less locations
+- it seems MS has **more** locations (285333, versus 352618) 
 
 
 ## Some tl:dr
