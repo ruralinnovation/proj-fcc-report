@@ -305,6 +305,39 @@ eligibiliy_st_ntia <- read.csv("data/cnt_eligibility_underserved.csv")
 table_with_options(eligibiliy_st_ntia)
 ```
 
+## MS building footprint
+
+MS is producing a data set of buildings (polygons) build by computer vision (classification, convert to vector). 
+
+As we do not care of the shape of the building we just converted to point (picking one vertex per polygon). 
+
+We can then count those points per block and compare to the number of location than FCC is descriving.
+
+```{r}
+library(ggplot2)
+vt <- read.csv("data/vt_ms.csv")
+vt$tot_loc <-as.numeric(vt$tot_loc) 
+vt$tot_loc <- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)
+
+lm_ms <- lm(cnt_ms ~ tot_loc, data = vt)
+pot_val <- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)
+conf_interval <- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,
+						 interval = "prediction", level = 0.95)
+
+plot(vt$cnt_ms, vt$tot_loc,  col = 2, asp = 1, 
+xlab = "cnt of MS buildings", ylab = "cnt of fcc locations") 
+abline(lm_ms, col = 4)
+lines(pot_val, conf_interval[, "lwr"], col = "blue", lty = 2)
+lines(pot_val, conf_interval[, "upr"], col =" blue", lty = 2)
+```
+
+- my model (just a linear one) is probably bad (log should correct that)
+
+- still strong relation 
+
+- it seems MS has less locations
+
+
 ## Some tl:dr
 
 * it has heterogneous effects
