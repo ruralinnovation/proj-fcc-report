@@ -305,7 +305,7 @@ eligibiliy_st_ntia <- read.csv("data/cnt_eligibility_underserved.csv")
 table_with_options(eligibiliy_st_ntia)
 ```
 
-## MS building footprint
+## MS building footprint in VT
 
 MS is producing a data set of buildings (polygons) build by computer vision (classification, convert to vector). 
 
@@ -314,7 +314,6 @@ As we do not care of the shape of the building we just converted to point (picki
 We can then count those points per block and compare to the number of location than FCC is descriving.
 
 ```{r}
-library(ggplot2)
 vt <- read.csv("data/vt_ms.csv")
 vt$tot_loc <-as.numeric(vt$tot_loc) 
 vt$tot_loc <- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)
@@ -327,6 +326,7 @@ conf_interval <- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,
 plot(vt$cnt_ms, vt$tot_loc,  col = 2, asp = 1, 
 xlab = "cnt of MS buildings", ylab = "cnt of fcc locations") 
 abline(lm_ms, col = 4)
+abline(1:500, 1:500, col = "black")
 lines(pot_val, conf_interval[, "lwr"], col = "blue", lty = 2)
 lines(pot_val, conf_interval[, "upr"], col =" blue", lty = 2)
 ```
