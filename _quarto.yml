@@ -10,9 +10,14 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+
+  sidebar:
+    style: "docked"
+    search: true
+    content: 
       - zero_dl_up.qmd
       - isp_eda.qmd
-      - ntia_test.qmd 
+      - ntia_test.qmd
 
 format:
   html:
