@@ -5,7 +5,7 @@ website:
   title: "FCC BDC EDA"
   repo-url: https://github.com/ruralinnovation/proj-fcc-report
   repo-actions: [edit, issue]
-  navbar:
+  navbar: 
     left:
       - href: index.qmd
         text: Home
@@ -14,10 +14,12 @@ website:
   sidebar:
     style: "docked"
     search: true
-    content: 
-      - zero_dl_up.qmd
-      - isp_eda.qmd
-      - ntia_test.qmd
+    contents:
+      - section: "EDA"
+        contents:
+          - zero_dl_up.qmd
+          - isp_eda.qmd
+          - ntia_test.qmd
 
 format:
   html:
