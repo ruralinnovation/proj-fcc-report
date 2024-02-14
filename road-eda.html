@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2024-02-14">
 
-<title>FCC BDC EDA - .</title>
+<title>FCC BDC EDA - TIGER Roads</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -89,7 +90,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -107,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">.</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./zero_dl_up.html">EDA</a></li><li class="breadcrumb-item"><a href="./road-eda.html">TIGER Roads</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -162,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./road-eda.html" class="sidebar-item-text sidebar-link">
+  <a href="./road-eda.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">TIGER Roads</span></a>
   </div>
 </li>
@@ -174,14 +175,23 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-inside-teh-data" id="toc-what-is-inside-teh-data" class="nav-link active" data-scroll-target="#what-is-inside-teh-data">what is inside teh data:</a>
+  <ul class="collapse">
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/road-eda.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./zero_dl_up.html">EDA</a></li><li class="breadcrumb-item"><a href="./road-eda.html">TIGER Roads</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">.</h1>
+<h1 class="title">TIGER Roads</h1>
 </div>
 
 
@@ -189,6 +199,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 14, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -198,10 +214,63 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is a Quarto website.</p>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
+<p>Requirement:</p>
+<blockquote class="blockquote">
+<p>Roughly estimate route miles of potential deployments</p>
+</blockquote>
+<section id="what-is-inside-teh-data" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-inside-teh-data">what is inside teh data:</h2>
+<p>We have linestrings with those attributes:</p>
+<ul>
+<li><p><code>linearid</code>: primary id, used by ither TIGER product</p></li>
+<li><p><code>fullname</code>: road name, humane-readable</p></li>
+<li><p><code>mtfcc</code>: MAF/TIGER Feature Class Codes, example, S1400 (Local Neighborhood Road, Rural Road, City Street)</p></li>
+<li><p><code>rttyp</code>: route type code, type of road.</p></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Route Type Code</th>
+<th>Route Type Code Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C</td>
+<td>County</td>
+</tr>
+<tr class="even">
+<td>I</td>
+<td>Interstate</td>
+</tr>
+<tr class="odd">
+<td>M</td>
+<td>Common Name</td>
+</tr>
+<tr class="even">
+<td>O</td>
+<td>Other</td>
+</tr>
+<tr class="odd">
+<td>S</td>
+<td>State recognized</td>
+</tr>
+<tr class="even">
+<td>U</td>
+<td>U.S.</td>
+</tr>
+</tbody>
+</table>
+<section id="resources" class="level3">
+<h3 class="anchored" data-anchor-id="resources">Resources</h3>
+<ul>
+<li><p>https://www2.census.gov/geo/pdfs/reference/mtfccs2020.pdf</p></li>
+<li><p>https://www.census.gov/library/reference/code-lists/route-type-codes.html</p></li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -596,4 +665,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/road-eda.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

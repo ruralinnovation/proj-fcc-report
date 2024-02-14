@@ -195,6 +195,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Microsoft Building footprint</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./road-eda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TIGER Roads</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -250,6 +256,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>Why are we doing it?</p>
+<blockquote class="blockquote">
+<p>Premises and Premise Counts</p>
+</blockquote>
+<p>Currently we have FCC total count locations at census block level.</p>
 <section id="ms-building-foot-print" class="level1">
 <h1>MS Building Foot print</h1>
 <section id="overview" class="level2">
@@ -266,7 +277,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="buildings-to-bsl" class="level2">
 <h2 class="anchored" data-anchor-id="buildings-to-bsl">Buildings to BSL?</h2>
-<p>Buildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data.</p>
+<p>Buildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data. Hence, now we have “buildings” summarized to points (lat/long).</p>
+<p>We do not have access to lat/long of BSL (fabrics). Our assumptions is if a count at block match they are describing the same reality (we can’t do the “on the ground verification”).</p>
 <p>The number of buildings reported for 51 states is: 130 099 920</p>
 <p>While is the number of BSL is: 114 074 438</p>
 <section id="other-potential-sources" class="level3">
@@ -282,19 +294,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="should-this-information-be-provided-and-how" class="level1 page-columns page-full">
 <h1>Should this information be provided and how?</h1>
 <p><strong>What could be the use cases?</strong></p>
+<p>Integrating those informations will have cost: information “overload”, documentation about is needed, and depending</p>
 <p>We can:</p>
 <ul>
 <li><p>Provide the count per census block of MS building footprint and the user</p></li>
-<li><p>Add the dot to the map (it has cost: information “overload”, documentation about is needed)</p></li>
-<li><p>Add a “confidence” about it (will always be statitical)</p></li>
+<li><p>Add the dot to the map</p></li>
+<li><p>if we add dot and/or count per block, how trustworthy this is information will be: add a “confidence” about it (will always be statitical)</p></li>
 </ul>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>How this data help BEAD applicant?</p>
+<p>How this data helps BEAD applicant?</p>
 </div></div><section id="ms-building-footprint-in-vt" class="level2">
 <h2 class="anchored" data-anchor-id="ms-building-footprint-in-vt">MS building footprint in VT</h2>
 <p>We can count those points per block and compare to the number of location than FCC is descriving.</p>
-<p>After that can build a small model that will provide either an estimate of BSL given MS footrpint and how confidant the model is.</p>
+<p>After that we build a small model that will provide either an estimate of BSL given MS footprint and how confidant the model is.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -325,8 +338,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>my model (just a linear one) is probably bad (log should correct that)</p></li>
 <li><p>still strong relation</p></li>
-<li><p>the model is “overconfidant”</p></li>
-<li><p>it seems MS has <strong>more</strong> locations (285333, versus 352618)</p></li>
+<li><p>the model is “overconfidant”, and the reality is more “spread”</p></li>
+<li><p>VT MS has also <strong>more</strong> locations (285333, versus 352618)</p></li>
 </ul>
 
 
