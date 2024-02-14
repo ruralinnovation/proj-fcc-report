@@ -258,7 +258,19 @@
     "href": "ntia_test.html#eligibility-underserved-dslwireless",
     "title": "Testing other eligibilities",
     "section": "Eligibility underserved / dsl&wireless",
-    "text": "Eligibility underserved / dsl&wireless\n\n\nCode\nsrtelect\ngeoid_st,\n    count(*) as numb_bl,\n    sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,\n    sum(case when category_not_dsl = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl,\n    sum(case when category_not_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_wireless,\n    sum(case when category_not_dsl_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\neligibiliy_st_ntia &lt;- read.csv(“data/cnt_eligibility_underserved.csv”)\ntable_with_options(eligibiliy_st_ntia)```",
+    "text": "Eligibility underserved / dsl&wireless\n\n\nCode\nsrtelect\ngeoid_st,\n    count(*) as numb_bl,\n    sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,\n    sum(case when category_not_dsl = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl,\n    sum(case when category_not_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_wireless,\n    sum(case when category_not_dsl_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/cnt_eligibility_underserved.csv\")\n\ntable_with_options(eligibiliy_st_ntia)",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Testing other eligibilities"
+    ]
+  },
+  {
+    "objectID": "ntia_test.html#jusrt-dsl-excluded",
+    "href": "ntia_test.html#jusrt-dsl-excluded",
+    "title": "Testing other eligibilities",
+    "section": "Jusrt dsl excluded",
+    "text": "Jusrt dsl excluded\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/dsl-exluded.csv\")\n\ntable_with_options(eligibiliy_st_ntia)",
     "crumbs": [
       "Home",
       "EDA",
