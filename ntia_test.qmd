@@ -292,7 +292,17 @@ group by geoid_st
 ```{r}
 eligibiliy_st_ntia <- read.csv("data/cnt_eligibility_underserved.csv")
 
-table_with_options(eligibiliy_st_ntia)```
+table_with_options(eligibiliy_st_ntia)
+```
+
+
+## Jusrt dsl excluded
+
+```{r}
+eligibiliy_st_ntia <- read.csv("data/dsl-exluded.csv")
+
+table_with_options(eligibiliy_st_ntia)
+```
 
 ## Some tl:dr
 
