@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-sidebar docked nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -179,7 +179,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-inside-the-data" id="toc-what-is-inside-the-data" class="nav-link active" data-scroll-target="#what-is-inside-the-data">what is inside the data:</a></li>
+  <li><a href="#what-is-inside-the-data" id="toc-what-is-inside-the-data" class="nav-link active" data-scroll-target="#what-is-inside-the-data">what is inside the data:</a>
+  <ul class="collapse">
+  <li><a href="#classes-of-roads-according-to-tigerline-census" id="toc-classes-of-roads-according-to-tigerline-census" class="nav-link" data-scroll-target="#classes-of-roads-according-to-tigerline-census">Classes of Roads according to TIGER/line census</a></li>
+  </ul></li>
   <li><a href="#should-this-information-provided-and-how" id="toc-should-this-information-provided-and-how" class="nav-link" data-scroll-target="#should-this-information-provided-and-how">Should this information provided and how?</a>
   <ul class="collapse">
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
@@ -188,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/road-eda.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./zero_dl_up.html">EDA</a></li><li class="breadcrumb-item"><a href="./road-eda.html">TIGER Roads</a></li></ol></nav>
 <div class="quarto-title">
@@ -219,7 +222,7 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p>Roughly estimate route miles of potential deployments</p>
 </blockquote>
-<section id="what-is-inside-the-data" class="level2">
+<section id="what-is-inside-the-data" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="what-is-inside-the-data">what is inside the data:</h2>
 <p>We have linestrings with those attributes:</p>
 <ul>
@@ -264,7 +267,12 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><code>mtfcc</code>: MAF/TIGER Feature Class Codes, example, S1400 (Local Neighborhood Road, Rural Road, City Street)</li>
 </ul>
-<table class="table">
+<section id="classes-of-roads-according-to-tigerline-census" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="classes-of-roads-according-to-tigerline-census">Classes of Roads according to TIGER/line census</h3>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>TIGER: Topologically Integrated Geographic Encoding and Referencing</p>
+</div></div><table class="table">
 <colgroup>
 <col style="width: 42%">
 <col style="width: 57%">
@@ -272,7 +280,7 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr class="header">
 <th>mtfcc</th>
-<th>features</th>
+<th>Features</th>
 </tr>
 </thead>
 <tbody>
@@ -338,6 +346,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 <section id="should-this-information-provided-and-how" class="level2">
 <h2 class="anchored" data-anchor-id="should-this-information-provided-and-how">Should this information provided and how?</h2>
