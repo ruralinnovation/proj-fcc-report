@@ -106,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-sidebar docked nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -186,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ntia_test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">testing other eligibilities</span></a>
+ <span class="menu-text">Testing other eligibilities</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -207,13 +207,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ms-building-footprint-in-vt" id="toc-ms-building-footprint-in-vt" class="nav-link active" data-scroll-target="#ms-building-footprint-in-vt">MS building footprint in VT</a></li>
-  <li><a href="#some-tldr" id="toc-some-tldr" class="nav-link" data-scroll-target="#some-tldr">Some tl:dr</a></li>
+  <li><a href="#ms-building-foot-print" id="toc-ms-building-foot-print" class="nav-link active" data-scroll-target="#ms-building-foot-print">MS Building Foot print</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#buildings-to-bsl" id="toc-buildings-to-bsl" class="nav-link" data-scroll-target="#buildings-to-bsl">Buildings to BSL?</a>
+  <ul class="collapse">
+  <li><a href="#other-potential-sources" id="toc-other-potential-sources" class="nav-link" data-scroll-target="#other-potential-sources">Other potential sources:</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#should-this-information-be-provided-and-how" id="toc-should-this-information-be-provided-and-how" class="nav-link" data-scroll-target="#should-this-information-be-provided-and-how">Should this information be provided and how?</a>
+  <ul class="collapse">
+  <li><a href="#ms-building-footprint-in-vt" id="toc-ms-building-footprint-in-vt" class="nav-link" data-scroll-target="#ms-building-footprint-in-vt">MS building footprint in VT</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/ms-eda.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./zero_dl_up.html">EDA</a></li><li class="breadcrumb-item"><a href="./ms-eda.html">Microsoft Building footprint</a></li></ol></nav>
 <div class="quarto-title">
@@ -240,40 +250,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="ms-building-footprint-in-vt" class="level2">
+<section id="ms-building-foot-print" class="level1">
+<h1>MS Building Foot print</h1>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>MS used satellite data (from multiple campains/vintage) to get the footprint of buildings.</p>
+<p>They are classifying pixels that are supposed to be part of a buildings (segmentation using a neural network) and then convert pixels to a shape.</p>
+<p>It exists <a href="https://github.com/microsoft/GlobalMLBuildingFootprints">worldwide</a> and for <a href="https://github.com/Microsoft/USBuildingFootprints?tab=readme-ov-file">US states</a>.</p>
+<ul>
+<li><p>We have processed the 51 states</p></li>
+<li><p>Additional works will be required for PR and US territories (parts of workflow from the US states can be reused).</p></li>
+</ul>
+<p>The precision of the model vary depending on the region: the Carribean is at 92,2% and the US at 98.5%. The rate of false positive is 1% for the US and 1.8% for the Carribean. (Oceania was not provided)</p>
+<p>The license is <a href="https://github.com/Microsoft/USBuildingFootprints?tab=License-1-ov-file">ODbL</a>.</p>
+</section>
+<section id="buildings-to-bsl" class="level2">
+<h2 class="anchored" data-anchor-id="buildings-to-bsl">Buildings to BSL?</h2>
+<p>Buildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data.</p>
+<p>The number of buildings reported for 51 states is: 130 099 920</p>
+<p>While is the number of BSL is: 114 074 438</p>
+<section id="other-potential-sources" class="level3">
+<h3 class="anchored" data-anchor-id="other-potential-sources">Other potential sources:</h3>
+<ul>
+<li><p>OpenStreetMap</p></li>
+<li><p><a href="https://www.fcc.gov/staff-block-estimates">FCC staff estimates</a>: at census block level (only for US 51)</p></li>
+<li><p>ACS households</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="should-this-information-be-provided-and-how" class="level1 page-columns page-full">
+<h1>Should this information be provided and how?</h1>
+<p><strong>What could be the use cases?</strong></p>
+<p>We can:</p>
+<ul>
+<li><p>Provide the count per census block of MS building footprint and the user</p></li>
+<li><p>Add the dot to the map (it has cost: information “overload”, documentation about is needed)</p></li>
+<li><p>Add a “confidence” about it (will always be statitical)</p></li>
+</ul>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>How this data help BEAD applicant?</p>
+</div></div><section id="ms-building-footprint-in-vt" class="level2">
 <h2 class="anchored" data-anchor-id="ms-building-footprint-in-vt">MS building footprint in VT</h2>
-<p>MS is producing a data set of buildings (polygons) build by computer vision (classification, convert to vector).</p>
-<p>As we do not care of the shape of the building we just converted to point (picking one vertex per polygon).</p>
-<p>We can then count those points per block and compare to the number of location than FCC is descriving.</p>
+<p>We can count those points per block and compare to the number of location than FCC is descriving.</p>
+<p>After that can build a small model that will provide either an estimate of BSL given MS footrpint and how confidant the model is.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/vt_ms.csv"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vt<span class="sc">$</span>tot_loc <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(vt<span class="sc">$</span>tot_loc) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: NAs introduced by coercion</code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>vt<span class="sc">$</span>tot_loc <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(vt<span class="sc">$</span>tot_loc), <span class="dv">0</span>, vt<span class="sc">$</span>tot_loc)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lm_ms <span class="ot">&lt;-</span> <span class="fu">lm</span>(cnt_ms <span class="sc">~</span> tot_loc, <span class="at">data =</span> vt)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>pot_val <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(vt<span class="sc">$</span>tot_loc), <span class="fu">max</span>(vt<span class="sc">$</span>tot_loc), <span class="at">by =</span> <span class="fl">0.025</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>conf_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_ms, <span class="at">newdata =</span> <span class="fu">data.frame</span>( <span class="at">tot_loc =</span> pot_val) ,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vt<span class="sc">$</span>cnt_ms, vt<span class="sc">$</span>tot_loc,  <span class="at">col =</span> <span class="dv">2</span>, <span class="at">asp =</span> <span class="dv">1</span>, </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">"cnt of MS buildings"</span>, <span class="at">ylab =</span> <span class="st">"cnt of fcc locations"</span>) </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm_ms, <span class="at">col =</span> <span class="dv">4</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val, conf_interval[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val, conf_interval[, <span class="st">"upr"</span>], <span class="at">col =</span><span class="st">" blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vt<span class="sc">$</span>tot_loc <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(vt<span class="sc">$</span>tot_loc) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>vt<span class="sc">$</span>tot_loc <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(vt<span class="sc">$</span>tot_loc), <span class="dv">0</span>, vt<span class="sc">$</span>tot_loc)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>lm_ms <span class="ot">&lt;-</span> <span class="fu">lm</span>(cnt_ms <span class="sc">~</span> tot_loc, <span class="at">data =</span> vt)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pot_val <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(vt<span class="sc">$</span>tot_loc), <span class="fu">max</span>(vt<span class="sc">$</span>tot_loc), <span class="at">by =</span> <span class="fl">0.025</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>conf_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_ms, <span class="at">newdata =</span> <span class="fu">data.frame</span>( <span class="at">tot_loc =</span> pot_val) ,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vt<span class="sc">$</span>cnt_ms, vt<span class="sc">$</span>tot_loc,  <span class="at">col =</span> <span class="st">"#DF536B50"</span>, <span class="at">asp =</span> <span class="dv">1</span>, </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">"cnt of MS buildings"</span>, <span class="at">ylab =</span> <span class="st">"cnt of fcc locations"</span>) </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm_ms, <span class="at">col =</span> <span class="dv">4</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val, conf_interval[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val, conf_interval[, <span class="st">"upr"</span>], <span class="at">col =</span><span class="st">" blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="ms-eda_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="ms-eda_files/figure-html/quick lm model for bsl-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -281,17 +325,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>my model (just a linear one) is probably bad (log should correct that)</p></li>
 <li><p>still strong relation</p></li>
+<li><p>the model is “overconfidant”</p></li>
 <li><p>it seems MS has <strong>more</strong> locations (285333, versus 352618)</p></li>
 </ul>
+
+
 </section>
-<section id="some-tldr" class="level2">
-<h2 class="anchored" data-anchor-id="some-tldr">Some tl:dr</h2>
-<ul>
-<li><p>it has heterogneous effects</p></li>
-<li><p>it has a big impacts</p></li>
-</ul>
-
-
 </section>
 
 </main> <!-- /main -->

@@ -4,7 +4,7 @@
     "href": "zero_dl_up.html",
     "title": "EDA on 0/0 BSL",
     "section": "",
-    "text": "TODO: update the SQL query\nCode\ntable_with_options &lt;- function(x){DT::datatable(x, rownames = FALSE,\n              extensions = 'Buttons', \n                options = list(\n                          dom = 'Blfrtip',\n                          buttons = list('copy', 'print', list(\n                            extend = 'collection',\n                            buttons = c('csv', 'excel'),\n                            text = 'Download')\n                                    )\n                          )\n            )}\n# very lazish function, col should be a string \nagg_count &lt;- function(dat, col) {\n    agg &lt;- aggregate(cbind(count = dat$count),\n                     list(name_col = dat[[col]]),\n                      sum)\n    colnames(agg) &lt;- c(col, \"count\")\n    return(agg)\n}\nThe goals of this page is storing a quick EDA about broadband services locations with 0 MBps uploads and 0 MBps downloads. To be concise we are going to call them 0/0 speeds.\nWe have counted every services that have been declared with 0/0 speeds and associated with their States, ISP and technology. To clarify that does not mean a location have 0/0 speeds only but that one “ISP x technology” is provided with this kind of service in this location.\nThe data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in data/\nCode\nSELECT \n    state_abbr,\n    brand_name,\n    technology,\n    count(brand_name)\nFROM\n    staging.june23\nWHERE\n(max_advertised_download_speed = 0 AND\n    max_advertised_upload_speed = 0) = true\nGROUP BY brand_name, state_abbr, technology;\n\n-- first get all 0/0 then get all the non 0/0\n\nSELECT \n    state_abbr,\n    brand_name,\n    technology,\n    count(brand_name)\nFROM \n    staging.june23\nWHERE\n(max_advertised_download_speed = 0 AND\n    max_advertised_upload_speed = 0) = false\nGROUP BY brand_name, state_abbr, technology;\nCode\nzero_loc &lt;- read.csv(\"data/zero_dl_up.csv\")\nnot_zero &lt;- read.csv(\"data/not_zero_dl.csv\")",
+    "text": "TODO: update the SQL query\nCode\nsource(\"R/table_with_options.R\")\n# very lazish function, col should be a string \nagg_count &lt;- function(dat, col) {\n    agg &lt;- aggregate(cbind(count = dat$count),\n                     list(name_col = dat[[col]]),\n                      sum)\n    colnames(agg) &lt;- c(col, \"count\")\n    return(agg)\n}\nThe goals of this page is storing a quick EDA about broadband services locations with 0 MBps uploads and 0 MBps downloads. To be concise we are going to call them 0/0 speeds.\nWe have counted every services that have been declared with 0/0 speeds and associated with their States, ISP and technology. To clarify that does not mean a location have 0/0 speeds only but that one “ISP x technology” is provided with this kind of service in this location.\nThe data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in data/\nCode\nSELECT \n    state_abbr,\n    brand_name,\n    technology,\n    count(brand_name)\nFROM\n    staging.june23\nWHERE\n(max_advertised_download_speed = 0 AND\n    max_advertised_upload_speed = 0) = true\nGROUP BY brand_name, state_abbr, technology;\n\n-- first get all 0/0 then get all the non 0/0\n\nSELECT \n    state_abbr,\n    brand_name,\n    technology,\n    count(brand_name)\nFROM \n    staging.june23\nWHERE\n(max_advertised_download_speed = 0 AND\n    max_advertised_upload_speed = 0) = false\nGROUP BY brand_name, state_abbr, technology;\nCode\nzero_loc &lt;- read.csv(\"data/zero_dl_up.csv\")\nnot_zero &lt;- read.csv(\"data/not_zero_dl.csv\")",
     "crumbs": [
       "Home",
       "EDA",
@@ -114,7 +114,31 @@
     "href": "ms-eda.html",
     "title": "Microsoft Building footprint",
     "section": "",
-    "text": "MS is producing a data set of buildings (polygons) build by computer vision (classification, convert to vector).\nAs we do not care of the shape of the building we just converted to point (picking one vertex per polygon).\nWe can then count those points per block and compare to the number of location than FCC is descriving.\n\n\nCode\nvt &lt;- read.csv(\"data/vt_ms.csv\")\nvt$tot_loc &lt;-as.numeric(vt$tot_loc) \n\n\nWarning: NAs introduced by coercion\n\n\nCode\nvt$tot_loc &lt;- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)\n\nlm_ms &lt;- lm(cnt_ms ~ tot_loc, data = vt)\npot_val &lt;- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)\nconf_interval &lt;- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,\n                         interval = \"prediction\", level = 0.95)\n\nplot(vt$cnt_ms, vt$tot_loc,  col = 2, asp = 1, \nxlab = \"cnt of MS buildings\", ylab = \"cnt of fcc locations\") \nabline(lm_ms, col = 4)\nabline(1:500, 1:500, col = \"black\")\nlines(pot_val, conf_interval[, \"lwr\"], col = \"blue\", lty = 2)\nlines(pot_val, conf_interval[, \"upr\"], col =\" blue\", lty = 2)\n\n\n\n\n\n\n\n\n\n\nmy model (just a linear one) is probably bad (log should correct that)\nstill strong relation\nit seems MS has more locations (285333, versus 352618)",
+    "text": "MS used satellite data (from multiple campains/vintage) to get the footprint of buildings.\nThey are classifying pixels that are supposed to be part of a buildings (segmentation using a neural network) and then convert pixels to a shape.\nIt exists worldwide and for US states.\n\nWe have processed the 51 states\nAdditional works will be required for PR and US territories (parts of workflow from the US states can be reused).\n\nThe precision of the model vary depending on the region: the Carribean is at 92,2% and the US at 98.5%. The rate of false positive is 1% for the US and 1.8% for the Carribean. (Oceania was not provided)\nThe license is ODbL.\n\n\n\nBuildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data.\nThe number of buildings reported for 51 states is: 130 099 920\nWhile is the number of BSL is: 114 074 438\n\n\n\nOpenStreetMap\nFCC staff estimates: at census block level (only for US 51)\nACS households",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
+  },
+  {
+    "objectID": "ms-eda.html#overview",
+    "href": "ms-eda.html#overview",
+    "title": "Microsoft Building footprint",
+    "section": "",
+    "text": "MS used satellite data (from multiple campains/vintage) to get the footprint of buildings.\nThey are classifying pixels that are supposed to be part of a buildings (segmentation using a neural network) and then convert pixels to a shape.\nIt exists worldwide and for US states.\n\nWe have processed the 51 states\nAdditional works will be required for PR and US territories (parts of workflow from the US states can be reused).\n\nThe precision of the model vary depending on the region: the Carribean is at 92,2% and the US at 98.5%. The rate of false positive is 1% for the US and 1.8% for the Carribean. (Oceania was not provided)\nThe license is ODbL.",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
+  },
+  {
+    "objectID": "ms-eda.html#buildings-to-bsl",
+    "href": "ms-eda.html#buildings-to-bsl",
+    "title": "Microsoft Building footprint",
+    "section": "",
+    "text": "Buildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data.\nThe number of buildings reported for 51 states is: 130 099 920\nWhile is the number of BSL is: 114 074 438\n\n\n\nOpenStreetMap\nFCC staff estimates: at census block level (only for US 51)\nACS households",
     "crumbs": [
       "Home",
       "EDA",
@@ -125,20 +149,8 @@
     "objectID": "ms-eda.html#ms-building-footprint-in-vt",
     "href": "ms-eda.html#ms-building-footprint-in-vt",
     "title": "Microsoft Building footprint",
-    "section": "",
-    "text": "MS is producing a data set of buildings (polygons) build by computer vision (classification, convert to vector).\nAs we do not care of the shape of the building we just converted to point (picking one vertex per polygon).\nWe can then count those points per block and compare to the number of location than FCC is descriving.\n\n\nCode\nvt &lt;- read.csv(\"data/vt_ms.csv\")\nvt$tot_loc &lt;-as.numeric(vt$tot_loc) \n\n\nWarning: NAs introduced by coercion\n\n\nCode\nvt$tot_loc &lt;- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)\n\nlm_ms &lt;- lm(cnt_ms ~ tot_loc, data = vt)\npot_val &lt;- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)\nconf_interval &lt;- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,\n                         interval = \"prediction\", level = 0.95)\n\nplot(vt$cnt_ms, vt$tot_loc,  col = 2, asp = 1, \nxlab = \"cnt of MS buildings\", ylab = \"cnt of fcc locations\") \nabline(lm_ms, col = 4)\nabline(1:500, 1:500, col = \"black\")\nlines(pot_val, conf_interval[, \"lwr\"], col = \"blue\", lty = 2)\nlines(pot_val, conf_interval[, \"upr\"], col =\" blue\", lty = 2)\n\n\n\n\n\n\n\n\n\n\nmy model (just a linear one) is probably bad (log should correct that)\nstill strong relation\nit seems MS has more locations (285333, versus 352618)",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Microsoft Building footprint"
-    ]
-  },
-  {
-    "objectID": "ms-eda.html#some-tldr",
-    "href": "ms-eda.html#some-tldr",
-    "title": "Microsoft Building footprint",
-    "section": "Some tl:dr",
-    "text": "Some tl:dr\n\nit has heterogneous effects\nit has a big impacts",
+    "section": "MS building footprint in VT",
+    "text": "MS building footprint in VT\nWe can count those points per block and compare to the number of location than FCC is descriving.\nAfter that can build a small model that will provide either an estimate of BSL given MS footrpint and how confidant the model is.\n\n\nCode\nvt &lt;- read.csv(\"data/vt_ms.csv\")\nvt$tot_loc &lt;-as.numeric(vt$tot_loc) \nvt$tot_loc &lt;- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)\n\nlm_ms &lt;- lm(cnt_ms ~ tot_loc, data = vt)\npot_val &lt;- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)\nconf_interval &lt;- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,\n                         interval = \"prediction\", level = 0.95)\n\nplot(vt$cnt_ms, vt$tot_loc,  col = \"#DF536B50\", asp = 1, \nxlab = \"cnt of MS buildings\", ylab = \"cnt of fcc locations\") \nabline(lm_ms, col = 4)\nabline(1:500, 1:500, col = \"black\")\nlines(pot_val, conf_interval[, \"lwr\"], col = \"blue\", lty = 2)\nlines(pot_val, conf_interval[, \"upr\"], col =\" blue\", lty = 2)\n\n\n\n\n\n\n\n\n\n\nmy model (just a linear one) is probably bad (log should correct that)\nstill strong relation\nthe model is “overconfidant”\nit seems MS has more locations (285333, versus 352618)",
     "crumbs": [
       "Home",
       "EDA",
@@ -148,85 +160,85 @@
   {
     "objectID": "ntia_test.html",
     "href": "ntia_test.html",
-    "title": "testing other eligibilities",
+    "title": "Testing other eligibilities",
     "section": "",
-    "text": "Code\ntable_with_options &lt;- function(x){DT::datatable(x, rownames = FALSE,\n              extensions = 'Buttons', \n                options = list(\n                          dom = 'Blfrtip',\n                          buttons = list('copy', 'print', list(\n                            extend = 'collection',\n                            buttons = c('csv', 'excel'),\n                            text = 'Download')\n                                    )\n                          )\n            )}\nThe goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block.\nThe dataset to produce this comparison was done quickly and processed with pgadmin.",
+    "text": "Code\nsource(\"R/table_with_options.R\")\nThe goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block.\nThe dataset to produce this comparison was done quickly and processed with pgadmin.",
     "crumbs": [
       "Home",
       "EDA",
-      "testing other eligibilities"
+      "Testing other eligibilities"
     ]
   },
   {
     "objectID": "ntia_test.html#base-table",
     "href": "ntia_test.html#base-table",
-    "title": "testing other eligibilities",
+    "title": "Testing other eligibilities",
     "section": "Base table",
     "text": "Base table\n\n\nCode\n-- we need the list of census block\ncreate table staging.us_ntia(\n    geoid_bl char(15)   \n);\ninsert into \n    staging.us_ntia\nselect \n    geoid20 as geoid_bl\nfrom \n    sch_census_tiger.source_tiger_2020_blocks;\n\n\n-- we count all locations\nalter table staging.us_ntia \nadd column cnt_total_locations integer;\nupdate\n    staging.us_ntia as t1\nset \n    cnt_total_locations = t2.cnt_total_locations\nfrom \n    (select \n        block_geoid,\n        count(distinct location_id) as cnt_total_locations\n    from \n        staging.june23  \n    group by \n        block_geoid)  as t2\nwhere   \n    t1.geoid_bl = t2.block_geoid;\n\n-- we count all bcat locations only\n-- this is needed for the case when we have locations but 0 mesures\nalter table staging.us_ntia \nadd column cnt_bcat_locations integer;\nupdate\n    staging.us_ntia as t1\nset \n    cnt_bcat_locations = t2.cnt_bcat_locations\nfrom \n    (select \n        block_geoid,\n        count(distinct location_id) as cnt_bcat_locations\n    from \n        staging.bcat_raw    \n    group by \n        block_geoid)  as t2\nwhere    \n    t1.geoid_bl = t2.block_geoid;",
     "crumbs": [
       "Home",
       "EDA",
-      "testing other eligibilities"
+      "Testing other eligibilities"
     ]
   },
   {
     "objectID": "ntia_test.html#creating-counts-of-locations",
     "href": "ntia_test.html#creating-counts-of-locations",
-    "title": "testing other eligibilities",
+    "title": "Testing other eligibilities",
     "section": "Creating counts of locations",
     "text": "Creating counts of locations\n\n\nCode\nalter table staging.us_ntia\nadd column cnt_25_3_past int,\nadd column cnt_100_20_past int,\nadd column cnt_100_20_not_dsl int,\nadd column cnt_100_20_not_wireless int,\nadd column cnt_100_20_not_dsl_wireless int;\n\nupdate\n    staging.us_ntia as t1\nset \n    cnt_25_3_past = t2.cnt_25_3_past,\n    cnt_100_20_past = t2.cnt_100_20_past,\n    cnt_100_20_not_dsl = t2.cnt_100_20_not_dsl,\n    cnt_100_20_not_wireless = t2.cnt_100_20_not_wireless,\n    cnt_100_20_not_dsl_wireless = t2.cnt_100_20_not_dsl_wireless\n\nfrom(\n    select \n        block_geoid as geoid_bl,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 25 and max_advertised_upload_speed &gt;= 3) \n                          then location_id end) as cnt_25_3_past,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 100 and max_advertised_upload_speed &gt;= 20) \n                          then location_id end) as cnt_100_20_past,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 100 and max_advertised_upload_speed &gt;= 20\n            and technology &lt;&gt; 10) \n                          then location_id end) as cnt_100_20_not_dsl,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 100 and max_advertised_upload_speed &gt;= 20\n            and technology NOT IN (71, 72)) \n                          then location_id end) as cnt_100_20_not_wireless,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 100 and max_advertised_upload_speed &gt;= 20\n            and technology NOT IN (10, 71, 72)) \n                          then location_id end) as cnt_100_20_not_dsl_wireless\n    from \n        staging.bcat_raw\n    group by \n        block_geoid\n) as t2\nwhere    \n    t1.geoid_bl = t2.geoid_bl;\n\n-- we were focusing strickly in underserved hence \n-- we removed unserved for counts\nalter table staging.us_ntia\nadd column underserved_past int,\nadd column underserved_not_dsl int,\nadd column underserved_not_wireless int,\nadd column underserved_not_dsl_wireless int;\n\nupdate\n    staging.us_ntia\nset \n    underserved_past = cnt_25_3_past - cnt_100_20_past,\n    underserved_not_dsl = cnt_25_3_past - cnt_100_20_not_dsl,\n    underserved_not_wireless = cnt_25_3_past - cnt_100_20_not_wireless,\n    underserved_not_dsl_wireless = cnt_25_3_past - cnt_100_20_not_dsl_wireless;",
     "crumbs": [
       "Home",
       "EDA",
-      "testing other eligibilities"
+      "Testing other eligibilities"
     ]
   },
   {
     "objectID": "ntia_test.html#recreating-and-generating-previous-and-new-categories",
     "href": "ntia_test.html#recreating-and-generating-previous-and-new-categories",
-    "title": "testing other eligibilities",
+    "title": "Testing other eligibilities",
     "section": "Recreating and generating previous and new categories",
     "text": "Recreating and generating previous and new categories\n\n\nCode\nalter table staging.us_ntia \nadd column pct_100_20_past float,\nadd column pct_25_3_past float,\nadd column pct_100_20_not_dsl float,\nadd column pct_100_20_not_wireless float,\nadd column pct_100_20_not_dsl_wireless float;\n\nupdate\n    staging.us_ntia  as t1\nset \n    pct_100_20_past = cnt_100_20_past/cnt_total_locations::float,\n    pct_25_3_past = cnt_25_3_past/cnt_total_locations::float,\n    pct_100_20_not_dsl = cnt_100_20_not_dsl / cnt_total_locations::float,\n    pct_100_20_not_wireless = cnt_100_20_not_wireless / cnt_total_locations::float,\n    pct_100_20_not_dsl_wireless = cnt_100_20_not_dsl_wireless / cnt_total_locations::float\n\nalter table staging.us_ntia\nadd column bl_100_20_area_past varchar(25),\nadd column bl_25_3_area_past varchar(25),\nadd column bl_100_20_area_not_dsl varchar(25),\nadd column bl_100_20_area_not_wireless varchar(25),\nadd column bl_100_20_area_not_dsl_wireless varchar(25);\n\nupdate\n    staging.us_ntia\nset \n    bl_100_20_area_past = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_100_20_past &lt; .2 and pct_25_3_past &lt; .2 then 'unserved_area'\n            when pct_100_20_past &lt; .2 then 'underserved_area'\n            else 'served_area' end,\n    bl_25_3_area_past  = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_25_3_past &lt; .2 then 'unserved_area'\n            else 'served_area' end,\n    bl_100_20_area_not_dsl = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_100_20_not_dsl &lt; .2 and pct_25_3_past &lt; .2 then 'unserved_area'\n            when pct_100_20_not_dsl &lt; .2 then 'underserved_area'\n            else 'served_area' end,\n    bl_100_20_area_not_wireless = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_100_20_not_wireless &lt; .2 and pct_25_3_past &lt; .2 then 'unserved_area'\n            when pct_100_20_not_wireless &lt; .2 then 'underserved_area'\n            else 'served_area' end,\n    bl_100_20_area_not_dsl_wireless = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_100_20_not_dsl_wireless &lt; .2 and pct_25_3_past &lt; .2 then 'unserved_area'\n            when pct_100_20_not_dsl_wireless &lt; .2 then 'underserved_area'\n            else 'served_area' end;\n  \nalter table staging.us_ntia\nadd column category_past varchar(25),\nadd column category_not_dsl varchar(25),\nadd column category_not_wireless varchar(25),\nadd column category_not_dsl_wireless varchar(25);\n\nupdate staging.us_ntia\nset category_past =\n    case \n        when bl_25_3_area_past = 'not_reported' then 'Not Reported'\n        when bl_100_20_area_past = 'unserved_area' then 'Unserved'\n        when bl_100_20_area_past = 'underserved_area' then 'Underserved'\n    else 'Served' end,\n    category_not_dsl =\n    case \n        when bl_25_3_area_past = 'not_reported' then 'Not Reported'\n        when bl_100_20_area_not_dsl = 'unserved_area' then 'Unserved'\n        when bl_100_20_area_not_dsl = 'underserved_area' then 'Underserved'\n    else 'Served' end,\n     category_not_wireless = \n        case \n        when bl_25_3_area_past = 'not_reported' then 'Not Reported'\n        when bl_100_20_area_not_wireless = 'unserved_area' then 'Unserved'\n        when bl_100_20_area_not_wireless = 'underserved_area' then 'Underserved'\n    else 'Served' end,\n     category_not_dsl_wireless = \n        case \n        when bl_25_3_area_past = 'not_reported' then 'Not Reported'\n        when bl_100_20_area_not_dsl_wireless = 'unserved_area' then 'Unserved'\n        when bl_100_20_area_not_dsl_wireless = 'underserved_area' then 'Underserved'\n    else 'Served'\n     end;\n\n-- useful stuffs\nalter table staging.us_ntia\nadd column geoid_st varchar(2);\n\nupdate staging.us_ntia\nset geoid_st = left(geoid_bl, 2);\n\nalter table staging.us_ntia owner to mda_team;",
     "crumbs": [
       "Home",
       "EDA",
-      "testing other eligibilities"
+      "Testing other eligibilities"
     ]
   },
   {
     "objectID": "ntia_test.html#count-by-states",
     "href": "ntia_test.html#count-by-states",
-    "title": "testing other eligibilities",
+    "title": "Testing other eligibilities",
     "section": "Count by states",
     "text": "Count by states\n\n\nCode\nselect\n    geoid_st,\n    sum(cnt_total_locations) as cnt_total_locaction,\n    sum(cnt_25_3_past) as cnt_25_3_past,\n    sum(underserved_past) as cnt_underserved_past,\n    sum(underserved_not_dsl) as cnt_underserved_not_dsl,\n    sum(underserved_not_wireless) as cnt_underserved_not_wireless,\n    sum(underserved_not_dsl_wireless) as cnt_underseved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\n\n\nCode\ncnt_st_ntia &lt;- read.csv(\"data/cnt_st_ntia.csv\")\n\ntable_with_options(cnt_st_ntia)\n\n\n\n\n\n\nWe will probably need to calculate that on some rate, unsure if I want that on total number of location or by our previous count. (I skept because it was not on requirement TM, and I was running out of time)",
     "crumbs": [
       "Home",
       "EDA",
-      "testing other eligibilities"
+      "Testing other eligibilities"
     ]
   },
   {
     "objectID": "ntia_test.html#eligibility-underserved-dslwireless",
     "href": "ntia_test.html#eligibility-underserved-dslwireless",
-    "title": "testing other eligibilities",
+    "title": "Testing other eligibilities",
     "section": "Eligibility underserved / dsl&wireless",
     "text": "Eligibility underserved / dsl&wireless\n\n\nCode\nsrtelect\ngeoid_st,\n    count(*) as numb_bl,\n    sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,\n    sum(case when category_not_dsl = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl,\n    sum(case when category_not_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_wireless,\n    sum(case when category_not_dsl_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\neligibiliy_st_ntia &lt;- read.csv(“data/cnt_eligibility_underserved.csv”)\ntable_with_options(eligibiliy_st_ntia)```",
     "crumbs": [
       "Home",
       "EDA",
-      "testing other eligibilities"
+      "Testing other eligibilities"
     ]
   },
   {
     "objectID": "ntia_test.html#some-tldr",
     "href": "ntia_test.html#some-tldr",
-    "title": "testing other eligibilities",
+    "title": "Testing other eligibilities",
     "section": "Some tl:dr",
     "text": "Some tl:dr\n\nit has heterogneous effects\nit has a big impacts",
     "crumbs": [
       "Home",
       "EDA",
-      "testing other eligibilities"
+      "Testing other eligibilities"
     ]
   }
 ]
