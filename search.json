@@ -52,7 +52,7 @@
     "href": "isp_eda.html",
     "title": "EDA on ISP",
     "section": "",
-    "text": "Code\ntable_with_options &lt;- function(x){DT::datatable(x, rownames = FALSE,\n              extensions = 'Buttons', \n                options = list(\n                          dom = 'Blfrtip',\n                          buttons = list('copy', 'print', list(\n                            extend = 'collection',\n                            buttons = c('csv', 'excel'),\n                            text = 'Download')\n                                    )\n                          )\n            )}\nWe are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).\nThe query that generated this first pass at it is here:\nThe name of the column match FCC description.\nWe are adding:\nIt can be explored here:\nCode\nisp &lt;- read.csv(\"data/isp_v2.csv\")\ncolnames(isp) &lt;- c(\"brand_name\", \"state_abbr\", \"technology\",\n\"provider_id\", \"cnt_services\", \"cnt_total_locations\", \"cnt_block_presence\")\n\nisp$temp &lt;- paste0(isp$brand_name, isp$provider_id)\nisp &lt;- isp[order(isp$temp),]\nisp$ID &lt;- cumsum(!duplicated(isp$temp))\nisp$ct[!duplicated(isp$ID)] &lt;- 1 \nisp$multiple_name_id &lt;- ave(isp$ct, isp$provider_id, FUN = function(x) sum(x , na.rm = TRUE))\nisp &lt;- isp[,c(\"ID\", \"brand_name\", \"provider_id\", \"multiple_name_id\", \"state_abbr\", \"technology\", \n            \"cnt_services\", \"cnt_total_locations\", \"cnt_block_presence\")]\ntable_with_options(isp[order(isp$cnt_services,decreasing = TRUE),])",
+    "text": "Code\nsource(\"R/table_with_options.R\")\nWe are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).\nThe query that generated this first pass at it is here:\nThe name of the column match FCC description.\nWe are adding:\nIt can be explored here:\nCode\nisp &lt;- read.csv(\"data/isp_v2.csv\")\ncolnames(isp) &lt;- c(\"brand_name\", \"state_abbr\", \"technology\",\n\"provider_id\", \"cnt_services\", \"cnt_total_locations\", \"cnt_block_presence\")\n\nisp$temp &lt;- paste0(isp$brand_name, isp$provider_id)\nisp &lt;- isp[order(isp$temp),]\nisp$ID &lt;- cumsum(!duplicated(isp$temp))\nisp$ct[!duplicated(isp$ID)] &lt;- 1 \nisp$multiple_name_id &lt;- ave(isp$ct, isp$provider_id, FUN = function(x) sum(x , na.rm = TRUE))\nisp &lt;- isp[,c(\"ID\", \"brand_name\", \"provider_id\", \"multiple_name_id\", \"state_abbr\", \"technology\", \n            \"cnt_services\", \"cnt_total_locations\", \"cnt_block_presence\")]\ntable_with_options(isp[order(isp$cnt_services,decreasing = TRUE),])",
     "crumbs": [
       "Home",
       "EDA",
@@ -96,6 +96,13 @@
     ]
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": ".",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -103,11 +110,40 @@
     "text": "Sharing quick EDA about FCC data.\nFCC BDC: June 2023 release, downloaded 21-11-2023"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": ".",
+    "objectID": "ms-eda.html",
+    "href": "ms-eda.html",
+    "title": "Microsoft Building footprint",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "MS is producing a data set of buildings (polygons) build by computer vision (classification, convert to vector).\nAs we do not care of the shape of the building we just converted to point (picking one vertex per polygon).\nWe can then count those points per block and compare to the number of location than FCC is descriving.\n\n\nCode\nvt &lt;- read.csv(\"data/vt_ms.csv\")\nvt$tot_loc &lt;-as.numeric(vt$tot_loc) \n\n\nWarning: NAs introduced by coercion\n\n\nCode\nvt$tot_loc &lt;- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)\n\nlm_ms &lt;- lm(cnt_ms ~ tot_loc, data = vt)\npot_val &lt;- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)\nconf_interval &lt;- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,\n                         interval = \"prediction\", level = 0.95)\n\nplot(vt$cnt_ms, vt$tot_loc,  col = 2, asp = 1, \nxlab = \"cnt of MS buildings\", ylab = \"cnt of fcc locations\") \nabline(lm_ms, col = 4)\nabline(1:500, 1:500, col = \"black\")\nlines(pot_val, conf_interval[, \"lwr\"], col = \"blue\", lty = 2)\nlines(pot_val, conf_interval[, \"upr\"], col =\" blue\", lty = 2)\n\n\n\n\n\n\n\n\n\n\nmy model (just a linear one) is probably bad (log should correct that)\nstill strong relation\nit seems MS has more locations (285333, versus 352618)",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
+  },
+  {
+    "objectID": "ms-eda.html#ms-building-footprint-in-vt",
+    "href": "ms-eda.html#ms-building-footprint-in-vt",
+    "title": "Microsoft Building footprint",
+    "section": "",
+    "text": "MS is producing a data set of buildings (polygons) build by computer vision (classification, convert to vector).\nAs we do not care of the shape of the building we just converted to point (picking one vertex per polygon).\nWe can then count those points per block and compare to the number of location than FCC is descriving.\n\n\nCode\nvt &lt;- read.csv(\"data/vt_ms.csv\")\nvt$tot_loc &lt;-as.numeric(vt$tot_loc) \n\n\nWarning: NAs introduced by coercion\n\n\nCode\nvt$tot_loc &lt;- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)\n\nlm_ms &lt;- lm(cnt_ms ~ tot_loc, data = vt)\npot_val &lt;- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)\nconf_interval &lt;- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,\n                         interval = \"prediction\", level = 0.95)\n\nplot(vt$cnt_ms, vt$tot_loc,  col = 2, asp = 1, \nxlab = \"cnt of MS buildings\", ylab = \"cnt of fcc locations\") \nabline(lm_ms, col = 4)\nabline(1:500, 1:500, col = \"black\")\nlines(pot_val, conf_interval[, \"lwr\"], col = \"blue\", lty = 2)\nlines(pot_val, conf_interval[, \"upr\"], col =\" blue\", lty = 2)\n\n\n\n\n\n\n\n\n\n\nmy model (just a linear one) is probably bad (log should correct that)\nstill strong relation\nit seems MS has more locations (285333, versus 352618)",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
+  },
+  {
+    "objectID": "ms-eda.html#some-tldr",
+    "href": "ms-eda.html#some-tldr",
+    "title": "Microsoft Building footprint",
+    "section": "Some tl:dr",
+    "text": "Some tl:dr\n\nit has heterogneous effects\nit has a big impacts",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
   },
   {
     "objectID": "ntia_test.html",
@@ -174,19 +210,7 @@
     "href": "ntia_test.html#eligibility-underserved-dslwireless",
     "title": "testing other eligibilities",
     "section": "Eligibility underserved / dsl&wireless",
-    "text": "Eligibility underserved / dsl&wireless\n\n\nCode\nselect\ngeoid_st,\n    count(*) as numb_bl,\n    sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,\n    sum(case when category_not_dsl = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl,\n    sum(case when category_not_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_wireless,\n    sum(case when category_not_dsl_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/cnt_eligibility_underserved.csv\")\n\ntable_with_options(eligibiliy_st_ntia)",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#ms-building-footprint-in-vt",
-    "href": "ntia_test.html#ms-building-footprint-in-vt",
-    "title": "testing other eligibilities",
-    "section": "MS building footprint in VT",
-    "text": "MS building footprint in VT\nMS is producing a data set of buildings (polygons) build by computer vision (classification, convert to vector).\nAs we do not care of the shape of the building we just converted to point (picking one vertex per polygon).\nWe can then count those points per block and compare to the number of location than FCC is descriving.\n\n\nCode\nvt &lt;- read.csv(\"data/vt_ms.csv\")\nvt$tot_loc &lt;-as.numeric(vt$tot_loc) \n\n\nWarning: NAs introduced by coercion\n\n\nCode\nvt$tot_loc &lt;- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)\n\nlm_ms &lt;- lm(cnt_ms ~ tot_loc, data = vt)\npot_val &lt;- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)\nconf_interval &lt;- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,\n                         interval = \"prediction\", level = 0.95)\n\nplot(vt$cnt_ms, vt$tot_loc,  col = 2, asp = 1, \nxlab = \"cnt of MS buildings\", ylab = \"cnt of fcc locations\") \nabline(lm_ms, col = 4)\nabline(1:500, 1:500, col = \"black\")\nlines(pot_val, conf_interval[, \"lwr\"], col = \"blue\", lty = 2)\nlines(pot_val, conf_interval[, \"upr\"], col =\" blue\", lty = 2)\n\n\n\n\n\n\n\n\n\n\nmy model (just a linear one) is probably bad (log should correct that)\nstill strong relation\nit seems MS has more locations (285333, versus 352618)",
+    "text": "Eligibility underserved / dsl&wireless\n\n\nCode\nsrtelect\ngeoid_st,\n    count(*) as numb_bl,\n    sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,\n    sum(case when category_not_dsl = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl,\n    sum(case when category_not_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_wireless,\n    sum(case when category_not_dsl_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\neligibiliy_st_ntia &lt;- read.csv(“data/cnt_eligibility_underserved.csv”)\ntable_with_options(eligibiliy_st_ntia)```",
     "crumbs": [
       "Home",
       "EDA",
