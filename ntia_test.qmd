@@ -288,7 +288,7 @@ We will probably need to calculate that on some rate, unsure if I want that on t
 ```{sql}
 #| label: aggregate of eligibility at states level
 #| eval: false
-select
+srtelect
 geoid_st,
 	count(*) as numb_bl,
 	sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,

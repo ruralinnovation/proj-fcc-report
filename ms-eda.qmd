@@ -1,26 +1,11 @@
 ---
-title: "testing other eligibilities"
+title: "Microsoft Building footprint"
 date: last-modified
 format: 
   html:
     code-fold: true
 engine: knitr
 ---
-
-```{r}
-#| label: utility functions
-table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
-              extensions = 'Buttons', 
-                options = list(
-                          dom = 'Blfrtip',
-                          buttons = list('copy', 'print', list(
-                            extend = 'collection',
-                            buttons = c('csv', 'excel'),
-                            text = 'Download')
-                                    )
-                          )
-            )}
-```
 
 
 ## MS building footprint in VT

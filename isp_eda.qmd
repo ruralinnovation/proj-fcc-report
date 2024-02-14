@@ -9,17 +9,7 @@ engine: knitr
 
 ```{r}
 #| label: utility functions
-table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
-              extensions = 'Buttons', 
-                options = list(
-                          dom = 'Blfrtip',
-                          buttons = list('copy', 'print', list(
-                            extend = 'collection',
-                            buttons = c('csv', 'excel'),
-                            text = 'Download')
-                                    )
-                          )
-            )}
+source("R/table_with_options.R")
 ```
 
 We are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service). 

@@ -20,6 +20,7 @@ website:
           - zero_dl_up.qmd
           - isp_eda.qmd
           - ntia_test.qmd
+          - ms-eda.qmd
 
 format:
   html:
