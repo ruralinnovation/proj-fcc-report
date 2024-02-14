@@ -35,8 +35,12 @@ We have linestrings with those attributes:
 - `mtfcc`: MAF/TIGER Feature Class Codes, example, S1400  (Local Neighborhood Road,
 Rural Road, City Street)
 
+### Classes of Roads according to TIGER/line census 
+::: {.column-margin}
+TIGER: Topologically Integrated Geographic Encoding and Referencing
+:::
 
-|mtfcc|features|
+|mtfcc|Features|
 |--- |----|
 |"S1100"|Primary Road |
 |"S1200"|Secondary Road|
