@@ -11,17 +11,7 @@ TODO: update the SQL query
 
 ```{r}
 #| label: utility functions
-table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
-              extensions = 'Buttons', 
-                options = list(
-                          dom = 'Blfrtip',
-                          buttons = list('copy', 'print', list(
-                            extend = 'collection',
-                            buttons = c('csv', 'excel'),
-                            text = 'Download')
-                                    )
-                          )
-            )}
+source("R/table_with_options.R")
 # very lazish function, col should be a string 
 agg_count <- function(dat, col) {
 	agg <- aggregate(cbind(count = dat$count),

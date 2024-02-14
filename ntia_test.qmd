@@ -1,5 +1,5 @@
 ---
-title: "testing other eligibilities"
+title: "Testing other eligibilities"
 date: last-modified
 format: 
   html:
@@ -9,17 +9,7 @@ engine: knitr
 
 ```{r}
 #| label: utility functions
-table_with_options <- function(x){DT::datatable(x, rownames = FALSE,
-              extensions = 'Buttons', 
-                options = list(
-                          dom = 'Blfrtip',
-                          buttons = list('copy', 'print', list(
-                            extend = 'collection',
-                            buttons = c('csv', 'excel'),
-                            text = 'Download')
-                                    )
-                          )
-            )}
+source("R/table_with_options.R")
 ```
 
 The goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block. 
