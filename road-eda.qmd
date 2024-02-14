@@ -1,0 +1,42 @@
+---
+title: "TIGER Roads"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+Requirement: 
+
+> Roughly estimate route miles of potential deployments
+
+
+## what is inside teh data:
+
+We have linestrings with those attributes:
+
+- `linearid`: primary id, used by ither TIGER product
+
+- `fullname`: road name, humane-readable
+
+- `mtfcc`: MAF/TIGER Feature Class Codes, example, S1400  (Local Neighborhood Road,
+Rural Road, City Street) 
+
+- `rttyp`: route type code, type of road. 
+
+| Route Type Code | Route Type Code Description |
+|--- | ---- |
+| C | County |
+| I | Interstate |
+| M | Common Name |
+| O | Other |
+| S | State recognized |
+| U | U.S. |
+
+
+### Resources 
+
+- https://www2.census.gov/geo/pdfs/reference/mtfccs2020.pdf
+
+- https://www.census.gov/library/reference/code-lists/route-type-codes.html

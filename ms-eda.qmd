@@ -7,6 +7,12 @@ format:
 engine: knitr
 ---
 
+Why are we doing it? 
+
+> Premises and Premise Counts
+
+Currently we have FCC total count locations at census block level.
+
 # MS Building Foot print
 
 ## Overview
@@ -27,7 +33,9 @@ The license is [ODbL](https://github.com/Microsoft/USBuildingFootprints?tab=Lice
 
 ## Buildings to BSL?
 
-Buildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data. 
+Buildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data. Hence, now we have "buildings" summarized to points (lat/long).
+
+We do not have access to lat/long of BSL (fabrics). Our assumptions is if a count at block match they are describing the same reality (we can't do the "on the ground verification").
 
 The number of buildings reported for 51 states is: 130 099 920
 
@@ -45,23 +53,25 @@ While is the number of BSL is: 114 074 438
 
 **What could be the use cases?**
 
+Integrating those informations will have cost:  information "overload", documentation about is needed, and depending 
+
 We can: 
 
 - Provide the count per census block of MS building footprint and the user  
 
-- Add the dot to the map (it has cost: information "overload", documentation about is needed)
+- Add the dot to the map
 
-- Add a "confidence" about it (will always be statitical)
+- if we add dot and/or count per block, how trustworthy this is information will be: add a "confidence" about it (will always be statitical)
 
 ::: {.column-margin}
-How this data help BEAD applicant?
+How this data helps BEAD applicant?
 :::
 
 ## MS building footprint in VT
 
 We can count those points per block and compare to the number of location than FCC is descriving.
 
-After that can build a small model that will provide either an estimate of BSL given MS footrpint and how confidant the model is. 
+After that we build a small model that will provide either an estimate of BSL given MS footprint and how confidant the model is. 
 
 ```{r}
 #| label: quick lm model for bsl
@@ -87,6 +97,6 @@ lines(pot_val, conf_interval[, "upr"], col =" blue", lty = 2)
 
 - still strong relation
 
-- the model is "overconfidant" 
+- the model is "overconfidant", and the reality is more "spread"
 
-- it seems MS has **more** locations (285333, versus 352618) 
+- VT MS has also **more** locations (285333, versus 352618) 

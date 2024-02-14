@@ -21,6 +21,7 @@ website:
           - isp_eda.qmd
           - ntia_test.qmd
           - ms-eda.qmd
+          - road-eda.qmd
 
 format:
   html:
