@@ -16,6 +16,42 @@ The goal of this page is to record the effect on not including some technologies
 
 The dataset to produce this comparison was done quickly and processed with pgadmin. 
 
+## Excluding DSL to the underserved
+
+- [ ] add States names   
+- [ ] add total locations
+- [ ] add total locations underserved if we included DSL
+   
+Not keeping DSL move 26907 blocks from being served to be underserved. 
+
+```{sql}
+#| eval: false
+geoid_st,
+	count(*) as number_block,
+	sum(underserved_dsl_excluded) as cnt_locations_underserved,
+	sum(case when bl_100_20_area_dsl_excluded = 'underserved_area' then 1 else 0 end) as cnt_underserved_block_dsl_excluded,
+	sum(case when bl_100_20_area = 'underserved_area' then 1 else 0 end) as cnt_underserved_block
+from staging.bead_source_tiger_2020_blocks
+group by geoid_st
+order by geoid_st
+```
+
+```{r}
+eligibiliy_st_ntia <- read.csv("data/dsl-exluded.csv")
+
+table_with_options(eligibiliy_st_ntia)
+```
+
+## Some tl:dr
+
+* it has heterogneous effects
+
+* it has a big impacts
+
+
+## Stuff I am keeping but should be deleted later
+
+
 # Creating raw data
 
 ## Base table
@@ -294,18 +330,3 @@ eligibiliy_st_ntia <- read.csv("data/cnt_eligibility_underserved.csv")
 
 table_with_options(eligibiliy_st_ntia)
 ```
-
-
-## Jusrt dsl excluded
-
-```{r}
-eligibiliy_st_ntia <- read.csv("data/dsl-exluded.csv")
-
-table_with_options(eligibiliy_st_ntia)
-```
-
-## Some tl:dr
-
-* it has heterogneous effects
-
-* it has a big impacts
