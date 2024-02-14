@@ -206,6 +206,42 @@
     ]
   },
   {
+    "objectID": "ntia_test.html#excluding-dsl-to-the-underserved",
+    "href": "ntia_test.html#excluding-dsl-to-the-underserved",
+    "title": "Testing other eligibilities",
+    "section": "Excluding DSL to the underserved",
+    "text": "Excluding DSL to the underserved\n\nadd States names\n\nadd total locations\nadd total locations underserved if we included DSL\n\nNot keeping DSL move 26907 blocks from being served to be underserved.\n\n\nCode\ngeoid_st,\n    count(*) as number_block,\n    sum(underserved_dsl_excluded) as cnt_locations_underserved,\n    sum(case when bl_100_20_area_dsl_excluded = 'underserved_area' then 1 else 0 end) as cnt_underserved_block_dsl_excluded,\n    sum(case when bl_100_20_area = 'underserved_area' then 1 else 0 end) as cnt_underserved_block\nfrom staging.bead_source_tiger_2020_blocks\ngroup by geoid_st\norder by geoid_st\n\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/dsl-exluded.csv\")\n\ntable_with_options(eligibiliy_st_ntia)",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Testing other eligibilities"
+    ]
+  },
+  {
+    "objectID": "ntia_test.html#some-tldr",
+    "href": "ntia_test.html#some-tldr",
+    "title": "Testing other eligibilities",
+    "section": "Some tl:dr",
+    "text": "Some tl:dr\n\nit has heterogneous effects\nit has a big impacts",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Testing other eligibilities"
+    ]
+  },
+  {
+    "objectID": "ntia_test.html#stuff-i-am-keeping-but-should-be-deleted-later",
+    "href": "ntia_test.html#stuff-i-am-keeping-but-should-be-deleted-later",
+    "title": "Testing other eligibilities",
+    "section": "Stuff I am keeping but should be deleted later",
+    "text": "Stuff I am keeping but should be deleted later",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Testing other eligibilities"
+    ]
+  },
+  {
     "objectID": "ntia_test.html#base-table",
     "href": "ntia_test.html#base-table",
     "title": "Testing other eligibilities",
@@ -259,30 +295,6 @@
     "title": "Testing other eligibilities",
     "section": "Eligibility underserved / dsl&wireless",
     "text": "Eligibility underserved / dsl&wireless\n\n\nCode\nsrtelect\ngeoid_st,\n    count(*) as numb_bl,\n    sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,\n    sum(case when category_not_dsl = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl,\n    sum(case when category_not_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_wireless,\n    sum(case when category_not_dsl_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/cnt_eligibility_underserved.csv\")\n\ntable_with_options(eligibiliy_st_ntia)",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#jusrt-dsl-excluded",
-    "href": "ntia_test.html#jusrt-dsl-excluded",
-    "title": "Testing other eligibilities",
-    "section": "Jusrt dsl excluded",
-    "text": "Jusrt dsl excluded\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/dsl-exluded.csv\")\n\ntable_with_options(eligibiliy_st_ntia)",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#some-tldr",
-    "href": "ntia_test.html#some-tldr",
-    "title": "Testing other eligibilities",
-    "section": "Some tl:dr",
-    "text": "Some tl:dr\n\nit has heterogneous effects\nit has a big impacts",
     "crumbs": [
       "Home",
       "EDA",
