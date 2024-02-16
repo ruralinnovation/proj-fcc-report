@@ -198,7 +198,7 @@
     "href": "ntia_test.html",
     "title": "Testing other eligibilities",
     "section": "",
-    "text": "Code\nsource(\"R/table_with_options.R\")\nThe goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block.\nThe dataset to produce this comparison was done quickly and processed with pgadmin.",
+    "text": "Code\nsource(\"R/table_with_options.R\")\nsource(\"https://gist.githubusercontent.com/defuneste/32d5bffce8c6e88b6322ca4c9861793b/raw/893462fed28362601e63434ecc140bbdcbf6928b/us_states_df.R\")\nThe goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block.",
     "crumbs": [
       "Home",
       "EDA",
@@ -206,11 +206,11 @@
     ]
   },
   {
-    "objectID": "ntia_test.html#excluding-dsl-to-the-underserved",
-    "href": "ntia_test.html#excluding-dsl-to-the-underserved",
+    "objectID": "ntia_test.html#excluding-dsl-service",
+    "href": "ntia_test.html#excluding-dsl-service",
     "title": "Testing other eligibilities",
-    "section": "Excluding DSL to the underserved",
-    "text": "Excluding DSL to the underserved\n\nadd States names\n\nadd total locations\nadd total locations underserved if we included DSL\n\nNot keeping DSL move 26907 blocks from being served to be underserved.\n\n\nCode\ngeoid_st,\n    count(*) as number_block,\n    sum(underserved_dsl_excluded) as cnt_locations_underserved,\n    sum(case when bl_100_20_area_dsl_excluded = 'underserved_area' then 1 else 0 end) as cnt_underserved_block_dsl_excluded,\n    sum(case when bl_100_20_area = 'underserved_area' then 1 else 0 end) as cnt_underserved_block\nfrom staging.bead_source_tiger_2020_blocks\ngroup by geoid_st\norder by geoid_st\n\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/dsl-exluded.csv\")\n\ntable_with_options(eligibiliy_st_ntia)",
+    "section": "Excluding DSL service",
+    "text": "Excluding DSL service\n\n\nCode\nselect\n    geoid_st,\n    sum(cnt_total_locations) as cnt_total_locations,\n    sum(cnt_underserved) as cnt_underserved,\n    sum(cnt_underserved_dsl_excluded) as cnt_loc_underserved_dsl_excluded,\n    count(*) as cnt_blocks,\n    sum(case when bl_100_20_area = 'underserved_area' then 1 else 0 end) as cnt_underserved_block,\n    sum(case when bl_100_20_area_dsl_excluded = 'underserved_area' then 1 else 0 end) as cnt_underserved_block_dsl_excluded\nfrom staging.bead_source_tiger_2020_blocks\ngroup by geoid_st\norder by geoid_st\n\n\nThis table will summarize some effects on locations and census blocks categories.\nOur previous definition:\n\nWe are excluding satellites and unlicensed wireless\nIf a location has only services lower than 25/3 it is unserved. If a location only has services with speed between 25/3 and 100/20 it is underserved. It will be served if it equal and above 100/20.\n\nNew definition:\n\nWe are now excluding DSL (technology 10).\nUnserved are not changing (if they had DSL under 25/3 it was already unserved). Underseved and Served will change because some locations who were served will now move to underserved.\n\nThis was for locations. If we move to census block (where we apply this “uncommun” 80/20) it will also change the category of eligibility (because we are changing the classification of locations).\nTable dicvtionnary:\n\n“United.States.of.America”: names of States\n“geoid_st: ANSI”number”\n“number_block”: Number of Census Block per states\n“cnt_underserved_block” : count of blocks underserved with the previous definition\n“cnt_underserved_block_dsl_excluded”: count of block if we exclude DSL\n“diff_block” : cnt_underserved_block_dsl_excluded - cnt_underserved_block\n“cnt_total_locations”: count of total locations per States\n“cnt_underserved”: count of locations underserved with previous definition\n“cnt_loc_underserved_dsl_excluded”: count of locations underserved if we removed DSL\n\nI provided the locations to:\n\ndo a bit of sanity check\nWorking at the block level imply using the 80/20 rules and kind of assum all block are the same.\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/dsl-exluded.csv\", colClasses =c(\"geoid_st\" = \"character\"))\nUS_slim &lt;- US_states[,c(\"United.States.of.America\", \"ANSI_num\", \"ANSI_let\")]\neasy_table &lt;- merge(eligibiliy_st_ntia, US_slim, \n                    by.x = \"geoid_st\", by.y = \"ANSI_num\",\n                    all.x = TRUE, all.y = TRUE)\n\neasy_table$diff_block &lt;- easy_table$cnt_underserved_block_dsl_excluded - easy_table$cnt_underserved_block\n\neasy_table &lt;- easy_table[, c(\"United.States.of.America\",\n                            \"geoid_st\",\n                            \"number_block\", \n                            \"cnt_underserved_block\",\n                            \"cnt_underserved_block_dsl_excluded\",\n                            \"diff_block\",\n                            \"cnt_total_locations\",\n                            \"cnt_underserved\",\n                            \"cnt_loc_underserved_dsl_excluded\"\n                            )]\n\ntable_with_options(easy_table)",
     "crumbs": [
       "Home",
       "EDA",
@@ -221,80 +221,8 @@
     "objectID": "ntia_test.html#some-tldr",
     "href": "ntia_test.html#some-tldr",
     "title": "Testing other eligibilities",
-    "section": "Some tl:dr",
-    "text": "Some tl:dr\n\nit has heterogneous effects\nit has a big impacts",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#stuff-i-am-keeping-but-should-be-deleted-later",
-    "href": "ntia_test.html#stuff-i-am-keeping-but-should-be-deleted-later",
-    "title": "Testing other eligibilities",
-    "section": "Stuff I am keeping but should be deleted later",
-    "text": "Stuff I am keeping but should be deleted later",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#base-table",
-    "href": "ntia_test.html#base-table",
-    "title": "Testing other eligibilities",
-    "section": "Base table",
-    "text": "Base table\n\n\nCode\n-- we need the list of census block\ncreate table staging.us_ntia(\n    geoid_bl char(15)   \n);\ninsert into \n    staging.us_ntia\nselect \n    geoid20 as geoid_bl\nfrom \n    sch_census_tiger.source_tiger_2020_blocks;\n\n\n-- we count all locations\nalter table staging.us_ntia \nadd column cnt_total_locations integer;\nupdate\n    staging.us_ntia as t1\nset \n    cnt_total_locations = t2.cnt_total_locations\nfrom \n    (select \n        block_geoid,\n        count(distinct location_id) as cnt_total_locations\n    from \n        staging.june23  \n    group by \n        block_geoid)  as t2\nwhere   \n    t1.geoid_bl = t2.block_geoid;\n\n-- we count all bcat locations only\n-- this is needed for the case when we have locations but 0 mesures\nalter table staging.us_ntia \nadd column cnt_bcat_locations integer;\nupdate\n    staging.us_ntia as t1\nset \n    cnt_bcat_locations = t2.cnt_bcat_locations\nfrom \n    (select \n        block_geoid,\n        count(distinct location_id) as cnt_bcat_locations\n    from \n        staging.bcat_raw    \n    group by \n        block_geoid)  as t2\nwhere    \n    t1.geoid_bl = t2.block_geoid;",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#creating-counts-of-locations",
-    "href": "ntia_test.html#creating-counts-of-locations",
-    "title": "Testing other eligibilities",
-    "section": "Creating counts of locations",
-    "text": "Creating counts of locations\n\n\nCode\nalter table staging.us_ntia\nadd column cnt_25_3_past int,\nadd column cnt_100_20_past int,\nadd column cnt_100_20_not_dsl int,\nadd column cnt_100_20_not_wireless int,\nadd column cnt_100_20_not_dsl_wireless int;\n\nupdate\n    staging.us_ntia as t1\nset \n    cnt_25_3_past = t2.cnt_25_3_past,\n    cnt_100_20_past = t2.cnt_100_20_past,\n    cnt_100_20_not_dsl = t2.cnt_100_20_not_dsl,\n    cnt_100_20_not_wireless = t2.cnt_100_20_not_wireless,\n    cnt_100_20_not_dsl_wireless = t2.cnt_100_20_not_dsl_wireless\n\nfrom(\n    select \n        block_geoid as geoid_bl,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 25 and max_advertised_upload_speed &gt;= 3) \n                          then location_id end) as cnt_25_3_past,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 100 and max_advertised_upload_speed &gt;= 20) \n                          then location_id end) as cnt_100_20_past,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 100 and max_advertised_upload_speed &gt;= 20\n            and technology &lt;&gt; 10) \n                          then location_id end) as cnt_100_20_not_dsl,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 100 and max_advertised_upload_speed &gt;= 20\n            and technology NOT IN (71, 72)) \n                          then location_id end) as cnt_100_20_not_wireless,\n        count(distinct case when \n            (max_advertised_download_speed &gt;= 100 and max_advertised_upload_speed &gt;= 20\n            and technology NOT IN (10, 71, 72)) \n                          then location_id end) as cnt_100_20_not_dsl_wireless\n    from \n        staging.bcat_raw\n    group by \n        block_geoid\n) as t2\nwhere    \n    t1.geoid_bl = t2.geoid_bl;\n\n-- we were focusing strickly in underserved hence \n-- we removed unserved for counts\nalter table staging.us_ntia\nadd column underserved_past int,\nadd column underserved_not_dsl int,\nadd column underserved_not_wireless int,\nadd column underserved_not_dsl_wireless int;\n\nupdate\n    staging.us_ntia\nset \n    underserved_past = cnt_25_3_past - cnt_100_20_past,\n    underserved_not_dsl = cnt_25_3_past - cnt_100_20_not_dsl,\n    underserved_not_wireless = cnt_25_3_past - cnt_100_20_not_wireless,\n    underserved_not_dsl_wireless = cnt_25_3_past - cnt_100_20_not_dsl_wireless;",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#recreating-and-generating-previous-and-new-categories",
-    "href": "ntia_test.html#recreating-and-generating-previous-and-new-categories",
-    "title": "Testing other eligibilities",
-    "section": "Recreating and generating previous and new categories",
-    "text": "Recreating and generating previous and new categories\n\n\nCode\nalter table staging.us_ntia \nadd column pct_100_20_past float,\nadd column pct_25_3_past float,\nadd column pct_100_20_not_dsl float,\nadd column pct_100_20_not_wireless float,\nadd column pct_100_20_not_dsl_wireless float;\n\nupdate\n    staging.us_ntia  as t1\nset \n    pct_100_20_past = cnt_100_20_past/cnt_total_locations::float,\n    pct_25_3_past = cnt_25_3_past/cnt_total_locations::float,\n    pct_100_20_not_dsl = cnt_100_20_not_dsl / cnt_total_locations::float,\n    pct_100_20_not_wireless = cnt_100_20_not_wireless / cnt_total_locations::float,\n    pct_100_20_not_dsl_wireless = cnt_100_20_not_dsl_wireless / cnt_total_locations::float\n\nalter table staging.us_ntia\nadd column bl_100_20_area_past varchar(25),\nadd column bl_25_3_area_past varchar(25),\nadd column bl_100_20_area_not_dsl varchar(25),\nadd column bl_100_20_area_not_wireless varchar(25),\nadd column bl_100_20_area_not_dsl_wireless varchar(25);\n\nupdate\n    staging.us_ntia\nset \n    bl_100_20_area_past = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_100_20_past &lt; .2 and pct_25_3_past &lt; .2 then 'unserved_area'\n            when pct_100_20_past &lt; .2 then 'underserved_area'\n            else 'served_area' end,\n    bl_25_3_area_past  = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_25_3_past &lt; .2 then 'unserved_area'\n            else 'served_area' end,\n    bl_100_20_area_not_dsl = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_100_20_not_dsl &lt; .2 and pct_25_3_past &lt; .2 then 'unserved_area'\n            when pct_100_20_not_dsl &lt; .2 then 'underserved_area'\n            else 'served_area' end,\n    bl_100_20_area_not_wireless = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_100_20_not_wireless &lt; .2 and pct_25_3_past &lt; .2 then 'unserved_area'\n            when pct_100_20_not_wireless &lt; .2 then 'underserved_area'\n            else 'served_area' end,\n    bl_100_20_area_not_dsl_wireless = case \n            when cnt_total_locations is null then 'not_reported'\n            when cnt_bcat_locations is null then 'unserved_area'\n            when pct_100_20_not_dsl_wireless &lt; .2 and pct_25_3_past &lt; .2 then 'unserved_area'\n            when pct_100_20_not_dsl_wireless &lt; .2 then 'underserved_area'\n            else 'served_area' end;\n  \nalter table staging.us_ntia\nadd column category_past varchar(25),\nadd column category_not_dsl varchar(25),\nadd column category_not_wireless varchar(25),\nadd column category_not_dsl_wireless varchar(25);\n\nupdate staging.us_ntia\nset category_past =\n    case \n        when bl_25_3_area_past = 'not_reported' then 'Not Reported'\n        when bl_100_20_area_past = 'unserved_area' then 'Unserved'\n        when bl_100_20_area_past = 'underserved_area' then 'Underserved'\n    else 'Served' end,\n    category_not_dsl =\n    case \n        when bl_25_3_area_past = 'not_reported' then 'Not Reported'\n        when bl_100_20_area_not_dsl = 'unserved_area' then 'Unserved'\n        when bl_100_20_area_not_dsl = 'underserved_area' then 'Underserved'\n    else 'Served' end,\n     category_not_wireless = \n        case \n        when bl_25_3_area_past = 'not_reported' then 'Not Reported'\n        when bl_100_20_area_not_wireless = 'unserved_area' then 'Unserved'\n        when bl_100_20_area_not_wireless = 'underserved_area' then 'Underserved'\n    else 'Served' end,\n     category_not_dsl_wireless = \n        case \n        when bl_25_3_area_past = 'not_reported' then 'Not Reported'\n        when bl_100_20_area_not_dsl_wireless = 'unserved_area' then 'Unserved'\n        when bl_100_20_area_not_dsl_wireless = 'underserved_area' then 'Underserved'\n    else 'Served'\n     end;\n\n-- useful stuffs\nalter table staging.us_ntia\nadd column geoid_st varchar(2);\n\nupdate staging.us_ntia\nset geoid_st = left(geoid_bl, 2);\n\nalter table staging.us_ntia owner to mda_team;",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#count-by-states",
-    "href": "ntia_test.html#count-by-states",
-    "title": "Testing other eligibilities",
-    "section": "Count by states",
-    "text": "Count by states\n\n\nCode\nselect\n    geoid_st,\n    sum(cnt_total_locations) as cnt_total_locaction,\n    sum(cnt_25_3_past) as cnt_25_3_past,\n    sum(underserved_past) as cnt_underserved_past,\n    sum(underserved_not_dsl) as cnt_underserved_not_dsl,\n    sum(underserved_not_wireless) as cnt_underserved_not_wireless,\n    sum(underserved_not_dsl_wireless) as cnt_underseved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\n\n\nCode\ncnt_st_ntia &lt;- read.csv(\"data/cnt_st_ntia.csv\")\n\ntable_with_options(cnt_st_ntia)\n\n\n\n\n\n\nWe will probably need to calculate that on some rate, unsure if I want that on total number of location or by our previous count. (I skept because it was not on requirement TM, and I was running out of time)",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#eligibility-underserved-dslwireless",
-    "href": "ntia_test.html#eligibility-underserved-dslwireless",
-    "title": "Testing other eligibilities",
-    "section": "Eligibility underserved / dsl&wireless",
-    "text": "Eligibility underserved / dsl&wireless\n\n\nCode\nsrtelect\ngeoid_st,\n    count(*) as numb_bl,\n    sum(case when category_past = 'Underserved' then 1 else 0 end) as cnt_underserved_past,\n    sum(case when category_not_dsl = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl,\n    sum(case when category_not_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_wireless,\n    sum(case when category_not_dsl_wireless = 'Underserved' then 1 else 0 end) as cnt_underserved_not_dsl_wireless\nfrom staging.us_ntia\ngroup by geoid_st\n\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/cnt_eligibility_underserved.csv\")\n\ntable_with_options(eligibiliy_st_ntia)",
+    "section": "Some tl:dr:",
+    "text": "Some tl:dr:\nNot keeping DSL move 26907 blocks from being served to be underserved.\nIt has heterogneous effects: for some States it has nearly or very low impacts but for other it is importants.",
     "crumbs": [
       "Home",
       "EDA",
