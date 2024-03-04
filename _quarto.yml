@@ -22,6 +22,7 @@ website:
           - ntia_test.qmd
           - ms-eda.qmd
           - road-eda.qmd
+          - rdof.qmd
 
 format:
   html:
