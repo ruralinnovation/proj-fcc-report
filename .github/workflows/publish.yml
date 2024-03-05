@@ -29,6 +29,7 @@ jobs:
           cache-version: 2
           packages: |
             any::DT
+            any::ggplot2
 #
 #      - name: Install R Dependencies
 #        uses: r-lib/actions/setup-renv@v2

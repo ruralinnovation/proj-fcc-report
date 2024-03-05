@@ -38,15 +38,19 @@ The version of 2022 have 266 994 and  286 892 for 2023. Our first thought was th
 
 We have some cases that were defaulted but still are present in authorized.: 47 cases, all in Wisconsin (County: 55043) and same company. 
 
-They will be removed from Authorized. 
+They will be removed from Authorized.
 
+### Using High Cost: Connect America Fund Broadband Map ([CAF Map](https://opendata.usac.org/High-Cost/High-Cost-Connect-America-Fund-Broadband-Map-CAF-M/r59r-rpip/about_data)) 
 
+This data has a column for "Fund type" and one of this type is RDOF. It has 447 939 rows matching for RDOF. Unlike RDOF this data set is at the "location" scale, ie we can have multiple location per block. 
 
+We only get 54 825 Census Blocks, RDOF authorized has 489 811. 
 
+The vast majority of those are already present in RDOF data set, only 175 are ony present in the CAF data set.
 
+According to the metadata it seems that the CAF data set was produced in september 2023 but they did not provide their sources. It is hard to tract what was used. 
 
-
-
+Our recomendation: use FCC source has much has possible and be mindfull when using other data sets.
 
 
 
