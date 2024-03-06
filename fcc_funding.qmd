@@ -21,13 +21,13 @@ The download page has two tabs:
 
 ## Program Data 
 
-It is organized by Agency and can be downloaded bt program (`fundingdata_projectXXXX`) or for all programs (`fundingdata_programXX`).
+It is organized by Agency and can be downloaded by program (`fundingdata_projectXXXX`) or for all projects in a program  (`fundingdata_programXX`).
 
 it will have a `csv` about the program. For example RDOF is just a two rows csv, header included.
 
 ## Project Data
 
-They are defining 3 types of project: 
+They are defining 3 types of projects: 
 
 - Defined by Area
 
@@ -35,6 +35,16 @@ They are defining 3 types of project:
 
 - Defined by Middle Mile
 
-All of this project will have a Project Attribute Information table (`areaattributes_program`). For example the one for RDOF (`areaattributes_program24_J23_12feb2024.csv`) has 474 rows (inclunding headers ie 473 projects). 
+All of those type of project will have a Project Attribute Information table (`areaattributes_program` or `locationattributes_program`). The structure of those files are close but not similar has columns related to location (`build_req`, `loc_plan`, `loc_sup`). 
+
+For example the one for RDOF (`areaattributes_program24_J23_12feb2024.csv`) has 474 rows (inclunding headers ie 473 projects). 
+
+Area project will have an associated `areapolygons_XXX.gpkg`. A quick glance on the one from RDOF show full valid geometries with an expected number of rows (473).
+
+Location project has instead of a gpkg a csv with location_id and lat/long (and address) !
+
+
+
+
 
 
