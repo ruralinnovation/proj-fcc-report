@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ruralinnovation.github.io/proj-fcc-report/zero_dl_up.html</loc>
-    <lastmod>2024-03-05T13:49:41.288Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ruralinnovation.github.io/proj-fcc-report/rdof.html</loc>
-    <lastmod>2024-03-05T13:49:41.288Z</lastmod>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/about.html</loc>
+    <lastmod>2024-03-06T21:31:30.269Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/proj-fcc-report/ms-eda.html</loc>
-    <lastmod>2024-03-05T13:49:41.288Z</lastmod>
+    <lastmod>2024-03-06T21:31:30.277Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/zero_dl_up.html</loc>
+    <lastmod>2024-03-06T21:31:30.281Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/rdof.html</loc>
+    <lastmod>2024-03-06T21:31:30.277Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/proj-fcc-report/road-eda.html</loc>
-    <lastmod>2024-03-05T13:49:41.288Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ruralinnovation.github.io/proj-fcc-report/about.html</loc>
-    <lastmod>2024-03-05T13:49:41.280Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ruralinnovation.github.io/proj-fcc-report/index.html</loc>
-    <lastmod>2024-03-05T13:49:41.288Z</lastmod>
+    <lastmod>2024-03-06T21:31:30.277Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/proj-fcc-report/isp_eda.html</loc>
-    <lastmod>2024-03-05T13:49:41.288Z</lastmod>
+    <lastmod>2024-03-06T21:31:30.277Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/proj-fcc-report/ntia_test.html</loc>
-    <lastmod>2024-03-05T13:49:41.288Z</lastmod>
+    <lastmod>2024-03-06T21:31:30.277Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html</loc>
+    <lastmod>2024-03-06T21:31:30.277Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ruralinnovation.github.io/proj-fcc-report/index.html</loc>
+    <lastmod>2024-03-06T21:31:30.277Z</lastmod>
   </url>
 </urlset>

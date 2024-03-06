@@ -1,5 +1,60 @@
 [
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Sharing quick EDA about FCC data.\nTheir link: https://www.fcc.gov/BroadbandData\nFCC BDC: June 2023 release, downloaded 21-11-2023"
+  },
+  {
+    "objectID": "ms-eda.html",
+    "href": "ms-eda.html",
+    "title": "Microsoft Building footprint",
+    "section": "",
+    "text": "Why are we doing it?\nCurrently we have FCC total count locations at census block level.",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
+  },
+  {
+    "objectID": "ms-eda.html#overview",
+    "href": "ms-eda.html#overview",
+    "title": "Microsoft Building footprint",
+    "section": "Overview",
+    "text": "Overview\nMS used satellite data (from multiple campains/vintage) to get the footprint of buildings.\nThey are classifying pixels that are supposed to be part of a buildings (segmentation using a neural network) and then convert pixels to a shape.\nIt exists worldwide and for US states.\n\nWe have processed the 51 states\nAdditional works will be required for PR and US territories (parts of workflow from the US states can be reused).\n\nThe precision of the model vary depending on the region: the Carribean is at 92,2% and the US at 98.5%. The rate of false positive is 1% for the US and 1.8% for the Carribean. (Oceania was not provided)\nThe license is ODbL.",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
+  },
+  {
+    "objectID": "ms-eda.html#buildings-to-bsl",
+    "href": "ms-eda.html#buildings-to-bsl",
+    "title": "Microsoft Building footprint",
+    "section": "Buildings to BSL?",
+    "text": "Buildings to BSL?\nBuildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data. Hence, now we have “buildings” summarized to points (lat/long).\nWe do not have access to lat/long of BSL (fabrics). Our assumptions is if a count at block match they are describing the same reality (we can’t do the “on the ground verification”).\nThe number of buildings reported for 51 states is: 130 099 920\nWhile is the number of BSL is: 114 074 438\n\nOther potential sources:\n\nOpenStreetMap\nFCC staff estimates: at census block level (only for US 51)\nACS households",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
+  },
+  {
+    "objectID": "ms-eda.html#ms-building-footprint-in-vt",
+    "href": "ms-eda.html#ms-building-footprint-in-vt",
+    "title": "Microsoft Building footprint",
+    "section": "MS building footprint in VT",
+    "text": "MS building footprint in VT\nWe can count those points per block and compare to the number of location than FCC is descriving.\nAfter that we build a small model that will provide either an estimate of BSL given MS footprint and how confidant the model is.\n\n\nCode\nvt &lt;- read.csv(\"data/vt_ms.csv\")\nvt$tot_loc &lt;-as.numeric(vt$tot_loc) \nvt$tot_loc &lt;- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)\n\nlm_ms &lt;- lm(cnt_ms ~ tot_loc, data = vt)\npot_val &lt;- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)\nconf_interval &lt;- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,\n                         interval = \"prediction\", level = 0.95)\n\nplot(vt$cnt_ms, vt$tot_loc,  col = \"#DF536B50\", asp = 1, \nxlab = \"cnt of MS buildings\", ylab = \"cnt of fcc locations\") \nabline(lm_ms, col = 4)\nabline(1:500, 1:500, col = \"black\")\nlines(pot_val, conf_interval[, \"lwr\"], col = \"blue\", lty = 2)\nlines(pot_val, conf_interval[, \"upr\"], col =\" blue\", lty = 2)\n\n\n\n\n\n\n\n\n\n\nmy model (just a linear one) is probably bad (log should correct that)\nstill strong relation\nthe model is “overconfidant”, and the reality is more “spread”\nVT MS has also more locations (285333, versus 352618)",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "Microsoft Building footprint"
+    ]
+  },
+  {
     "objectID": "zero_dl_up.html",
     "href": "zero_dl_up.html",
     "title": "EDA on 0/0 BSL",
@@ -84,54 +139,6 @@
     ]
   },
   {
-    "objectID": "ms-eda.html",
-    "href": "ms-eda.html",
-    "title": "Microsoft Building footprint",
-    "section": "",
-    "text": "Why are we doing it?\nCurrently we have FCC total count locations at census block level.",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Microsoft Building footprint"
-    ]
-  },
-  {
-    "objectID": "ms-eda.html#overview",
-    "href": "ms-eda.html#overview",
-    "title": "Microsoft Building footprint",
-    "section": "Overview",
-    "text": "Overview\nMS used satellite data (from multiple campains/vintage) to get the footprint of buildings.\nThey are classifying pixels that are supposed to be part of a buildings (segmentation using a neural network) and then convert pixels to a shape.\nIt exists worldwide and for US states.\n\nWe have processed the 51 states\nAdditional works will be required for PR and US territories (parts of workflow from the US states can be reused).\n\nThe precision of the model vary depending on the region: the Carribean is at 92,2% and the US at 98.5%. The rate of false positive is 1% for the US and 1.8% for the Carribean. (Oceania was not provided)\nThe license is ODbL.",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Microsoft Building footprint"
-    ]
-  },
-  {
-    "objectID": "ms-eda.html#buildings-to-bsl",
-    "href": "ms-eda.html#buildings-to-bsl",
-    "title": "Microsoft Building footprint",
-    "section": "Buildings to BSL?",
-    "text": "Buildings to BSL?\nBuildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data. Hence, now we have “buildings” summarized to points (lat/long).\nWe do not have access to lat/long of BSL (fabrics). Our assumptions is if a count at block match they are describing the same reality (we can’t do the “on the ground verification”).\nThe number of buildings reported for 51 states is: 130 099 920\nWhile is the number of BSL is: 114 074 438\n\nOther potential sources:\n\nOpenStreetMap\nFCC staff estimates: at census block level (only for US 51)\nACS households",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Microsoft Building footprint"
-    ]
-  },
-  {
-    "objectID": "ms-eda.html#ms-building-footprint-in-vt",
-    "href": "ms-eda.html#ms-building-footprint-in-vt",
-    "title": "Microsoft Building footprint",
-    "section": "MS building footprint in VT",
-    "text": "MS building footprint in VT\nWe can count those points per block and compare to the number of location than FCC is descriving.\nAfter that we build a small model that will provide either an estimate of BSL given MS footprint and how confidant the model is.\n\n\nCode\nvt &lt;- read.csv(\"data/vt_ms.csv\")\nvt$tot_loc &lt;-as.numeric(vt$tot_loc) \nvt$tot_loc &lt;- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)\n\nlm_ms &lt;- lm(cnt_ms ~ tot_loc, data = vt)\npot_val &lt;- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)\nconf_interval &lt;- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,\n                         interval = \"prediction\", level = 0.95)\n\nplot(vt$cnt_ms, vt$tot_loc,  col = \"#DF536B50\", asp = 1, \nxlab = \"cnt of MS buildings\", ylab = \"cnt of fcc locations\") \nabline(lm_ms, col = 4)\nabline(1:500, 1:500, col = \"black\")\nlines(pot_val, conf_interval[, \"lwr\"], col = \"blue\", lty = 2)\nlines(pot_val, conf_interval[, \"upr\"], col =\" blue\", lty = 2)\n\n\n\n\n\n\n\n\n\n\nmy model (just a linear one) is probably bad (log should correct that)\nstill strong relation\nthe model is “overconfidant”, and the reality is more “spread”\nVT MS has also more locations (285333, versus 352618)",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "Microsoft Building footprint"
-    ]
-  },
-  {
     "objectID": "road-eda.html",
     "href": "road-eda.html",
     "title": "TIGER Roads",
@@ -166,20 +173,6 @@
       "EDA",
       "TIGER Roads"
     ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Sharing quick EDA about FCC data.\nFCC BDC: June 2023 release, downloaded 21-11-2023"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": ".",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
     "objectID": "isp_eda.html",
@@ -264,5 +257,33 @@
       "EDA",
       "Testing other eligibilities"
     ]
+  },
+  {
+    "objectID": "fcc_funding.html",
+    "href": "fcc_funding.html",
+    "title": "FCC Funding Map",
+    "section": "",
+    "text": "Link: https://fundingmap.fcc.gov/home\nDocumentation: https://us-fcc.app.box.com/v/bfm-data-downloads-output\nThe download page has two tabs:"
+  },
+  {
+    "objectID": "fcc_funding.html#program-data",
+    "href": "fcc_funding.html#program-data",
+    "title": "FCC Funding Map",
+    "section": "Program Data",
+    "text": "Program Data\nIt is organized by Agency and can be downloaded bt program (fundingdata_projectXXXX) or for all programs (fundingdata_programXX).\nit will have a csv about the program. For example RDOF is just a two rows csv, header included."
+  },
+  {
+    "objectID": "fcc_funding.html#project-data",
+    "href": "fcc_funding.html#project-data",
+    "title": "FCC Funding Map",
+    "section": "Project Data",
+    "text": "Project Data\nThey are defining 3 types of project:\n\nDefined by Area\nDefined by list of locations\nDefined by Middle Mile\n\nAll of this project will have a Project Attribute Information table (areaattributes_program). For example the one for RDOF (areaattributes_program24_J23_12feb2024.csv) has 474 rows (inclunding headers ie 473 projects)."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": ".",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   }
 ]
