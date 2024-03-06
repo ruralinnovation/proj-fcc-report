@@ -1,0 +1,40 @@
+---
+title: "FCC Funding Map"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+Link: https://fundingmap.fcc.gov/home
+
+Documentation: https://us-fcc.app.box.com/v/bfm-data-downloads-output
+
+The download page has two tabs:
+
+- [Funding data](https://fundingmap.fcc.gov/data-download/funding-data)
+
+- [Unserved/unfunded](https://fundingmap.fcc.gov/data-download/unserved-data)
+
+# Funding data
+
+## Program Data 
+
+It is organized by Agency and can be downloaded bt program (`fundingdata_projectXXXX`) or for all programs (`fundingdata_programXX`).
+
+it will have a `csv` about the program. For example RDOF is just a two rows csv, header included.
+
+## Project Data
+
+They are defining 3 types of project: 
+
+- Defined by Area
+
+- Defined by list of locations
+
+- Defined by Middle Mile
+
+All of this project will have a Project Attribute Information table (`areaattributes_program`). For example the one for RDOF (`areaattributes_program24_J23_12feb2024.csv`) has 474 rows (inclunding headers ie 473 projects). 
+
+
