@@ -232,18 +232,21 @@ ul.task-list li input[type="checkbox"] {
 <h1>Funding data</h1>
 <section id="program-data" class="level2">
 <h2 class="anchored" data-anchor-id="program-data">Program Data</h2>
-<p>It is organized by Agency and can be downloaded bt program (<code>fundingdata_projectXXXX</code>) or for all programs (<code>fundingdata_programXX</code>).</p>
+<p>It is organized by Agency and can be downloaded by program (<code>fundingdata_projectXXXX</code>) or for all projects in a program (<code>fundingdata_programXX</code>).</p>
 <p>it will have a <code>csv</code> about the program. For example RDOF is just a two rows csv, header included.</p>
 </section>
 <section id="project-data" class="level2">
 <h2 class="anchored" data-anchor-id="project-data">Project Data</h2>
-<p>They are defining 3 types of project:</p>
+<p>They are defining 3 types of projects:</p>
 <ul>
 <li><p>Defined by Area</p></li>
 <li><p>Defined by list of locations</p></li>
 <li><p>Defined by Middle Mile</p></li>
 </ul>
-<p>All of this project will have a Project Attribute Information table (<code>areaattributes_program</code>). For example the one for RDOF (<code>areaattributes_program24_J23_12feb2024.csv</code>) has 474 rows (inclunding headers ie 473 projects).</p>
+<p>All of those type of project will have a Project Attribute Information table (<code>areaattributes_program</code> or <code>locationattributes_program</code>). The structure of those files are close but not similar has columns related to location (<code>build_req</code>, <code>loc_plan</code>, <code>loc_sup</code>).</p>
+<p>For example the one for RDOF (<code>areaattributes_program24_J23_12feb2024.csv</code>) has 474 rows (inclunding headers ie 473 projects).</p>
+<p>Area project will have an associated <code>areapolygons_XXX.gpkg</code>. A quick glance on the one from RDOF show full valid geometries with an expected number of rows (473).</p>
+<p>Location project has instead of a gpkg a csv with location_id and lat/long (and address) !</p>
 
 
 </section>
