@@ -6,6 +6,10 @@ format:
     code-fold: true
 engine: knitr
 ---
+```{r}
+#| label: utility functions
+source("R/table_with_options.R")
+```
 
 Link: https://fundingmap.fcc.gov/home
 
@@ -35,16 +39,32 @@ They are defining 3 types of projects:
 
 - Defined by Middle Mile
 
-All of those type of project will have a Project Attribute Information table (`areaattributes_program` or `locationattributes_program`). The structure of those files are close but not similar has columns related to location (`build_req`, `loc_plan`, `loc_sup`). 
+All of those type of project will have a Project Attribute Information table (`areaattributes_program` or `locationattributes_program`). The structure of those files are close but not similar for example location project has columns related to location (`build_req`, `loc_plan`, `loc_sup`). 
 
 For example the one for RDOF (`areaattributes_program24_J23_12feb2024.csv`) has 474 rows (inclunding headers ie 473 projects). 
 
 Area project will have an associated `areapolygons_XXX.gpkg`. A quick glance on the one from RDOF show full valid geometries with an expected number of rows (473).
 
-Location project has instead of a gpkg a csv with location_id and lat/long (and address) !
+Location projects have, instead, of a `gpkg` a `csv` with location_id and lat/long (and address)!
 
+It seems that you can also have buildout data associated which each type of project. 
 
+## List of dataset avalaible: 07-03-2024
 
+```{r}
+agency_name <- c("Federal Communications Commission")
+program_fcc <- c("Bringing Puerto Rico Together",
+                "Connect America Fund Phase II",
+                "Connect USVI", 
+                "Enhanced Alternative Connect America Cost Model",
+                "Rural Digital Opportunity Fund")
+program_id <-  c("25", "28", "26", "35", "24")
+fcc_dat <- data.frame(agency_name = rep(agency_name, length(program_fcc)),
+                     program_fcc,
+                     program_id 
+                      )
+table_with_options(fcc_dat)
+```
 
 
 
