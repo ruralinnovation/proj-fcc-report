@@ -98,6 +98,39 @@ usdt_dat <- data.frame(agency_name = rep(agency_name, length(program_name)),
 
 fcc_all_dat <- rbind(fcc_dat, ntia_dat, rural_dat, usdt_dat )
 table_with_options(fcc_all_dat)
+
+# ls > path/to/list_file_fcc_feb2024.txt
+fcc_files <- readLines("data/list_file_fcc_feb2024.txt")
+# remove zip
+fcc_files_slim <- fcc_files[!grepl(".zip", fcc_files)]
+
+fcc_files_tidy <- as.data.frame(
+                                do.call(rbind, 
+                                        strsplit(fcc_files_slim, "_"))
+)
+# remove programdata, but it is nice to see for every files 
+fcc_files_tidy <- fcc_files_tidy[fcc_files_tidy[["V1"]] != "programdata",]
+
+fcc_files_tidy[["program_id"]] <- gsub("program", "", fcc_files_tidy[["V2"]])
+
+fcc_files_tidy[["is_area"]] <- grepl("area", fcc_files_tidy[["V1"]])
+# works for now but will breack if I have the third type of project
+fcc_files_tidy[["type_proj"]] <- ifelse(fcc_files_tidy[["is_area"]], "area", "location")
+
+type_proj_temp <- sapply(split(fcc_files_tidy[["type_proj"]], 
+             fcc_files_tidy[["program_id"]]), 
+             unique)
+
+type_proj <- data.frame(
+  program_id = names(type_proj_temp),
+  type_proj  = type_proj_temp 
+)
+
+fcc_all_dat <- merge(fcc_all_dat, type_proj,
+      by.x = "program_id", by.y = "program_id", 
+      all.x = TRUE, all.y = TRUE)
+table_with_options(fcc_all_dat)
+
 ```
 
 
