@@ -157,7 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">FCC Funding Map</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./zero_dl_up.html">EDA</a></li><li class="breadcrumb-item"><a href="./fcc_funding.html">FCC Funding Map</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -222,6 +222,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">RDOF EDA</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fcc_funding.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">FCC Funding Map</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -246,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./zero_dl_up.html">EDA</a></li><li class="breadcrumb-item"><a href="./fcc_funding.html">FCC Funding Map</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">FCC Funding Map</h1>
 </div>
@@ -310,22 +316,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>agency_name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Federal Communications Commission"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>program_fcc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bringing Puerto Rico Together"</span>,</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>agency_name <span class="ot">&lt;-</span> <span class="st">"Federal Communications Commission"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>program_name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bringing Puerto Rico Together"</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Connect America Fund Phase II"</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Connect USVI"</span>, </span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Enhanced Alternative Connect America Cost Model"</span>,</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Rural Digital Opportunity Fund"</span>)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>program_id <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">"25"</span>, <span class="st">"28"</span>, <span class="st">"26"</span>, <span class="st">"35"</span>, <span class="st">"24"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>fcc_dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">agency_name =</span> <span class="fu">rep</span>(agency_name, <span class="fu">length</span>(program_fcc)),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                     program_fcc,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>fcc_dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">agency_name =</span> <span class="fu">rep</span>(agency_name, <span class="fu">length</span>(program_name)),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                     program_name,</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                     program_id </span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                      )</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(fcc_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>agency_name <span class="ot">&lt;-</span> <span class="st">"NTIA"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>program_name <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Broadband Infrastructure Program"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Tribal Broadband Connectivity Program NOFO 1"</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>program_id <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">"11"</span>, <span class="st">"27"</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>ntia_dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">agency_name =</span> <span class="fu">rep</span>(agency_name, <span class="fu">length</span>(program_name)), </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                      program_name,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                      program_id </span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>agency_name <span class="ot">&lt;-</span> <span class="st">"Rural Utilities Service"</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>program_name <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"COMMUNITY CONNECT GRANT PROGRAM"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"RURAL ECONNECTIVITY PROGRAM"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">"TELEPHONE LOAN PROGRAM"</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>program_id <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">"10"</span>, <span class="st">"6"</span>, <span class="st">"12"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>rural_dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">agency_name =</span> <span class="fu">rep</span>(agency_name, <span class="fu">length</span>(program_name)), </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>                      program_name,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                      program_id </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>agency_name <span class="ot">&lt;-</span> <span class="st">"US Department of Treasury"</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>program_name <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Capital Projects Fund"</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"State and Local Fiscal Recovery Fund"</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>program_id <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">"18"</span>, <span class="st">"19"</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>usdt_dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">agency_name =</span> <span class="fu">rep</span>(agency_name, <span class="fu">length</span>(program_name)), </span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>                      program_name,</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                      program_id </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>fcc_all_dat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(fcc_dat, ntia_dat, rural_dat, usdt_dat )</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(fcc_all_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-5de2ab7e41d20ef0c8b1" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5de2ab7e41d20ef0c8b1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission"],["Bringing Puerto Rico Together","Connect America Fund Phase II","Connect USVI","Enhanced Alternative Connect America Cost Model","Rural Digital Opportunity Fund"],["25","28","26","35","24"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>agency_name<\/th>\n      <th>program_fcc<\/th>\n      <th>program_id<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"agency_name","targets":0},{"name":"program_fcc","targets":1},{"name":"program_id","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-a9c6ed0f7b00f45666eb" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-a9c6ed0f7b00f45666eb">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","NTIA","NTIA","Rural Utilities Service","Rural Utilities Service","Rural Utilities Service","US Department of Treasury","US Department of Treasury"],["Bringing Puerto Rico Together","Connect America Fund Phase II","Connect USVI","Enhanced Alternative Connect America Cost Model","Rural Digital Opportunity Fund","Broadband Infrastructure Program","Tribal Broadband Connectivity Program NOFO 1","COMMUNITY CONNECT GRANT PROGRAM","RURAL ECONNECTIVITY PROGRAM","TELEPHONE LOAN PROGRAM","Capital Projects Fund","State and Local Fiscal Recovery Fund"],["25","28","26","35","24","11","27","10","6","12","18","19"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>agency_name<\/th>\n      <th>program_name<\/th>\n      <th>program_id<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"agency_name","targets":0},{"name":"program_name","targets":1},{"name":"program_id","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
