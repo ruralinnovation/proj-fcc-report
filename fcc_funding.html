@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-03-06">
+<meta name="dcterms.date" content="2024-03-07">
 
 <title>FCC BDC EDA - FCC Funding Map</title>
 <style>
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -67,6 +101,21 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="site_libs/datatables-binding-0.32/datatables.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/jszip-1.13.6/jszip.min.js"></script>
+<link href="site_libs/dt-ext-buttons-1.13.6/css/buttons.dataTables.min.css" rel="stylesheet">
+<script src="site_libs/dt-ext-buttons-1.13.6/js/dataTables.buttons.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.html5.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.colVis.min.js"></script>
+<script src="site_libs/dt-ext-buttons-1.13.6/js/buttons.print.min.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -189,6 +238,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#program-data" id="toc-program-data" class="nav-link" data-scroll-target="#program-data">Program Data</a></li>
   <li><a href="#project-data" id="toc-project-data" class="nav-link" data-scroll-target="#project-data">Project Data</a></li>
+  <li><a href="#list-of-dataset-avalaible-07-03-2024" id="toc-list-of-dataset-avalaible-07-03-2024" class="nav-link" data-scroll-target="#list-of-dataset-avalaible-07-03-2024">List of dataset avalaible: 07-03-2024</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/fcc_funding.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -209,7 +259,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 6, 2024</p>
+      <p class="date">March 7, 2024</p>
     </div>
   </div>
   
@@ -221,6 +271,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/table_with_options.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p>Link: https://fundingmap.fcc.gov/home</p>
 <p>Documentation: https://us-fcc.app.box.com/v/bfm-data-downloads-output</p>
 <p>The download page has two tabs:</p>
@@ -243,10 +299,35 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Defined by list of locations</p></li>
 <li><p>Defined by Middle Mile</p></li>
 </ul>
-<p>All of those type of project will have a Project Attribute Information table (<code>areaattributes_program</code> or <code>locationattributes_program</code>). The structure of those files are close but not similar has columns related to location (<code>build_req</code>, <code>loc_plan</code>, <code>loc_sup</code>).</p>
+<p>All of those type of project will have a Project Attribute Information table (<code>areaattributes_program</code> or <code>locationattributes_program</code>). The structure of those files are close but not similar for example location project has columns related to location (<code>build_req</code>, <code>loc_plan</code>, <code>loc_sup</code>).</p>
 <p>For example the one for RDOF (<code>areaattributes_program24_J23_12feb2024.csv</code>) has 474 rows (inclunding headers ie 473 projects).</p>
 <p>Area project will have an associated <code>areapolygons_XXX.gpkg</code>. A quick glance on the one from RDOF show full valid geometries with an expected number of rows (473).</p>
-<p>Location project has instead of a gpkg a csv with location_id and lat/long (and address) !</p>
+<p>Location projects have, instead, of a <code>gpkg</code> a <code>csv</code> with location_id and lat/long (and address)!</p>
+<p>It seems that you can also have buildout data associated which each type of project.</p>
+</section>
+<section id="list-of-dataset-avalaible-07-03-2024" class="level2">
+<h2 class="anchored" data-anchor-id="list-of-dataset-avalaible-07-03-2024">List of dataset avalaible: 07-03-2024</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>agency_name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Federal Communications Commission"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>program_fcc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Bringing Puerto Rico Together"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Connect America Fund Phase II"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Connect USVI"</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Enhanced Alternative Connect America Cost Model"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Rural Digital Opportunity Fund"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>program_id <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="st">"25"</span>, <span class="st">"28"</span>, <span class="st">"26"</span>, <span class="st">"35"</span>, <span class="st">"24"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>fcc_dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">agency_name =</span> <span class="fu">rep</span>(agency_name, <span class="fu">length</span>(program_fcc)),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                     program_fcc,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                     program_id </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(fcc_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5de2ab7e41d20ef0c8b1" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5de2ab7e41d20ef0c8b1">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission"],["Bringing Puerto Rico Together","Connect America Fund Phase II","Connect USVI","Enhanced Alternative Connect America Cost Model","Rural Digital Opportunity Fund"],["25","28","26","35","24"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>agency_name<\/th>\n      <th>program_fcc<\/th>\n      <th>program_id<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"agency_name","targets":0},{"name":"program_fcc","targets":1},{"name":"program_id","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
 
 
 </section>
