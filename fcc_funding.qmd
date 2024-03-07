@@ -52,18 +52,52 @@ It seems that you can also have buildout data associated which each type of proj
 ## List of dataset avalaible: 07-03-2024
 
 ```{r}
-agency_name <- c("Federal Communications Commission")
-program_fcc <- c("Bringing Puerto Rico Together",
+#|  label: very ugly code that do the job
+agency_name <- "Federal Communications Commission"
+program_name <- c("Bringing Puerto Rico Together",
                 "Connect America Fund Phase II",
                 "Connect USVI", 
                 "Enhanced Alternative Connect America Cost Model",
                 "Rural Digital Opportunity Fund")
 program_id <-  c("25", "28", "26", "35", "24")
-fcc_dat <- data.frame(agency_name = rep(agency_name, length(program_fcc)),
-                     program_fcc,
+fcc_dat <- data.frame(agency_name = rep(agency_name, length(program_name)),
+                     program_name,
                      program_id 
                       )
-table_with_options(fcc_dat)
+agency_name <- "NTIA"
+program_name <- c(
+  "Broadband Infrastructure Program",
+  "Tribal Broadband Connectivity Program NOFO 1"
+)
+program_id <-  c("11", "27")
+ntia_dat <- data.frame(agency_name = rep(agency_name, length(program_name)), 
+                      program_name,
+                      program_id 
+                      )
+agency_name <- "Rural Utilities Service"
+program_name <- c(
+  "COMMUNITY CONNECT GRANT PROGRAM",
+  "RURAL ECONNECTIVITY PROGRAM",
+  "TELEPHONE LOAN PROGRAM"
+)
+program_id <-  c("10", "6", "12")
+rural_dat <- data.frame(agency_name = rep(agency_name, length(program_name)), 
+                      program_name,
+                      program_id 
+                      )
+agency_name <- "US Department of Treasury"
+program_name <- c(
+  "Capital Projects Fund",
+  "State and Local Fiscal Recovery Fund"
+)
+program_id <-  c("18", "19")
+usdt_dat <- data.frame(agency_name = rep(agency_name, length(program_name)), 
+                      program_name,
+                      program_id 
+                      )
+
+fcc_all_dat <- rbind(fcc_dat, ntia_dat, rural_dat, usdt_dat )
+table_with_options(fcc_all_dat)
 ```
 
 

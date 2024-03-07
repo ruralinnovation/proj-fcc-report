@@ -23,6 +23,7 @@ website:
           - ms-eda.qmd
           - road-eda.qmd
           - rdof.qmd
+          - fcc_funding.qmd
 
 format:
   html:
