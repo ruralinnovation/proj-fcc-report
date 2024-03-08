@@ -24,6 +24,7 @@ website:
           - road-eda.qmd
           - rdof.qmd
           - fcc_funding.qmd
+          - hubb.qmd
 
 format:
   html:
