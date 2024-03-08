@@ -37,7 +37,7 @@ They are defining 3 types of projects:
 
 - Defined by list of locations
 
-- Defined by Middle Mile
+- Defined by Middle Mile (No project representing this one: 07-03-2024)
 
 All of those type of project will have a Project Attribute Information table (`areaattributes_program` or `locationattributes_program`). The structure of those files are close but not similar for example location project has columns related to location (`build_req`, `loc_plan`, `loc_sup`). 
 
@@ -97,7 +97,6 @@ usdt_dat <- data.frame(agency_name = rep(agency_name, length(program_name)),
                       )
 
 fcc_all_dat <- rbind(fcc_dat, ntia_dat, rural_dat, usdt_dat )
-table_with_options(fcc_all_dat)
 
 # ls > path/to/list_file_fcc_feb2024.txt
 fcc_files <- readLines("data/list_file_fcc_feb2024.txt")
@@ -129,9 +128,28 @@ type_proj <- data.frame(
 fcc_all_dat <- merge(fcc_all_dat, type_proj,
       by.x = "program_id", by.y = "program_id", 
       all.x = TRUE, all.y = TRUE)
+
 table_with_options(fcc_all_dat)
 
 ```
 
 
+
+## From FCC program csv
+
+I just stacked them:
+
+```bash
+csvstack data/programdata_program* > data/all_program.csv
+```
+
+Then remove their `elig_rules_desc` and `program_desc` so it can fit in a table. 
+
+```{r} 
+all_prog <- read.csv("data/all_program.csv")
+list_of_names_to_keep <- c("agency_name" ,  "program_id",
+                          "program_start_date","program_end_date",    "funding_source",   "funding_type",        "funding_obligated",  "funding_disbursed",   "funding_defaulted",   "min_download_spd",    "min_upload_spd",     "low_latency",      "funding_grant",       "program_cost",       "funding_loan",        "assistance_listings", "program_acronym",     "program_url"  
+)
+table_with_options(all_prog[, list_of_names_to_keep])
+```
 
