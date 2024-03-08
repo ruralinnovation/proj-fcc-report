@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-03-07">
+<meta name="dcterms.date" content="2024-03-08">
 
 <title>FCC BDC EDA - FCC Funding Map</title>
 <style>
@@ -245,6 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#program-data" id="toc-program-data" class="nav-link" data-scroll-target="#program-data">Program Data</a></li>
   <li><a href="#project-data" id="toc-project-data" class="nav-link" data-scroll-target="#project-data">Project Data</a></li>
   <li><a href="#list-of-dataset-avalaible-07-03-2024" id="toc-list-of-dataset-avalaible-07-03-2024" class="nav-link" data-scroll-target="#list-of-dataset-avalaible-07-03-2024">List of dataset avalaible: 07-03-2024</a></li>
+  <li><a href="#from-fcc-program-csv" id="toc-from-fcc-program-csv" class="nav-link" data-scroll-target="#from-fcc-program-csv">From FCC program csv</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/fcc_funding.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -265,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 7, 2024</p>
+      <p class="date">March 8, 2024</p>
     </div>
   </div>
   
@@ -303,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>Defined by Area</p></li>
 <li><p>Defined by list of locations</p></li>
-<li><p>Defined by Middle Mile</p></li>
+<li><p>Defined by Middle Mile (No project representing this one: 07-03-2024)</p></li>
 </ul>
 <p>All of those type of project will have a Project Attribute Information table (<code>areaattributes_program</code> or <code>locationattributes_program</code>). The structure of those files are close but not similar for example location project has columns related to location (<code>build_req</code>, <code>loc_plan</code>, <code>loc_sup</code>).</p>
 <p>For example the one for RDOF (<code>areaattributes_program24_J23_12feb2024.csv</code>) has 474 rows (inclunding headers ie 473 projects).</p>
@@ -360,49 +361,63 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>                      )</span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>fcc_all_dat <span class="ot">&lt;-</span> <span class="fu">rbind</span>(fcc_dat, ntia_dat, rural_dat, usdt_dat )</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(fcc_all_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co"># ls &gt; path/to/list_file_fcc_feb2024.txt</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>fcc_files <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"data/list_file_fcc_feb2024.txt"</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co"># remove zip</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>fcc_files_slim <span class="ot">&lt;-</span> fcc_files[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">".zip"</span>, fcc_files)]</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">do.call</span>(rbind, </span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>                                        <span class="fu">strsplit</span>(fcc_files_slim, <span class="st">"_"</span>))</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co"># remove programdata, but it is nice to see for every files </span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy <span class="ot">&lt;-</span> fcc_files_tidy[fcc_files_tidy[[<span class="st">"V1"</span>]] <span class="sc">!=</span> <span class="st">"programdata"</span>,]</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy[[<span class="st">"program_id"</span>]] <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"program"</span>, <span class="st">""</span>, fcc_files_tidy[[<span class="st">"V2"</span>]])</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy[[<span class="st">"is_area"</span>]] <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">"area"</span>, fcc_files_tidy[[<span class="st">"V1"</span>]])</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co"># works for now but will breack if I have the third type of project</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy[[<span class="st">"type_proj"</span>]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(fcc_files_tidy[[<span class="st">"is_area"</span>]], <span class="st">"area"</span>, <span class="st">"location"</span>)</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>type_proj_temp <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">split</span>(fcc_files_tidy[[<span class="st">"type_proj"</span>]], </span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>             fcc_files_tidy[[<span class="st">"program_id"</span>]]), </span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>             unique)</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>type_proj <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  <span class="at">program_id =</span> <span class="fu">names</span>(type_proj_temp),</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>  <span class="at">type_proj  =</span> type_proj_temp </span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>fcc_all_dat <span class="ot">&lt;-</span> <span class="fu">merge</span>(fcc_all_dat, type_proj,</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>      <span class="at">by.x =</span> <span class="st">"program_id"</span>, <span class="at">by.y =</span> <span class="st">"program_id"</span>, </span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>      <span class="at">all.x =</span> <span class="cn">TRUE</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(fcc_all_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-b036b9fb3c4bc56ca4a2" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b036b9fb3c4bc56ca4a2">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","NTIA","NTIA","Rural Utilities Service","Rural Utilities Service","Rural Utilities Service","US Department of Treasury","US Department of Treasury"],["Bringing Puerto Rico Together","Connect America Fund Phase II","Connect USVI","Enhanced Alternative Connect America Cost Model","Rural Digital Opportunity Fund","Broadband Infrastructure Program","Tribal Broadband Connectivity Program NOFO 1","COMMUNITY CONNECT GRANT PROGRAM","RURAL ECONNECTIVITY PROGRAM","TELEPHONE LOAN PROGRAM","Capital Projects Fund","State and Local Fiscal Recovery Fund"],["25","28","26","35","24","11","27","10","6","12","18","19"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>agency_name<\/th>\n      <th>program_name<\/th>\n      <th>program_id<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"agency_name","targets":0},{"name":"program_name","targets":1},{"name":"program_id","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1a99791e651951765342" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1a99791e651951765342">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["10","11","12","18","19","24","25","26","27","28","35","6"],["Rural Utilities Service","NTIA","Rural Utilities Service","US Department of Treasury","US Department of Treasury","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","NTIA","Federal Communications Commission","Federal Communications Commission","Rural Utilities Service"],["COMMUNITY CONNECT GRANT PROGRAM","Broadband Infrastructure Program","TELEPHONE LOAN PROGRAM","Capital Projects Fund","State and Local Fiscal Recovery Fund","Rural Digital Opportunity Fund","Bringing Puerto Rico Together","Connect USVI","Tribal Broadband Connectivity Program NOFO 1","Connect America Fund Phase II","Enhanced Alternative Connect America Cost Model","RURAL ECONNECTIVITY PROGRAM"],["area","area","area","location","location","area","area","area","area","area","area","area"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>program_id<\/th>\n      <th>agency_name<\/th>\n      <th>program_name<\/th>\n      <th>type_proj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"program_id","targets":0},{"name":"agency_name","targets":1},{"name":"program_name","targets":2},{"name":"type_proj","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
+</div>
+</section>
+<section id="from-fcc-program-csv" class="level2">
+<h2 class="anchored" data-anchor-id="from-fcc-program-csv">From FCC program csv</h2>
+<p>I just stacked them:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">csvstack</span> data/programdata_program<span class="pp">*</span> <span class="op">&gt;</span> data/all_program.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then remove their <code>elig_rules_desc</code> and <code>program_desc</code> so it can fit in a table.</p>
+<div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ls &gt; path/to/list_file_fcc_feb2024.txt</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fcc_files <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="st">"data/list_file_fcc_feb2024.txt"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># remove zip</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>fcc_files_slim <span class="ot">&lt;-</span> fcc_files[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">".zip"</span>, fcc_files)]</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">do.call</span>(rbind, </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="fu">strsplit</span>(fcc_files_slim, <span class="st">"_"</span>))</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># remove programdata, but it is nice to see for every files </span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy <span class="ot">&lt;-</span> fcc_files_tidy[fcc_files_tidy[[<span class="st">"V1"</span>]] <span class="sc">!=</span> <span class="st">"programdata"</span>,]</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy[[<span class="st">"program_id"</span>]] <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">"program"</span>, <span class="st">""</span>, fcc_files_tidy[[<span class="st">"V2"</span>]])</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy[[<span class="st">"is_area"</span>]] <span class="ot">&lt;-</span> <span class="fu">grepl</span>(<span class="st">"area"</span>, fcc_files_tidy[[<span class="st">"V1"</span>]])</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># works for now but will breack if I have the third type of project</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>fcc_files_tidy[[<span class="st">"type_proj"</span>]] <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(fcc_files_tidy[[<span class="st">"is_area"</span>]], <span class="st">"area"</span>, <span class="st">"location"</span>)</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>type_proj_temp <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">split</span>(fcc_files_tidy[[<span class="st">"type_proj"</span>]], </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>             fcc_files_tidy[[<span class="st">"program_id"</span>]]), </span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>             unique)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>type_proj <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">program_id =</span> <span class="fu">names</span>(type_proj_temp),</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">type_proj  =</span> type_proj_temp </span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>fcc_all_dat <span class="ot">&lt;-</span> <span class="fu">merge</span>(fcc_all_dat, type_proj,</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>      <span class="at">by.x =</span> <span class="st">"program_id"</span>, <span class="at">by.y =</span> <span class="st">"program_id"</span>, </span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">all.x =</span> <span class="cn">TRUE</span>, <span class="at">all.y =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(fcc_all_dat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>all_prog <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/all_program.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>list_of_names_to_keep <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"agency_name"</span> ,  <span class="st">"program_id"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"program_start_date"</span>,<span class="st">"program_end_date"</span>,    <span class="st">"funding_source"</span>,   <span class="st">"funding_type"</span>,        <span class="st">"funding_obligated"</span>,  <span class="st">"funding_disbursed"</span>,   <span class="st">"funding_defaulted"</span>,   <span class="st">"min_download_spd"</span>,    <span class="st">"min_upload_spd"</span>,     <span class="st">"low_latency"</span>,      <span class="st">"funding_grant"</span>,       <span class="st">"program_cost"</span>,       <span class="st">"funding_loan"</span>,        <span class="st">"assistance_listings"</span>, <span class="st">"program_acronym"</span>,     <span class="st">"program_url"</span>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(all_prog[, list_of_names_to_keep])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-20d2ddbee5175800f61e" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-20d2ddbee5175800f61e">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["10","11","12","18","19","24","25","26","27","28","35","6"],["Rural Utilities Service","NTIA","Rural Utilities Service","US Department of Treasury","US Department of Treasury","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","NTIA","Federal Communications Commission","Federal Communications Commission","Rural Utilities Service"],["COMMUNITY CONNECT GRANT PROGRAM","Broadband Infrastructure Program","TELEPHONE LOAN PROGRAM","Capital Projects Fund","State and Local Fiscal Recovery Fund","Rural Digital Opportunity Fund","Bringing Puerto Rico Together","Connect USVI","Tribal Broadband Connectivity Program NOFO 1","Connect America Fund Phase II","Enhanced Alternative Connect America Cost Model","RURAL ECONNECTIVITY PROGRAM"],["area","area","area","location","location","area","area","area","area","area","area","area"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>program_id<\/th>\n      <th>agency_name<\/th>\n      <th>program_name<\/th>\n      <th>type_proj<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"program_id","targets":0},{"name":"agency_name","targets":1},{"name":"program_name","targets":2},{"name":"type_proj","targets":3}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-0ec9eaba14b5d4a7a984" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0ec9eaba14b5d4a7a984">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["Rural Utilities Service","NTIA","Rural Utilities Service","US Department of Treasury","US Department of Treasury","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","NTIA","Federal Communications Commission","Federal Communications Commission","Rural Utilities Service"],[10,11,12,18,19,24,25,26,27,28,35,6],["2019-02-12","2020-12-27","2018-10-01","2022-01-25","2021-05-01","2020-10-29","2020-08-06","2020-08-06","2020-12-27","2018-07-24","2023-10-30","2019-04-23"],["","","","2026-12-31","","","","","","","2038-12-31",""],["Annual Appropriations","Consolidated Appropriations Act, 2021","Annual Appropriations","ARPA","ARPA","Federal Communications Commission","Federal Communications Commission","Federal Communications Commission","Consolidated Appropriations Act of 2021 and the Infrastructure Investment and Jobs Act ","Federal Communications Commission","Universal Service Funding","Consolidated Appropriations Act, 2018"],["G","G","L","G","G","G","G","G","G","G","G","C"],[97017262,272285261,413224000,0,0,6062445073,127095164,84456870,1648310368,1147865055,15831733248,3355855232],[0,29020927,0,0,0,673146254,23300780,15483760,17110286,459053516,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[25,25,25,100,100,25,100,1000,25,100,100,100],[3,3,3,100,100,3,20,500,3,20,20,100],["","t","","","","t","t","t","t","t","t",""],[97017262,272285261,null,null,null,null,null,null,null,null,15831733248,2702174137],[null,null,null,null,null,null,null,null,null,null,null,null],[null,null,413224000,null,null,null,null,null,null,null,0,653681095],[10.863,11.031,10.851,21.209,21.027,32.002,32.002,32.002,11.029,32.008,32.002,10.752],["Community Connect","BIP","Infrastructure","CPF","SLFRF","RDOF","","","TBCP NOFO 1","CAF-II","E-ACAM","ReConnect"],["https://www.rd.usda.gov/programs-services/telecommunications-programs/community-connect-grants","https://broadbandusa.ntia.doc.gov/broadband-infrastructure-program","https://www.rd.usda.gov/programs-services/telecommunications-programs/telecommunications-infrastructure-loans-loan-guarantees","","","https://www.fcc.gov/auction/904","https://www.fcc.gov/bringing-puerto-rico-together-and-connect-usvi-fund-stage-2","https://www.fcc.gov/bringing-puerto-rico-together-and-connect-usvi-fund-stage-2","","https://www.fcc.gov/auction/903","","https://www.usda.gov/reconnect"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>agency_name<\/th>\n      <th>program_id<\/th>\n      <th>program_start_date<\/th>\n      <th>program_end_date<\/th>\n      <th>funding_source<\/th>\n      <th>funding_type<\/th>\n      <th>funding_obligated<\/th>\n      <th>funding_disbursed<\/th>\n      <th>funding_defaulted<\/th>\n      <th>min_download_spd<\/th>\n      <th>min_upload_spd<\/th>\n      <th>low_latency<\/th>\n      <th>funding_grant<\/th>\n      <th>program_cost<\/th>\n      <th>funding_loan<\/th>\n      <th>assistance_listings<\/th>\n      <th>program_acronym<\/th>\n      <th>program_url<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"className":"dt-right","targets":[1,6,7,8,9,10,12,14,15]},{"name":"agency_name","targets":0},{"name":"program_id","targets":1},{"name":"program_start_date","targets":2},{"name":"program_end_date","targets":3},{"name":"funding_source","targets":4},{"name":"funding_type","targets":5},{"name":"funding_obligated","targets":6},{"name":"funding_disbursed","targets":7},{"name":"funding_defaulted","targets":8},{"name":"min_download_spd","targets":9},{"name":"min_upload_spd","targets":10},{"name":"low_latency","targets":11},{"name":"funding_grant","targets":12},{"name":"program_cost","targets":13},{"name":"funding_loan","targets":14},{"name":"assistance_listings","targets":15},{"name":"program_acronym","targets":16},{"name":"program_url","targets":17}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
