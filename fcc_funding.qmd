@@ -162,3 +162,33 @@ list_of_names_to_keep <- c("agency_name" ,  "program_id",
 table_with_options(all_prog[, list_of_names_to_keep])
 ```
 
+# Unserved / Unfunded 
+
+The data is available by State and recorded at the location level (`location_id`) caracterized by their census blokc (`block_geoid`), H3 id (`h3_res8_id`) and a coninations of services describe below. 
+
+The service can be "residential" (`r`) or "business" (`b`), 6 for each.
+
+Each services is categorized as `U` for Unserved and unfunded or `C` meaning the location is Covered (ie "availability data and or funding exist at the selected technology/speed combination if that location"). 
+
+- *wired*: Copper, Cable, fiber
+
+- *terrestrial*: Copper, Cable, Fiber, Unlicensed Fixed Wireless, Licensed Fixed Wireless, LBR Wireless
+
+- *wiredlfw*: Copper, Cable, Fiber, Licensed Fixed Wireless, LBR Wireless
+
+If a location is all 'C' it will not be in thoses files. In march 07 we got 36 247 609 locations.
+
+
+```{r}
+#| fig-cap: Count of Unserved/Unfunded by type of services    
+sum_unserved_unfunded <- read.csv("data/unfunded_unserved.csv")
+temp <- as.data.frame(t(sum_unserved_unfunded))
+dat <- cbind(temp,
+            do.call(rbind, strsplit(row.names(temp), '_'))
+)
+names(dat) <- c("Count", "cnt", "technology", "dl", "ul", 'res/biz')
+dat <- dat[, c("technology", "res/biz",  "dl", "ul", "Count")]
+
+table_with_options(dat)
+```
+
