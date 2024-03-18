@@ -8,19 +8,22 @@ We are using two sources of data from FCC:
 
 - Broadband Funding Map (BFM)
 
-<hr/>
+What are those two?
 
-**bold**
+How regurarly is it updated? 
 
-<br/>
+What is BSL? 
 
-*italic* 
+What is unserved? Underseved? (BSL / block area) 
 
-```{r}
-bob <- 1+2
-bob * 2
-```
+Granularity: what is a "row" / why do we need to do a block "join"  
 
-![](https://github.com/ruralinnovation/wiki/raw/main/img/MDA%20Data%20Infrastructure.svg)  
+What are we using (NBM , BFM) for ? 
+
+Our products: 
+
+- CH. BEAD, regular BB works, research, (TED/ERC ?) <- too specific  
+
+
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
