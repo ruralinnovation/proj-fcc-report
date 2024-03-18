@@ -311,7 +311,7 @@
     "href": "index.html",
     "title": "FCC workflow",
     "section": "",
-    "text": "We are using two sources of data from FCC:\n\nNational Broadband Map (NBM)\nBroadband Funding Map (BFM)\n\n\nbold\n\nitalic\n\nbob &lt;- 1+2\nbob * 2\n\n[1] 6\n\n\n\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "We are using two sources of data from FCC:\n\nNational Broadband Map (NBM)\nBroadband Funding Map (BFM)\n\nWhat are those two?\nHow regurarly is it updated?\nWhat is BSL?\nWhat is unserved? Underseved? (BSL / block area)\nGranularity: what is a “row” / why do we need to do a block “join”\nWhat are we using (NBM , BFM) for ?\nOur products:\n\nCH. BEAD, regular BB works, research, (TED/ERC ?) &lt;- too specific\n\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   },
   {
     "objectID": "road-eda.html",
