@@ -1,7 +1,26 @@
 ---
-title: "."
+title: "FCC workflow"
 ---
 
-This is a Quarto website.
+We are using two sources of data from FCC: 
+
+- National Broadband Map (NBM)  
+
+- Broadband Funding Map (BFM)
+
+<hr/>
+
+**bold**
+
+<br/>
+
+*italic* 
+
+```{r}
+bob <- 1+2
+bob * 2
+```
+
+![](https://github.com/ruralinnovation/wiki/raw/main/img/MDA%20Data%20Infrastructure.svg)  
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
