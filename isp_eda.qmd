@@ -12,36 +12,40 @@ engine: knitr
 source("R/table_with_options.R")
 ```
 
-We are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service). 
+We are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).
 
-The query that generated this first pass at it is here: 
+We shifted a bit from exploring to try to classify the quality of information we have from FCC about ISP.
+
+The query that generated the data set is here: 
 
 ```SQL
-SELECT 
-    brand_name,
-    state_abbr,
-    technology,
+select 
+    frn,
     provider_id,
-    count(*) as cnt_services,
-	count(distinct location_id) as cnt_bcat_locations,
-	count(distinct block_geoid)
-FROM
-    staging.june23
-GROUP BY 
-    brand_name, provider_id, state_abbr, technology
-ORDER BY 
-    cnt_services DESC;
+    brand_name,
+    count(distinct location_id) as cnt_locations,
+    count(*) as cnt_locations_services,
+    bool_or(case when technology = 10 then true else false end) as has_copperwire,
+    bool_or(case when technology = 40 then true else false end) as has_coaxial_cable,
+    bool_or(case when technology = 50 then true else false end) as has_fiber,	
+    bool_or(case when technology = 71 or  technology = 72 then true else false end) as has_wireless,
+    bool_or(case when technology = 60 or  technology = 61 then true else false end) as has_satel,
+    array_agg(distinct state_abbr)
+from staging.june23
+group by frn, provider_id, brand_name
 ```
 
 The name of the column match FCC [description](https://us-fcc.app.box.com/v/bdc-data-downloads-output). 
 
 We are adding: 
 
--  `cnt_services`: count of **services**, in one location you can have multiple services with different providers, technology and speeds provides (sometimes one providers can have multiple technology and/or multiple speeds) 
+-  `cnt_locations_services`: count of **services**, in one location you can have multiple services with different providers, technology and speeds provides (sometimes one providers can have multiple technology and/or multiple speeds) 
 
-- `cnt_total_locations`: count of locations covered by this specific set of brand_name, provider_id, state_abbr and technology (here if a provider declare providing different speed in that location it will not be counted) 
+- `cnt_locations`: count of locations covered by this specific set of brand_name, provider_id, state_abbr and technology (here if a provider declare providing different speed in that location it will not be counted) 
 
-- `cnt_block_presence`: count of block were we meet the same set (brand_name, provider_id, state_abbr, technology)
+- a serie of flag (`has`) telling if this "combo" is proving said technology
+
+- an array listing in which states are present our "combo"
 
 
 It can be explored here: 
@@ -49,31 +53,30 @@ It can be explored here:
 
 ```{r}
 #| label: read and display ISP  
-isp <- read.csv("data/isp_v2.csv")
-colnames(isp) <- c("brand_name", "state_abbr", "technology",
-"provider_id", "cnt_services", "cnt_total_locations", "cnt_block_presence")
+isp <- read.csv("data/isp.csv")
+# colnames(isp) <- c("brand_name", "state_abbr", "technology",
+# "provider_id", "cnt_services", "cnt_total_locations", "cnt_block_presence")
 
-isp$temp <- paste0(isp$brand_name, isp$provider_id)
-isp <- isp[order(isp$temp),]
-isp$ID <- cumsum(!duplicated(isp$temp))
-isp$ct[!duplicated(isp$ID)] <- 1 
-isp$multiple_name_id <- ave(isp$ct, isp$provider_id, FUN = function(x) sum(x , na.rm = TRUE))
-isp <- isp[,c("ID", "brand_name", "provider_id", "multiple_name_id", "state_abbr", "technology", 
-            "cnt_services", "cnt_total_locations", "cnt_block_presence")]
-table_with_options(isp[order(isp$cnt_services,decreasing = TRUE),])
+# isp$temp <- paste0(isp$brand_name, isp$provider_id)
+# isp <- isp[order(isp$temp),]
+# isp$ID <- cumsum(!duplicated(isp$temp))
+# isp$ct[!duplicated(isp$ID)] <- 1 
+# isp$multiple_name_id <- ave(isp$ct, isp$provider_id, FUN = function(x) sum(x , na.rm = TRUE))
+# isp <- isp[,c("ID", "brand_name", "provider_id", "multiple_name_id", "state_abbr", "technology", 
+#             "cnt_services", "cnt_total_locations", "cnt_block_presence")]
+table_with_options(isp)
 ```
-
 
 ## Numbers for context: 
 
 ```{r}
 #|  label: filter sat
-filter_sat <- c(60, 61, 70)
-isp_slim <- isp[! isp$technology %in% filter_sat, ]
+# filter_sat <- c(60, 61, 70)
+# isp_slim <- isp[! isp$technology %in% filter_sat, ]
 ```
 
-In June 2023 we have `r length(unique(isp$brand_name))` unique ISP brand name but only `r length(unique(isp_slim$brand_name))` if we remove the ISP that only offer Satellite or Unlicensed Wireless. 
-
+TODO make a table with number of diff brand_name, frn, provider_id
+ 
 For the rest of the analysis I will not take into account Satellite data and Unlicensed Wireless.
 
 Our first step will be to try having some "unique"  brand name so we can be confident we are correctly counting the same ISP (or not).  
@@ -82,227 +85,22 @@ Our first step will be to try having some "unique"  brand name so we can be conf
 
  ```{r}
  #| label: some cleaning
-isp_slim$brand_name <- tolower(isp_slim$brand_name)
+isp$brand_name <- tolower(isp$brand_name)
  ```
 
 It seems that we have:  
-    - brand name with and without capital letter (VERIZON, Verizon): if we `tolower` brand name we get `r length(unique(isp_slim$brand_name))` unique brand name.
+    - brand name with and without capital letter (VERIZON, Verizon)
 
 
 ```{r}
 #| label: agg per brand name
-isp_agg <- aggregate(isp_slim["cnt_services"], isp_slim["brand_name"], sum)
-table_with_options(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ])
+# isp_agg <- aggregate(isp_slim["cnt_services"], isp_slim["brand_name"], sum)
+# table_with_options(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ])
 ```
 
 I have done a smaller `.csv` just with `brand_name` `provider_id` and `cnt_services` just to inspect what is the relation between them (1 to 1 / 1 to many). Outside of typos we should not have many to many relation. 
 
-```sql
-SELECT
-    brand_name,
-    provider_id,
-    count(*) cnt_services
-FROM staging.june23
-GROUP BY brand_name, provider_id
-ORDER BY cnt_services desc;
-```
 
-```{r}
-isp_list <- read.csv("data/isp_prov.csv")
-isp_list$ct <- 1  
-isp_list$name_id <- ave(isp_list$ct, isp_list$provider_id, FUN = sum)
-#View(isp_list[!is.na(isp_list$new_name),])
-```
 
-#### TCT
-
-```{r}
-#| label: TCT identify
-table_with_options(isp_list[grepl("^TCT ", isp_list$brand_name) ,])
-isp_list[isp_list$provider_id == 410172,]
-```
-
-TCT has some non-conventional names but nearly all of them has the same `provider_id`. An other "TCT" exist but with a different provider_id (`410172`) shared with two other brand name. I will assume that all of this `TCT XXX` are the same and provide them with a temporary name `TCT_131366`.
-
-```{r}
-#| label: TCT update
-isp_list$new_name[grepl("^TCT ", isp_list$brand_name)] <- "TCT_131366"
-```
-
-#### Windstream 
-
-Windtream present a similar case but the position of Windstream is not always the first word (` Georgia Windstream, LLC`). I went with the solution than TCT: `Windstream_131413`
-
-
-```{r}
-#| label: windstream identify and update
-table_with_options(isp_list[grepl("Windstream", isp_list$brand_name) ,]) 
-
-isp_list$new_name[grepl("Windstream", isp_list$brand_name)] <- "Windstream_131413" 
-```
-
-#### Acentek/Acentek
-
-It exists in both forms (`tolower()` will correct it) but it is also sharing it's `provider_id` with some non-conventional "name": 
-
-```{r}
-#| label: acentek
-table_with_options(isp_list[isp_list$provider_id == 130008,])
-isp_list$new_name[isp_list$provider_id == 130008] <- "acentek"
-```
-
-For now I will go with attributing them to "acentek"` but an other option will be to just remove them. 
-
-#### Mediacom - Bolt
-
-```{r}
-#| label: Mediacom bolt
-table_with_options(isp_list[grepl("Mediacom|Bolt", isp_list$brand_name) ,]) 
-isp_list$new_name[isp_list$provider_id == 130804] <- "mediacom_bolt"
-```
-
-It appears that Bolt and Mediacom share the same `provider_id` and are together in some `brand_name`. I think we should regroup them but this definietly more domain knowledge than the one I have!
-
-#### Comporium 
-
-```{r}
-#| label: comporium
-table_with_options(isp_list[isp_list$provider_id == 131125,])
-isp_list$new_name[isp_list$provider_id == 131125] <- "comporium"
-```
-
-For this one I am for renaming them "comporium"
-
-#### Armstrong
-
-```{r}
-#| label: Armstrong
-table_with_options(isp_list[isp_list$provider_id == 130071,])
-isp_list$new_name[isp_list$provider_id == 130071] <- "armstrong"
-```
-
-Idem label to "armstrong"?
-
-#### TEC 
-
-```{r}
-#| label: TEC
-table_with_options(isp_list[isp_list$provider_id == 131311,])
-isp_list$new_name[isp_list$provider_id == 131311] <- "TEC"
-```
-
-#### PUD 
-
-```{r}
-#| label: PUD
-table_with_options(isp_list[isp_list$provider_id == 290075,])
-isp_list$new_name[isp_list$provider_id == 290075] <- "PUD"
-```
-
-Label to "PUD" ?
-
-#### GoNetspeed?
-
-I am unsure about that one. We can regroup the two `GoNetspeed` but we are lacking information for the rest. 
-
-```{r}
-#| label: gotnetspeed
-table_with_options(isp_list[isp_list$provider_id == 131378,])
-```
-
-#### MHTC
-
-```{r}
-#| label: MHTC
-table_with_options(isp_list[isp_list$provider_id == 130862,])
-isp_list$new_name[isp_list$provider_id == 130862] <- "MHTC"
-```
-
-Label MHTC?
-
-#### Hardy
-
-```{r}
-#| label: Hardy
-table_with_options(isp_list[isp_list$provider_id == 130588,])
-isp_list$new_name[isp_list$provider_id == 130588] <- "Hardy"
-```
-
-label Hardy?
-
-#### OmniTel
-
-```{r}
-#| label: Omnitel
-table_with_options(isp_list[isp_list$provider_id == 130484,])
-isp_list$new_name[isp_list$provider_id == 130484] <- "OmniTel"
-```
-
-#### Hamilton
-
-```{r}
-#| label: Hamilton
-table_with_options(isp_list[isp_list$provider_id == 130887,])
-isp_list$new_name[isp_list$provider_id == 130887] <- "Hamilton"
-```
-
-label Hamilton?
-
-### Multiple brand_name with same `provider_id`
-
-- provider_id: `131413`, same provider id than windstream but probably a different entity?
-
-- provider_id `130485`: look very similar (`SHLB` in the name 8/10)
-
-- list of `provider_id` associated with multiple brand name: 
-
-    * 130074
-
-    * 131378
-
-    * 190233
-
-    * 160127
-
-    * 150277
-
-    * 150266
-
-    * 130183
-
-    * 300192
-
-    * 131362
-
-    * 130877
-
-    * 130757 (regroup Long lines?)
-
-    * 130778 (Manti 5/6)
-
-    * 330025
-
-    * 130254 (2/5 altafiber)
-
-    * 150334
-
-    * 130906
-
-    * 130425 (2/5 Lavaca)
-
-    * 130206
-
-    * 130453 (3/5  EFIBER)
-
-    * 140092 (3/5 Twin Valley)
-
-    * 140030
-
-    * 130142
-
-
-## TODO list:
-
-[ ] provider_id: 586211
 
 
