@@ -258,7 +258,7 @@
     "href": "isp_eda.html",
     "title": "EDA on ISP",
     "section": "",
-    "text": "Code\nsource(\"R/table_with_options.R\")\nWe are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).\nWe shifted a bit from exploring to try to classify the quality of information we have from FCC about ISP.\nThe query that generated the data set is here:\nThe name of the column match FCC description.\nWe are adding:\nIt can be explored here:\nCode\nisp &lt;- read.csv(\"data/isp.csv\")\n# colnames(isp) &lt;- c(\"brand_name\", \"state_abbr\", \"technology\",\n# \"provider_id\", \"cnt_services\", \"cnt_total_locations\", \"cnt_block_presence\")\n\n# isp$temp &lt;- paste0(isp$brand_name, isp$provider_id)\n# isp &lt;- isp[order(isp$temp),]\n# isp$ID &lt;- cumsum(!duplicated(isp$temp))\n# isp$ct[!duplicated(isp$ID)] &lt;- 1 \n# isp$multiple_name_id &lt;- ave(isp$ct, isp$provider_id, FUN = function(x) sum(x , na.rm = TRUE))\n# isp &lt;- isp[,c(\"ID\", \"brand_name\", \"provider_id\", \"multiple_name_id\", \"state_abbr\", \"technology\", \n#             \"cnt_services\", \"cnt_total_locations\", \"cnt_block_presence\")]\ntable_with_options(isp)",
+    "text": "Code\nsource(\"R/table_with_options.R\")\nWe are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).\nOur goal is being able to take FCC data and correctly identify an ISP over time (from the same program and from other FCC product).\nWe shifted a bit from exploring to try to classify the quality of information we have from FCC about ISP.\nThe query that generated the data set is here:\nThe name of the column match FCC description.\nWe are adding:\nWe have from FCC:\nCode\nisp &lt;- read.csv(\"data/isp.csv\",\n                colClasses = c(frn =\"character\",\n                               provider_id = \"character\",\n                               brand_name = \"character\",\n                               cnt_locations = \"character\",\n                               cnt_locations_services = \"character\",\n                               has_copperwire = \"logical\",\n                               has_coaxial_cable = \"logical\",\n                               has_fiber = \"logical\",\n                               has_wireless = \"logical\",\n                               has_satel = \"logical\",\n                               array_agg = \"character\"))\n\nisp[[\"cnt_locations\"]] &lt;- isp[[\"cnt_locations\"]]                               \nisp[[\"cnt_locations_services\"]] &lt;- isp[[\"cnt_locations_services\"]]  \n\ntable_with_options(isp)",
     "crumbs": [
       "Home",
       "EDA",
@@ -270,19 +270,7 @@
     "href": "isp_eda.html#numbers-for-context",
     "title": "EDA on ISP",
     "section": "Numbers for context:",
-    "text": "Numbers for context:\n\n\nCode\n# filter_sat &lt;- c(60, 61, 70)\n# isp_slim &lt;- isp[! isp$technology %in% filter_sat, ]\n\n\nTODO make a table with number of diff brand_name, frn, provider_id\nFor the rest of the analysis I will not take into account Satellite data and Unlicensed Wireless.\nOur first step will be to try having some “unique” brand name so we can be confident we are correctly counting the same ISP (or not).",
-    "crumbs": [
-      "Home",
-      "EDA",
-      "EDA on ISP"
-    ]
-  },
-  {
-    "objectID": "isp_eda.html#organize-a-bit-brand_name-and-provider_id",
-    "href": "isp_eda.html#organize-a-bit-brand_name-and-provider_id",
-    "title": "EDA on ISP",
-    "section": "Organize a bit brand_name and provider_id",
-    "text": "Organize a bit brand_name and provider_id\n::: {.cell}\n\nCode\nisp$brand_name &lt;- tolower(isp$brand_name)\n\n:::\nIt seems that we have:\n- brand name with and without capital letter (VERIZON, Verizon)\n\n\nCode\n# isp_agg &lt;- aggregate(isp_slim[\"cnt_services\"], isp_slim[\"brand_name\"], sum)\n# table_with_options(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ])\n\n\nI have done a smaller .csv just with brand_name provider_id and cnt_services just to inspect what is the relation between them (1 to 1 / 1 to many). Outside of typos we should not have many to many relation.",
+    "text": "Numbers for context:\n\nRaw numbers out of the box:\n\n\nCode\nsprintf(\"Number of unique frn: %s\", length(unique(isp[[\"frn\"]])))\n\n\n[1] \"Number of unique frn: 2879\"\n\n\nCode\nsprintf(\"Number of unique provider_id; %s\", length(unique(isp[[\"provider_id\"]])))\n\n\n[1] \"Number of unique provider_id; 2184\"\n\n\nCode\nsprintf(\"Number of unique brand name pre cleaning: %s\", length(unique(isp[[\"brand_name\"]])))\n\n\n[1] \"Number of unique brand name pre cleaning: 2902\"\n\n\nif we remove all capitalization:\n\n\nCode\nsprintf(\"Number of unique brand name pre cleaning: %s\", length(unique(tolower(isp[[\"brand_name\"]]))))\n\n\n[1] \"Number of unique brand name pre cleaning: 2881\"\n\n\nWe can filter, on this release, 21 cases for brand name.\n\n\nPotential sources of errors:\n\nfrn can be wrong\n\nprovider_id can be wrong\nbrand name can be different",
     "crumbs": [
       "Home",
       "EDA",
