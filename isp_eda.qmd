@@ -14,6 +14,8 @@ source("R/table_with_options.R")
 
 We are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).
 
+Our goal is being able to take FCC data and correctly identify an ISP over time (from the same program and from other FCC product).
+
 We shifted a bit from exploring to try to classify the quality of information we have from FCC about ISP.
 
 The query that generated the data set is here: 
@@ -47,60 +49,62 @@ We are adding:
 
 - an array listing in which states are present our "combo"
 
+We have from FCC: 
 
-It can be explored here: 
+:::{.aside}
+source: https://us-fcc.app.box.com/v/bdc-data-downloads-output page 4
+:::
 
+- `frn` **F**CC **R**egistration **N**umber; "number of the entity that submited teh data". It is supposed to be a string of 10 characters (with padding 0). 
+
+- `provider_id`: "unique identifier for the fixed service provider"
+
+- `brand_name`: "Name of the entity or service advertised or offered to consumers."
 
 ```{r}
 #| label: read and display ISP  
-isp <- read.csv("data/isp.csv")
-# colnames(isp) <- c("brand_name", "state_abbr", "technology",
-# "provider_id", "cnt_services", "cnt_total_locations", "cnt_block_presence")
+isp <- read.csv("data/isp.csv",
+                colClasses = c(frn ="character",
+                               provider_id = "character",
+                               brand_name = "character",
+                               cnt_locations = "character",
+                               cnt_locations_services = "character",
+                               has_copperwire = "logical",
+                               has_coaxial_cable = "logical",
+                               has_fiber = "logical",
+                               has_wireless = "logical",
+                               has_satel = "logical",
+                               array_agg = "character"))
 
-# isp$temp <- paste0(isp$brand_name, isp$provider_id)
-# isp <- isp[order(isp$temp),]
-# isp$ID <- cumsum(!duplicated(isp$temp))
-# isp$ct[!duplicated(isp$ID)] <- 1 
-# isp$multiple_name_id <- ave(isp$ct, isp$provider_id, FUN = function(x) sum(x , na.rm = TRUE))
-# isp <- isp[,c("ID", "brand_name", "provider_id", "multiple_name_id", "state_abbr", "technology", 
-#             "cnt_services", "cnt_total_locations", "cnt_block_presence")]
+isp[["cnt_locations"]] <- isp[["cnt_locations"]]                               
+isp[["cnt_locations_services"]] <- isp[["cnt_locations_services"]]  
+
 table_with_options(isp)
-```
+``` 
 
 ## Numbers for context: 
 
-```{r}
-#|  label: filter sat
-# filter_sat <- c(60, 61, 70)
-# isp_slim <- isp[! isp$technology %in% filter_sat, ]
-```
-
-TODO make a table with number of diff brand_name, frn, provider_id
- 
-For the rest of the analysis I will not take into account Satellite data and Unlicensed Wireless.
-
-Our first step will be to try having some "unique"  brand name so we can be confident we are correctly counting the same ISP (or not).  
-
-## Organize a bit `brand_name` and `provider_id` 
-
- ```{r}
- #| label: some cleaning
-isp$brand_name <- tolower(isp$brand_name)
- ```
-
-It seems that we have:  
-    - brand name with and without capital letter (VERIZON, Verizon)
-
+### Raw numbers out of the box:
 
 ```{r}
-#| label: agg per brand name
-# isp_agg <- aggregate(isp_slim["cnt_services"], isp_slim["brand_name"], sum)
-# table_with_options(isp_agg[order(isp_agg$cnt_services, decreasing = TRUE), ])
+sprintf("Number of unique frn: %s", length(unique(isp[["frn"]])))
+sprintf("Number of unique provider_id; %s", length(unique(isp[["provider_id"]])))
+sprintf("Number of unique brand name pre cleaning: %s", length(unique(isp[["brand_name"]])))
 ```
 
-I have done a smaller `.csv` just with `brand_name` `provider_id` and `cnt_services` just to inspect what is the relation between them (1 to 1 / 1 to many). Outside of typos we should not have many to many relation. 
+if we remove all capitalization:
 
+```{r}
+sprintf("Number of unique brand name pre cleaning: %s", length(unique(tolower(isp[["brand_name"]]))))
+```
 
+We can filter, on this release, 21 cases for brand name.
+
+### Potential sources of errors:
+
+- frn can be wrong  
+- provider_id can be wrong 
+- brand name can be different 
 
 
 
