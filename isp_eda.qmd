@@ -108,31 +108,51 @@ We can filter, on this release, 21 cases for brand name.
 
 One case: 
 
-0003738655	130432 	"EATEL Corp."	83537	86548	true	true	true	false	false	{LA}
-0009873712	131103 	"EATEL Corp."	34494	34497	false	true	true	false	false	{LA}
+| frn | provider_id| brand_name| cnt_locations | cnt_locations_services | has_copperwire | has_coaxial_cable | has_fiber | has_wireless | has_satel | array_agg | 
+|---- | ---- | --- | --- | --- | ---- | ----| --- | --- | ----| ----| ---- | --- | 
+|0003738655	| 130432 	| "EATEL Corp." |	83537	| 86548 |	true	| true |	true |	false	| false |	{LA} |
+| 0009873712	| 131103 	| "EATEL Corp."	| 34494	| 34497	| false	| true | true |	false	| false |	{LA} |
 
 Other case: 
 
-0002626984	130008 	Acentek	47	47	true	false	true	false	false	{MN}
-0002626984	130008 	ACENTEK	1395	1395	true	false	false	false	false	{MN}
-0002645927	130008 	Acentek	19521	26636 true	false	true	true	false	{IA,MN}
+| frn | provider_id| brand_name| cnt_locations | cnt_locations_services | has_copperwire | has_coaxial_cable | has_fiber | has_wireless | has_satel | array_agg | 
+|---- | ---- | --- | --- | --- | ---- | ----| --- | --- | ----| ----| ---- | --- | 
+| 0002626984 |130008 | 	Acentek |	47 |	47	| true|	false |	true |	false |	false |	{MN} |
+| 0002626984 |	130008 |  ACENTEK	| 1395 |	1395	| true |	false	| false	| false |	false |	{MN} |
+| 0002645927 |	130008 |	Acentek	| 19521	| 26636 | true	|false	|true|	true |	false | 	{IA,MN} |
 
 
 ### Rules for problems: 
 
-- less than 2 locations
+#### less than 2 locations
 
 ```{r}
 #| label: less than 2 locations
-isp[["quality"]] <- "Good"
-isp[isp[["cnt_locations"]] < 2, "quality"] <- "few locations"
+isp[["few_locations"]] <- NA_character_
+isp[isp[["cnt_locations"]] < 2, "few_locations"] <- "few locations"
+few_locations_dat <- subset(isp, few_locations == "few locations")
+few_rows <- nrow(few_locations_dat)
+sprintf("Rows with less than two locations: %s", few_rows)
+
+print("brand_names concerned:")
+unique(few_locations_dat$brand_name)
 ```
 
-- More than one frn for a provider_id "
+
+#### More than one frn for a provider_id
 
 ```{r}
 #| label: more than one frn for a provider
-#isp[isp[["cnt_locations"]] < 2, "quality"] <- "few locations"
+temp <- sapply(split(isp$frn, isp$provider_id), function(x) length(unique(x)))
+
+dta <- data.frame(provider_id = names(temp), muli_frn = temp)
+
+isp <- merge(isp, dta, by.x = "provider_id", by.y = "provider_id",
+             all.x = TRUE, all.y = TRUE)
+
+more_frn_than_provider <- subset(isp, muli_frn > 1)
+
+table_with_options(more_frn_than_provider)
 ```
 
 
