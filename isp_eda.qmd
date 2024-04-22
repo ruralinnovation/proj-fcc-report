@@ -186,15 +186,11 @@ It seems:
 
 - 130079  = Astound_Broadband (10 cases)
 
-I will go with the rule same name / same provider id = Should be teh same. 
+I will go with the rule same name / same provider id = Should be the same. 
 
 
-some cases: 
+Unique provider_id + brand_name are kind of "green" (for one time frame):
 
-$`470073 `
-[1] "Lone Pine Communications / Stimulus Technologies"
-[2] "Lone Pine Communications, Inc."
-
-#### same frn but more than one provider_id
-
-#### frn and/or provider_id with more than one row 
+```{r}
+sprintf("Number of green isp: %s", nrow(isp[isp$unique_brand_name_by_provider_id == 1,]))
+```
