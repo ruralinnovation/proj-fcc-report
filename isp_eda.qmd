@@ -30,7 +30,7 @@ select
     bool_or(case when technology = 10 then true else false end) as has_copperwire,
     bool_or(case when technology = 40 then true else false end) as has_coaxial_cable,
     bool_or(case when technology = 50 then true else false end) as has_fiber,	
-    bool_or(case when technology = 71 or  technology = 72 then true else false end) as has_wireless,
+    bool_or(case when technology >= 70 then true else false end) as has_wireless,
     bool_or(case when technology = 60 or  technology = 61 then true else false end) as has_satel,
     array_agg(distinct state_abbr)
 from staging.june23
@@ -92,13 +92,21 @@ sprintf("Number of unique provider_id; %s", length(unique(isp[["provider_id"]]))
 sprintf("Number of unique brand name pre cleaning: %s", length(unique(isp[["brand_name"]])))
 ```
 
-if we remove all capitalization:
+if we remove all capitalization and change underscore for white space:
 
 ```{r}
-sprintf("Number of unique brand name w/o caps: %s", length(unique(tolower(isp[["brand_name"]]))))
+count_and_clean <- function(vec) {
+  length(unique(tolower(trimws(gsub("_", " ", vec)))))} 
+
+num_brand_name <- count_and_clean(isp[["brand_name"]])
+sprintf("Number of unique brand name w/o caps and no underscore: %s", num_brand_name)
 ```
 
-We can filter, on this release, 21 cases for brand name.
+We can filter, on this release, 24 cases for brand name.
+
+```{r}
+isp[["clean_name"]] <- tolower(trimws(gsub("_", " ", isp[["brand_name"]]))) 
+```
 
 ### Potential sources of errors:
 
@@ -124,7 +132,7 @@ Other case:
 
 ### Rules for problems: 
 
-#### less than 2 locations
+#### Less than 2 locations
 
 ```{r}
 #| label: less than 2 locations
@@ -140,23 +148,20 @@ unique(few_locations_dat$brand_name)
 
 An easy fix is to drop them.
 
-
 #### More than one frn for a provider_id
 
 ```{r}
 #| label: more than one frn for a provider
-
 temp <- sapply(split(isp$frn, isp$provider_id), function(x) length(unique(x)))
 
 dta <- data.frame(provider_id = names(temp), frn_by_provider_id = temp)
-dta[["brand_name_by_provider_id"]] <- sapply(split(isp$brand_name, isp$provider_id),
-                                      function(x) length(x))
-dta[["unique_brand_name_by_provider_id"]] <-  sapply(split(isp$brand_name, isp$provider_id),
-                                      function(x) length(unique(tolower(x))))
 
+# correct lower/upper case / replace underscore by  " "  / some white space on both side 
+# triming whispace did not improve for this dataset but I should keept doing it
+dta[["unique_brand_name_by_provider_id"]] <-  sapply(split(isp$brand_name, isp$provider_id),
+                                      count_and_clean)
 isp <- merge(isp, dta, by.x = "provider_id", by.y = "provider_id",
              all.x = TRUE, all.y = TRUE)
-
 more_frn_than_provider <- subset(isp, isp$frn_by_provider_id  > 1)
 
 table_with_options(more_frn_than_provider)
@@ -192,6 +197,21 @@ It seems:
 
 - AT&T Inc (`130077`) multiple frn (10 cases) -> filter by unique_brand_name_by_provider_id 
 
-- 130079  = Astound_Broadband (10 cases) -> check trim ws in name for tomorrow
+- 130079  = Astound_Broadband (10 cases) -> will be catch by unique_brand_name_by_provider_id 
 
-I will go with the rule same name / same provider id = Should be the same. 
+
+#### More than one provider_id for a provider id
+
+This is teh case for "EATEL".
+
+```{r}
+temp <- sapply(split(isp$provider_id, isp$clean_name),
+         function(x) length(unique(x)))
+dta <- data.frame(clean_name = names(temp), provider_id_by_clean_name = temp)
+isp <- merge(isp, dta, by.x = "clean_name", by.y = "clean_name",
+             all.x = TRUE, all.y = TRUE)
+
+provider_id_by_clean_name <- subset(isp, isp$provider_id_by_clean_name  > 1)
+
+table_with_options(provider_id_by_clean_name)
+```
