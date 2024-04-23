@@ -138,6 +138,8 @@ print("brand_names concerned:")
 unique(few_locations_dat$brand_name)
 ```
 
+An easy fix is to drop them.
+
 
 #### More than one frn for a provider_id
 
@@ -155,16 +157,22 @@ dta[["unique_brand_name_by_provider_id"]] <-  sapply(split(isp$brand_name, isp$p
 isp <- merge(isp, dta, by.x = "provider_id", by.y = "provider_id",
              all.x = TRUE, all.y = TRUE)
 
-more_frn_than_provider <- subset(isp, frn_by_provider_id  > 1)
+more_frn_than_provider <- subset(isp, isp$frn_by_provider_id  > 1)
 
 table_with_options(more_frn_than_provider)
 ```
 
+Unique provider_id + brand_name are kind of "green" (for one time frame):
+
+```{r}
+sprintf("Number of green isp: %s", nrow(isp[isp$unique_brand_name_by_provider_id == 1,]))
+```
+
 It seems:
 
-- Windstream has 37 different `frn`  
+- Windstream has 37 different `frn`:  we can maybe test if it has windstream in it's name ..
 
-- Otelco?GoNet 18 cases 
+- Otelco/GoNet (18 cases)
 
 - Rally Networks/Oregon Telephone Company, is their frn wrongs ? (17 cases)
 
@@ -172,25 +180,18 @@ It seems:
 
 - `160127` I do not see any kind of specific pattern for this one
 
-- `131486` seems to be RiverStreet Networks with various `frn` (13 cases)
+- `131486` seems to be RiverStreet Networks with various `frn` (13 cases) -> will be catch by unique_brand_name_by_provider_id
 
 - `190233` multiple brand name and frn but seems to be in Texas and  Oklahoma (13)
 
-- `131226` seems to be Fastwyre Broadband divided by technology and states (12 cases)
+- `131226` seems to be Fastwyre Broadband divided by technology and states (12 cases) -> will be catch by unique_brand_name_by_provider_id 
 
 - `130804` seems to be Mediacom (+ Bolt) with different states and names indicating their states (11 cases) 
 
-- Google Fiber (`240041`) seems to be have `frn` split by states (with a weird 'Webpass, Inc.') (11 cases)
+- Google Fiber (`240041`) seems to be have `frn` split by states (with a weird 'Webpass, Inc.') (11 cases) -> will be catch by unique_brand_name_by_provider_id (except Webpass, Inc which is weird, technology is 70 that I should correct) 
 
-- AT&T Inc (`130077`) multiple frn (10 cases)
+- AT&T Inc (`130077`) multiple frn (10 cases) -> filter by unique_brand_name_by_provider_id 
 
-- 130079  = Astound_Broadband (10 cases)
+- 130079  = Astound_Broadband (10 cases) -> check trim ws in name for tomorrow
 
 I will go with the rule same name / same provider id = Should be the same. 
-
-
-Unique provider_id + brand_name are kind of "green" (for one time frame):
-
-```{r}
-sprintf("Number of green isp: %s", nrow(isp[isp$unique_brand_name_by_provider_id == 1,]))
-```
