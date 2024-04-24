@@ -237,4 +237,37 @@ provider_id_by_clean_name <- subset(isp, isp$provider_id_by_clean_name  > 1)
 table_with_options(provider_id_by_clean_name)
 ```
 
-This could also move 63 cases in the greenish spot. 
+This could also move 63 cases in the greenish spot. -> nop
+
+## What are our options/next steps:
+
+- Make a column "ready to go"
+
+```{r}
+# if it has unique brand name and frn by provider id id should be good
+temp <- isp$frn_by_provider_id + isp$unique_brand_name_by_provider_id
+isp[["rdy_to_go"]] <- ifelse(temp == 2, "green", "not green")
+
+# cases where we have a unique frn and provider id but not unique brand name 
+# default of olive is that we need to pick a name out of more than one
+temp <- ifelse(isp$frn_by_provider_id == 1, 1, 0) + ifelse(isp$unique_brand_name_by_provider_id > 1, 1, 0)
+isp[temp == 2, "rdy_to_go"] <- "olive"
+
+# the few locations should be "red" and maybe dropped later 
+isp[which(isp$few_locations == "few locations"), "rdy_to_go"] <- "red"
+
+table_with_options(isp)
+```
+
+
+A good example could be `131167` and how we can discriminate Orbitel communications. We can also prob raise the bar of "few locations". 
+
+A quick summary of where we are:
+
+```{r}
+table(isp[["rdy_to_go"]])
+```
+
+
+- Make an id <---> provider_id / frn / brand_name table 
+
