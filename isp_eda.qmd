@@ -16,6 +16,8 @@ We are starting a first exploratory data analysis around ISPs in the FCC BDC dat
 
 Our goal is being able to take FCC data and correctly identify an ISP over time (from the same program and from other FCC product).
 
+How can we define an ISP? How can we define coverage, should a service 0/0 be considered as a coverage?
+
 We shifted a bit from exploring to try to classify the quality of information we have from FCC about ISP.
 
 The query that generated the data set is here: 
