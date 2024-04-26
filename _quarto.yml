@@ -18,7 +18,7 @@ website:
       - section: "EDA"
         contents:
           - zero_dl_up.qmd
-          - fcc_provider_list.qmd
+          - FCC_provider_list.qmd
           - isp_eda.qmd
           - ntia_test.qmd
           - ms-eda.qmd
