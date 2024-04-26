@@ -1,0 +1,13 @@
+---
+title: "TLDR on FCC providers list"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+The data set was downloaded the 26-04-2024 adn was apparently avaiable since 11-03-2024. 
+
+A csv version of it is available in `data/`
+
