@@ -273,3 +273,48 @@ table(isp[["rdy_to_go"]])
 
 - Make an id <---> provider_id / frn / brand_name table 
 
+# Typology of ISP
+
+The data was generated from JUne 23 FCC release and assumed that an FRN = ISP. Can we guess who is a small ISP?
+
+```{r}
+# con <- cori.db::connect_to_db("proj_calix")
+# bob <- DBI::dbReadTable(con, "frn_desc")
+# DBI::dbDisconnect(con)
+# bob[["is_calix"]] <- NULL 
+# write.csv(bob, "data/frn_desc.csv")
+frn_desc <- read.csv("data/frn_desc.csv")
+
+#classInt::classIntervals(cnt_locations, n = 20, style = "jenks")
+# not that great
+table_with_options(frn_desc)
+```
+
+
+```{r}
+cnt_locations <- frn_desc[["cnt_locations"]]
+
+summary(cnt_locations)
+boxplot(cnt_locations)
+```
+
+Some ISP are declaraing covering a huge number of locations. Some low counts are probably errors. 
+
+```{r}
+#| label: removing big and small isp
+sprintf("FRN with a less than 10 locations: %s", nrow(frn_desc[frn_desc$cnt_locations < 10,]))
+sprintf("FRN with more than 500000 locations: %s",  nrow(frn_desc[frn_desc$cnt_locations > 500000,]))
+```
+
+If we filter them out: 
+
+```{r}
+frn <- frn_desc[frn_desc$cnt_locations >= 10 & frn_desc$cnt_locations <= 500000,]
+
+# dim(frn_desc)
+# dim(frn)
+
+hist(frn$cnt_locations)
+
+frn$n_states <-  lengths(strsplit(gsub("\\{|\\}", "", frn$states), ","))
+```

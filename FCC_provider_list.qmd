@@ -67,6 +67,18 @@ A quick check indicate that all `Provider.ID` are 6 characters (hence the one wi
 FRN_by_affiliations <- sapply(split(isp$FRN, isp$Affiliation), function(x) length(unique(x)))
 FRN_by_affiliations.dat <- data.frame(Affiliations = names(FRN_by_affiliations), 
                                       count_frn = FRN_by_affiliations)
+
+
 knitr::kable(table(FRN_by_affiliations.dat$count_frn))
 ```
 
+
+Most of it are one for one. 
+
+# Data set with mail address and phone number
+
+```{r}
+#| label: address and phone
+isp_contact <- read.csv("data/bb-provider_list.csv")
+table_with_options(isp_contact)
+```
