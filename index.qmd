@@ -1,8 +1,8 @@
 ---
-title: "FCC Primer for CORI"
+title: "FCC Primer for CORI's MDA"
 ---
 
-We are using two sources of data from FCC: 
+We are using two sources of data from FCC (Federal Communications Commission): 
 
 - National Broadband Map ([NBM](https://broadbandmap.fcc.gov/home))  
 
@@ -15,23 +15,25 @@ Their license can be found [here](https://fundingmap.fcc.gov/about):
 
 ## What are those two?
 
-The first one was started by FCC in November 2022[^fcc_nbm_start] while the second was first published in May 2023[^bfn_da_links].  
+The first one was started by FCC in November 2022[^fcc_nbm_start] while the second was first published in May 2023[^bfn_da_links] (and documentation[^bfm_doc] in July 2023).  
 
 [^fcc_nbm_start]: [https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here](https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here)
 
 [^bfn_da_links]: [https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf](https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf)
 
-The first is providing information at the scale of a "service": a location covered by a provider by a technology with specifics speeds.  
+[^bfm_doc]: See Changelog [https://us-fcc.app.box.com/v/bfm-data-downloads-output](https://us-fcc.app.box.com/v/bfm-data-downloads-output)
+
+NBM is providing information at the scale of a "service": a location covered by a provider by a technology with specifics speeds.  
 
 ::: {.callout-tip}
-A location (see @sec-BSL) can be covered by multiple Internet Services Provides (ISP) with maybe differents services and technologies. 
+A location (see @sec-BSL) can be covered by multiple Internet Services Provides (ISP) with, maybe, differents services and technologies. 
 :::
 
-We are using the "Broadband availability" dataset (see @fig-broadbanddata, below) that come from the "Fabric locations" (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data. The exact coordinates of every locations is only part of the Fabric data and within the Broadband availability we can only link a locations thanks to field specifying in which Census Block (2020 vintage) they are present. 
+We are using the "Broadband Availability" dataset (see @fig-broadbanddata, below) that come from the "Fabric locations" (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data. The exact coordinates of every locations is only part of the Fabric data and within the Broadband Availability we can only link a location, thanks to specific field, to a Census Block (2020 vintage). 
  
-The second (BFM) is providing informations about "*broadband infrastructure deployment projects funded by the Federal government throughout the United States*". The information is provided either at the scale of a specific project inside a program or for the whole program. Hence we have some caracteristics of each projects with their associated boundaries (territories covered) (TODO link fcc funding list).
+The BFM is providing informations about "*broadband infrastructure deployment projects funded by the Federal government throughout the United States*". The information is provided either at the scale of a specific project inside a program or for the whole program. Hence we have caracteristics of each projects with their associated boundaries (territories covered) (see link [https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html](https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html)). 
 
-!["What on the national broadband map (https://www.fcc.gov/BroadbandData)"](img/whats-on-the-national-broadband-map-113023-1.png){#fig-broadbanddata}
+!["What on the national broadband map" Source: [https://www.fcc.gov/BroadbandData](https://www.fcc.gov/BroadbandData)](img/whats-on-the-national-broadband-map-113023-1.png){#fig-broadbanddata}
 
 ### What is a Broadband Service Location (BSL)? {#sec-BSL}
 
@@ -39,13 +41,31 @@ The second (BFM) is providing informations about "*broadband infrastructure depl
 
 [^fcc_bsl]: ["The Fabric data"](https://help.bdc.fcc.gov/hc/en-us/articles/7412732399003-Fabric-FAQs)
 
-### Update frequency
+### When this data is updated: 
 
-TODO
+NBM has two big releases per year (June and December) and have "unofficial" versions every two weeks to take into account challenges[^challenges]. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes[^nbm_chnagelog] ). 
 
-## What is unserved? Underseved? (BSL / block area) 
+[^challenges]: [https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf](https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf)
 
- TODO 
+[^nbm_chnagelog]:See "Change Log" [https://us-fcc.app.box.com/v/bdc-data-downloads-output](https://us-fcc.app.box.com/v/bdc-data-downloads-output)
+
+BFM seems to follow a schedule of update every two weeks but we have not find any specifications. 
+
+## What is unserved? Underseved?
+
+Unserved, Served and Underseved are **overlapping* categories at the location level. They can be extended at the "area level".
+
+A location is said **served** if it has a services that have equal or above 25 Mbps downstream speed and 3 in upstream (25/3 to simplify). If a location has internet below those numbers it is **unserved**. 
+
+Underserved is sub category of "served": if a location has a service with speed that are between 25/3 and 100/20 it is said to be **underserved**.
+
+Those definition are specified in (TODO ref) and can be changed by States[^pew_list].  
+
+:::.{aside}
+FCC could change that for 100/20: [https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark](https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark)
+:::
+
+[^pew_list]: Page 4 [https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf](https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf)
 
 ## Our products: 
 
