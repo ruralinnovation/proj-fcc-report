@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FCC BDC EDA - FCC workflow</title>
+<title>FCC BDC EDA - FCC Primer for CORI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">FCC workflow</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">FCC Primer for CORI</li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -198,14 +198,26 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-are-those-two" id="toc-what-are-those-two" class="nav-link active" data-scroll-target="#what-are-those-two">What are those two?</a>
+  <ul class="collapse">
+  <li><a href="#sec-BSL" id="toc-sec-BSL" class="nav-link" data-scroll-target="#sec-BSL">What is a Broadband Service Location (BSL)?</a></li>
+  <li><a href="#update-frequency" id="toc-update-frequency" class="nav-link" data-scroll-target="#update-frequency">Update frequency</a></li>
+  </ul></li>
+  <li><a href="#what-is-unserved-underseved-bsl-block-area" id="toc-what-is-unserved-underseved-bsl-block-area" class="nav-link" data-scroll-target="#what-is-unserved-underseved-bsl-block-area">What is unserved? Underseved? (BSL / block area)</a></li>
+  <li><a href="#our-products" id="toc-our-products" class="nav-link" data-scroll-target="#our-products">Our products:</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">FCC workflow</h1>
+<h1 class="title">FCC Primer for CORI</h1>
 </div>
 
 
@@ -224,24 +236,76 @@ ul.task-list li input[type="checkbox"] {
 
 <p>We are using two sources of data from FCC:</p>
 <ul>
-<li><p>National Broadband Map (NBM)</p></li>
-<li><p>Broadband Funding Map (BFM)</p></li>
+<li><p>National Broadband Map (<a href="https://broadbandmap.fcc.gov/home">NBM</a>)</p></li>
+<li><p>Broadband Funding Map (<a href="https://fundingmap.fcc.gov/home">BFM</a>)</p></li>
 </ul>
-<p>What are those two?</p>
-<p>How regurarly is it updated?</p>
-<p>What is BSL?</p>
-<p>What is unserved? Underseved? (BSL / block area)</p>
-<p>Granularity: what is a “row” / why do we need to do a block “join”</p>
-<p>What are we using (NBM , BFM) for ?</p>
-<p>Our products:</p>
+<p>Their license can be found <a href="https://fundingmap.fcc.gov/about">here</a>:</p>
+<blockquote class="blockquote">
+<p>Broadband availability data from the BDC, and data from the U.S. Census Bureau that are presented on this site, are offered free and not subject to copyright restriction. Data and content created by government employees within the scope of their employment are not subject to domestic copyright protection under 17 U.S.C. § 105. See, e.g., U.S. <a href="https://www.usa.gov/government-copyright">Government Works</a></p>
+</blockquote>
+<section id="what-are-those-two" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-those-two">What are those two?</h2>
+<p>The first one was started by FCC in November 2022<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while the second was first published in May 2023<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>The first is providing information at the scale of a “service”: a location covered by a provider by a technology with specifics speeds.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A location (see <a href="#sec-BSL" class="quarto-xref">Section&nbsp;1.1</a>) can be covered by multiple Internet Services Provides (ISP) with maybe differents services and technologies.</p>
+</div>
+</div>
+<p>We are using the “Broadband availability” dataset (see <a href="#fig-broadbanddata" class="quarto-xref">Figure&nbsp;1</a>, below) that come from the “Fabric locations” (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data. The exact coordinates of every locations is only part of the Fabric data and within the Broadband availability we can only link a BSL</p>
+<p>The second (BFM) is providing informations about “<em>broadband infrastructure deployment projects funded by the Federal government throughout the United States</em>”. The information is provided either at the scale of a specific project inside a program or for the whole program. Hence we have some caracteristics of each projects with their associated boundaries (territories covered) (TODO link fcc funding list).</p>
+<div id="fig-broadbanddata" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="img/whats-on-the-national-broadband-map-113023-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: “What on the national broadband map (https://www.fcc.gov/BroadbandData)”
+</figcaption>
+</figure>
+</div>
+<section id="sec-BSL" class="level3">
+<h3 class="anchored" data-anchor-id="sec-BSL">What is a Broadband Service Location (BSL)?</h3>
+<blockquote class="blockquote">
+<p>A broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>)</p>
+</blockquote>
+</section>
+<section id="update-frequency" class="level3">
+<h3 class="anchored" data-anchor-id="update-frequency">Update frequency</h3>
+<p>TODO</p>
+</section>
+</section>
+<section id="what-is-unserved-underseved-bsl-block-area" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-unserved-underseved-bsl-block-area">What is unserved? Underseved? (BSL / block area)</h2>
+<p>TODO</p>
+</section>
+<section id="our-products" class="level2">
+<h2 class="anchored" data-anchor-id="our-products">Our products:</h2>
+<p>TODO</p>
 <ul>
 <li>CH. BEAD, regular BB works, research, (TED/ERC ?) &lt;- too specific</li>
 </ul>
-<p>To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
 
 
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here">https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf">https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://help.bdc.fcc.gov/hc/en-us/articles/7412732399003-Fabric-FAQs">“The Fabric data”</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -656,4 +720,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
