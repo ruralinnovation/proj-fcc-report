@@ -14,7 +14,7 @@ source("R/table_with_options.R")
 
 We are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).
 
-Our goal is being able to take FCC data and correctly identify an ISP over time (from the same program and from other FCC product).
+Our goal is being able to take FCC data and correctly identify an ISP over time (from the same program and from other FCC products).
 
 How can we define an ISP? How can we define coverage, should a service 0/0 be considered as a coverage?
 
@@ -41,6 +41,7 @@ group by frn, provider_id, brand_name
 
 The name of the column match FCC [description](https://us-fcc.app.box.com/v/bdc-data-downloads-output). 
 
+ 
 We are adding: 
 
 -  `cnt_locations_services`: count of **services**, in one location you can have multiple services with different providers, technology and speeds provides (sometimes one providers can have multiple technology and/or multiple speeds) 
@@ -54,7 +55,7 @@ We are adding:
 We have from FCC: 
 
 :::{.aside}
-source: https://us-fcc.app.box.com/v/bdc-data-downloads-output page 4
+Source: [https://us-fcc.app.box.com/v/bdc-data-downloads-output](https://us-fcc.app.box.com/v/bdc-data-downloads-output) page 4
 :::
 
 - `frn` **F**CC **R**egistration **N**umber; "number of the entity that submited the data". It is supposed to be a string of 10 characters (with padding 0). 
@@ -63,9 +64,10 @@ source: https://us-fcc.app.box.com/v/bdc-data-downloads-output page 4
 
 - `brand_name`: "Name of the entity or service advertised or offered to consumers."
 
-```{r}
-#| label: read and display ISP  
+Every row is matching a combination of **unique** FRN / Provider ID and brand name. 
 
+```{r}
+#| label: read ISP  
 get_me_isp <- function(path) {
   isp <- read.csv(path,
                   colClasses = c(frn ="character",
@@ -86,7 +88,11 @@ return(isp)
 }
 
 isp <- get_me_isp("data/isp.csv")
+```
 
+```{r}
+#| label: Display ISP 
+#| tbl-cap: "Raw ISP split by FRN, Provider ID and brand names"
 table_with_options(isp)
 ``` 
 
@@ -94,9 +100,9 @@ table_with_options(isp)
 
 ### Raw numbers out of the box:
 
-Number of unique frn: `r length(unique(isp[["frn"]]))` 
+Number of unique `frn`: `r length(unique(isp[["frn"]]))` 
 
-Number of unique provider_id: `r length(unique(isp[["provider_id"]]))`
+Number of unique `provider_id`: `r length(unique(isp[["provider_id"]]))`
 
 Number of unique brand name pre cleaning: `r length(unique(isp[["brand_name"]]))`
 
@@ -142,21 +148,26 @@ Other case:
 #### Few locations:
 
 ```{r}
-#| label: less than 2 locations
+#| label: less than 10 locations
+#| tbl-cap: "Row with less than 10 locations"
 isp[["few_locations"]] <- NA_integer_
-locations <- 2
-for (i in 1:10) {print(i)
-isp[isp[["cnt_locations"]] < locations, "few_locations"] <- i
-}
-few_locations_dat <- subset(isp, few_locations == "few locations")
-few_rows <- nrow(few_locations_dat)
-sprintf("Rows with less than two locations: %s", few_rows)
 
-print("brand_names concerned:")
-unique(few_locations_dat$brand_name)
+for (i in 1:10) {
+  isp[isp[["cnt_locations"]] == i, "few_locations"] <- i
+}
+
+#feel bad relying on table removing NA
+few_loc <- as.data.frame(table(isp$few_locations))
+names(few_loc) <- c("Number of locations", "Number of cases")
+
+knitr::kable(few_loc)
 ```
 
-An easy fix is to drop them.
+Potential solutions:
+
+  - We can decide to not keep those rows 
+
+  - Merge them with either other rows that is matching `provider_id` or `frn` (when this is an option)
 
 #### More than one frn for a provider_id
 
@@ -331,4 +342,20 @@ frn <- frn_desc[frn_desc$cnt_locations >= 10 & frn_desc$cnt_locations <= 500000,
 hist(frn$cnt_locations)
 
 frn$n_states <-  lengths(strsplit(gsub("\\{|\\}", "", frn$states), ","))
+```
+
+
+some test:
+
+```{r}
+#| label: tbl-datatable
+#| tbl-cap: "datatable"
+DT::datatable(iris)
+```
+
+
+```{r}
+#| label: tbl-datatable2
+#| tbl-cap: "datatable2"
+table_with_options(iris)
 ```
