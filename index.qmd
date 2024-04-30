@@ -1,5 +1,9 @@
 ---
 title: "FCC Primer for CORI's MDA"
+format: 
+  html:
+    code-fold: true
+engine: knitr
 ---
 
 We are using two sources of data from FCC (Federal Communications Commission): 
@@ -41,7 +45,7 @@ The BFM is providing informations about "*broadband infrastructure deployment pr
 
 [^fcc_bsl]: ["The Fabric data"](https://help.bdc.fcc.gov/hc/en-us/articles/7412732399003-Fabric-FAQs)
 
-### When this data is updated: 
+### When this data is updated? 
 
 NBM has two big releases per year (June and December) and have "unofficial" versions every two weeks to take into account challenges[^challenges]. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes[^nbm_chnagelog] ). 
 
@@ -59,16 +63,23 @@ A location is said **served** if it has a services that have equal or above 25 M
 
 Underserved is sub category of "served": if a location has a service with speed that are between 25/3 and 100/20 it is said to be **underserved**.
 
-Those definition are specified in (TODO ref) and can be changed by States[^pew_list].  
+Those definitions are specified in (TODO ref) and can be adapted by every States[^pew_list].  
 
-:::.{aside}
-FCC could change that for 100/20: [https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark](https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark)
+:::{.aside}
+FCC could change those definitions and for example move the bar at 100/20: [https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark](https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark)
 :::
+
 
 [^pew_list]: Page 4 [https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf](https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf)
 
 ## Our products: 
 
-TODO
+TODO: impove
 
-- CH. BEAD, regular BB works, research, (TED/ERC ?) <- too specific  
+-  [Broadband Climate Risk Mitigation Tool](https://broadband-risk.ruralinnovation.us/)
+
+- [Interactive Rural Broadband Map](https://rural-broadband-map.ruralinnovation.us/), 
+
+- Helping our [Broadband team](https://ruralinnovation.us/our-work/broadband/) 
+
+- Research
