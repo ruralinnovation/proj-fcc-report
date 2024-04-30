@@ -12,7 +12,7 @@ engine: knitr
 source("R/table_with_options.R")
 ```
 
-We are starting a first exploratory data analysis around ISPs in the FCC BDC data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).
+We are starting a first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).
 
 Our goal is being able to take FCC data and correctly identify an ISP over time (from the same program and from other FCC products).
 
@@ -64,7 +64,11 @@ Source: [https://us-fcc.app.box.com/v/bdc-data-downloads-output](https://us-fcc.
 
 - `brand_name`: "Name of the entity or service advertised or offered to consumers."
 
-Every row is matching a combination of **unique** FRN / Provider ID and brand name. 
+::: {.callout-tip}
+Every row is matching a combination of **unique** FRN, Provider ID and brand name. 
+:::
+
+
 
 ```{r}
 #| label: read ISP  
@@ -145,7 +149,7 @@ Other case:
 
 ### Rules for problems: 
 
-#### Few locations:
+#### Less than 10 locations per rows:
 
 ```{r}
 #| label: less than 10 locations

@@ -1,29 +1,54 @@
 ---
-title: "FCC workflow"
+title: "FCC Primer for CORI"
 ---
 
 We are using two sources of data from FCC: 
 
-- National Broadband Map (NBM)  
+- National Broadband Map ([NBM](https://broadbandmap.fcc.gov/home))  
 
-- Broadband Funding Map (BFM)
+- Broadband Funding Map ([BFM](https://fundingmap.fcc.gov/home))
 
-What are those two?
 
-How regurarly is it updated? 
+Their license can be found [here](https://fundingmap.fcc.gov/about):
 
-What is BSL? 
+> Broadband availability data from the BDC, and data from the U.S. Census Bureau that are presented on this site, are offered free and not subject to copyright restriction. Data and content created by government employees within the scope of their employment are not subject to domestic copyright protection under 17 U.S.C. § 105. See, e.g., U.S. [Government Works](https://www.usa.gov/government-copyright)
 
-What is unserved? Underseved? (BSL / block area) 
+## What are those two?
 
-Granularity: what is a "row" / why do we need to do a block "join"  
+The first one was started by FCC in November 2022[^fcc_nbm_start] while the second was first published in May 2023[^bfn_da_links].  
 
-What are we using (NBM , BFM) for ? 
+[^fcc_nbm_start]: [https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here](https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here)
 
-Our products: 
+[^bfn_da_links]: [https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf](https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf)
+
+The first is providing information at the scale of a "service": a location covered by a provider by a technology with specifics speeds.  
+
+::: {.callout-tip}
+A location (see @sec-BSL) can be covered by multiple Internet Services Provides (ISP) with maybe differents services and technologies. 
+:::
+
+We are using the "Broadband availability" dataset (see @fig-broadbanddata, below) that come from the "Fabric locations" (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data. The exact coordinates of every locations is only part of the Fabric data and within the Broadband availability we can only link a BSL 
+ 
+The second (BFM) is providing informations about "*broadband infrastructure deployment projects funded by the Federal government throughout the United States*". The information is provided either at the scale of a specific project inside a program or for the whole program. Hence we have some caracteristics of each projects with their associated boundaries (territories covered) (TODO link fcc funding list).
+
+!["What on the national broadband map (https://www.fcc.gov/BroadbandData)"](img/whats-on-the-national-broadband-map-113023-1.png){#fig-broadbanddata}
+
+### What is a Broadband Service Location (BSL)? {#sec-BSL}
+
+> A broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.”  A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau).  A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC[^fcc_bsl])
+
+[^fcc_bsl]: ["The Fabric data"](https://help.bdc.fcc.gov/hc/en-us/articles/7412732399003-Fabric-FAQs)
+
+### Update frequency
+
+TODO
+
+## What is unserved? Underseved? (BSL / block area) 
+
+ TODO 
+
+## Our products: 
+
+TODO
 
 - CH. BEAD, regular BB works, research, (TED/ERC ?) <- too specific  
-
-
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
