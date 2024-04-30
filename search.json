@@ -2,37 +2,37 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "FCC Primer for CORI",
+    "title": "FCC Primer for CORI’s MDA",
     "section": "",
-    "text": "We are using two sources of data from FCC:\nTheir license can be found here:"
+    "text": "We are using two sources of data from FCC (Federal Communications Commission):\nTheir license can be found here:"
   },
   {
     "objectID": "index.html#what-are-those-two",
     "href": "index.html#what-are-those-two",
-    "title": "FCC Primer for CORI",
+    "title": "FCC Primer for CORI’s MDA",
     "section": "What are those two?",
-    "text": "What are those two?\nThe first one was started by FCC in November 20221 while the second was first published in May 20232.\nThe first is providing information at the scale of a “service”: a location covered by a provider by a technology with specifics speeds.\n\n\n\n\n\n\nTip\n\n\n\nA location (see Section 1.1) can be covered by multiple Internet Services Provides (ISP) with maybe differents services and technologies.\n\n\nWe are using the “Broadband availability” dataset (see Figure 1, below) that come from the “Fabric locations” (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data. The exact coordinates of every locations is only part of the Fabric data and within the Broadband availability we can only link a locations thanks to field specifying in which Census Block (2020 vintage) they are present.\nThe second (BFM) is providing informations about “broadband infrastructure deployment projects funded by the Federal government throughout the United States”. The information is provided either at the scale of a specific project inside a program or for the whole program. Hence we have some caracteristics of each projects with their associated boundaries (territories covered) (TODO link fcc funding list).\n\n\n\n\n\n\nFigure 1: “What on the national broadband map (https://www.fcc.gov/BroadbandData)”\n\n\n\n\nWhat is a Broadband Service Location (BSL)?\n\nA broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC3)\n\n\n\nUpdate frequency\nTODO"
+    "text": "What are those two?\nThe first one was started by FCC in November 20221 while the second was first published in May 20232 (and documentation3 in July 2023).\nNBM is providing information at the scale of a “service”: a location covered by a provider by a technology with specifics speeds.\n\n\n\n\n\n\nTip\n\n\n\nA location (see Section 1.1) can be covered by multiple Internet Services Provides (ISP) with, maybe, differents services and technologies.\n\n\nWe are using the “Broadband Availability” dataset (see Figure 1, below) that come from the “Fabric locations” (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data. The exact coordinates of every locations is only part of the Fabric data and within the Broadband Availability we can only link a location, thanks to specific field, to a Census Block (2020 vintage).\nThe BFM is providing informations about “broadband infrastructure deployment projects funded by the Federal government throughout the United States”. The information is provided either at the scale of a specific project inside a program or for the whole program. Hence we have caracteristics of each projects with their associated boundaries (territories covered) (see link https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html).\n\n\n\n\n\n\nFigure 1: “What on the national broadband map” Source: https://www.fcc.gov/BroadbandData\n\n\n\n\nWhat is a Broadband Service Location (BSL)?\n\nA broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC4)\n\n\n\nWhen this data is updated:\nNBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges5. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes6 ).\nBFM seems to follow a schedule of update every two weeks but we have not find any specifications."
   },
   {
-    "objectID": "index.html#what-is-unserved-underseved-bsl-block-area",
-    "href": "index.html#what-is-unserved-underseved-bsl-block-area",
-    "title": "FCC Primer for CORI",
-    "section": "What is unserved? Underseved? (BSL / block area)",
-    "text": "What is unserved? Underseved? (BSL / block area)\nTODO"
+    "objectID": "index.html#what-is-unserved-underseved",
+    "href": "index.html#what-is-unserved-underseved",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "What is unserved? Underseved?",
+    "text": "What is unserved? Underseved?\nUnserved, Served and Underseved are **overlapping* categories at the location level. They can be extended at the “area level”.\nA location is said served if it has a services that have equal or above 25 Mbps downstream speed and 3 in upstream (25/3 to simplify). If a location has internet below those numbers it is unserved.\nUnderserved is sub category of “served”: if a location has a service with speed that are between 25/3 and 100/20 it is said to be underserved.\nThose definition are specified in (TODO ref) and can be changed by States7.\n\nFCC could change that for 100/20: https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark"
   },
   {
     "objectID": "index.html#our-products",
     "href": "index.html#our-products",
-    "title": "FCC Primer for CORI",
+    "title": "FCC Primer for CORI’s MDA",
     "section": "Our products:",
     "text": "Our products:\nTODO\n\nCH. BEAD, regular BB works, research, (TED/ERC ?) &lt;- too specific"
   },
   {
     "objectID": "index.html#footnotes",
     "href": "index.html#footnotes",
-    "title": "FCC Primer for CORI",
+    "title": "FCC Primer for CORI’s MDA",
     "section": "Footnotes",
-    "text": "Footnotes\n\n\nhttps://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here↩︎\nhttps://docs.fcc.gov/public/attachments/DA-23-410A1.pdf↩︎\n“The Fabric data”↩︎"
+    "text": "Footnotes\n\n\nhttps://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here↩︎\nhttps://docs.fcc.gov/public/attachments/DA-23-410A1.pdf↩︎\nSee Changelog https://us-fcc.app.box.com/v/bfm-data-downloads-output↩︎\n“The Fabric data”↩︎\nhttps://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf↩︎\nSee “Change Log” https://us-fcc.app.box.com/v/bdc-data-downloads-output↩︎\nPage 4 https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf↩︎"
   },
   {
     "objectID": "FCC_provider_list.html",
