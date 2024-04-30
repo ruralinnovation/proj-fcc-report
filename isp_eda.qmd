@@ -65,21 +65,27 @@ source: https://us-fcc.app.box.com/v/bdc-data-downloads-output page 4
 
 ```{r}
 #| label: read and display ISP  
-isp <- read.csv("data/isp.csv",
-                colClasses = c(frn ="character",
-                               provider_id = "character",
-                               brand_name = "character",
-                               cnt_locations = "character",
-                               cnt_locations_services = "character",
-                               has_copperwire = "logical",
-                               has_coaxial_cable = "logical",
-                               has_fiber = "logical",
-                               has_wireless = "logical",
-                               has_satel = "logical",
-                               array_agg = "character"))
 
-isp[["cnt_locations"]] <- as.numeric(isp[["cnt_locations"]])                               
-isp[["cnt_locations_services"]] <- as.numeric(isp[["cnt_locations_services"]])  
+get_me_isp <- function(path) {
+  isp <- read.csv(path,
+                  colClasses = c(frn ="character",
+                                provider_id = "character",
+                                brand_name = "character",
+                                cnt_locations = "character",
+                                cnt_locations_services = "character",
+                                has_copperwire = "logical",
+                                has_coaxial_cable = "logical",
+                                has_fiber = "logical",
+                                has_wireless = "logical",
+                                has_satel = "logical",
+                                array_agg = "character"))
+
+  isp[["cnt_locations"]] <- as.numeric(isp[["cnt_locations"]])                               
+  isp[["cnt_locations_services"]] <- as.numeric(isp[["cnt_locations_services"]])  
+return(isp)
+}
+
+isp <- get_me_isp("data/isp.csv")
 
 table_with_options(isp)
 ``` 
@@ -88,23 +94,20 @@ table_with_options(isp)
 
 ### Raw numbers out of the box:
 
-```{r}
-sprintf("Number of unique frn: %s", length(unique(isp[["frn"]])))
-sprintf("Number of unique provider_id; %s", length(unique(isp[["provider_id"]])))
-sprintf("Number of unique brand name pre cleaning: %s", length(unique(isp[["brand_name"]])))
-```
+Number of unique frn: `r length(unique(isp[["frn"]]))` 
 
-if we remove all capitalization and change underscore for white space:
+Number of unique provider_id: `r length(unique(isp[["provider_id"]]))`
+
+Number of unique brand name pre cleaning: `r length(unique(isp[["brand_name"]]))`
 
 ```{r}
 count_and_clean <- function(vec) {
   length(unique(tolower(trimws(gsub("_", " ", vec)))))} 
 
 num_brand_name <- count_and_clean(isp[["brand_name"]])
-sprintf("Number of unique brand name w/o caps and no underscore: %s", num_brand_name)
 ```
 
-We can filter, on this release, 24 cases for brand name.
+Removing all capitalization and change underscore for white space help lower tthe number of unique brand names to: `r num_brand_name`
 
 ```{r}
 isp[["clean_name"]] <- tolower(trimws(gsub("_", " ", isp[["brand_name"]]))) 
@@ -112,9 +115,9 @@ isp[["clean_name"]] <- tolower(trimws(gsub("_", " ", isp[["brand_name"]])))
 
 ### Potential sources of errors:
 
-- frn can be wrong  
-- provider_id can be wrong 
-- brand name can be different 
+- `FRN` can be wrong or not meaningfull 
+- `provider_id` can be wrong 
+- brand names can be different or evolve over time. 
 
 One case: 
 
@@ -122,6 +125,8 @@ One case:
 |---- | ---- | --- | --- | --- | ---- | ----| --- | --- | ----| ----| ---- | --- | 
 |0003738655	| 130432 	| "EATEL Corp." |	83537	| 86548 |	true	| true |	true |	false	| false |	{LA} |
 | 0009873712	| 131103 	| "EATEL Corp."	| 34494	| 34497	| false	| true | true |	false	| false |	{LA} |
+: First example different FRN and Provider ID 
+
 
 Other case: 
 
@@ -130,16 +135,19 @@ Other case:
 | 0002626984 |130008 | 	Acentek |	47 |	47	| true|	false |	true |	false |	false |	{MN} |
 | 0002626984 |	130008 |  ACENTEK	| 1395 |	1395	| true |	false	| false	| false |	false |	{MN} |
 | 0002645927 |	130008 |	Acentek	| 19521	| 26636 | true	|false	|true|	true |	false | 	{IA,MN} |
-
+: Acentek here have the same provider ID but different FRN
 
 ### Rules for problems: 
 
-#### Less than 2 locations
+#### Few locations:
 
 ```{r}
 #| label: less than 2 locations
-isp[["few_locations"]] <- NA_character_
-isp[isp[["cnt_locations"]] < 2, "few_locations"] <- "few locations"
+isp[["few_locations"]] <- NA_integer_
+locations <- 2
+for (i in 1:10) {print(i)
+isp[isp[["cnt_locations"]] < locations, "few_locations"] <- i
+}
 few_locations_dat <- subset(isp, few_locations == "few locations")
 few_rows <- nrow(few_locations_dat)
 sprintf("Rows with less than two locations: %s", few_rows)
@@ -275,7 +283,7 @@ table(isp[["rdy_to_go"]])
 
 # Typology of ISP
 
-The data was generated from JUne 23 FCC release and assumed that an FRN = ISP. Can we guess who is a small ISP?
+The data was generated from June 23 FCC release and assumed that an FRN = ISP. Can we guess who is a small ISP?
 
 ```{r}
 # con <- cori.db::connect_to_db("proj_calix")
@@ -295,7 +303,13 @@ table_with_options(frn_desc)
 cnt_locations <- frn_desc[["cnt_locations"]]
 
 summary(cnt_locations)
-boxplot(cnt_locations)
+
+```
+
+
+```{r}
+#| column: margin
+boxplot(cnt_locations) 
 ```
 
 Some ISP are declaraing covering a huge number of locations. Some low counts are probably errors. 
@@ -306,7 +320,7 @@ sprintf("FRN with a less than 10 locations: %s", nrow(frn_desc[frn_desc$cnt_loca
 sprintf("FRN with more than 500000 locations: %s",  nrow(frn_desc[frn_desc$cnt_locations > 500000,]))
 ```
 
-If we filter them out: 
+If we filter them out (removing 110 cases): 
 
 ```{r}
 frn <- frn_desc[frn_desc$cnt_locations >= 10 & frn_desc$cnt_locations <= 500000,]
