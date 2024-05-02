@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -206,9 +206,15 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#sec-BSL" id="toc-sec-BSL" class="nav-link" data-scroll-target="#sec-BSL">What is a Broadband Service Location (BSL)?</a></li>
   <li><a href="#when-this-data-is-updated" id="toc-when-this-data-is-updated" class="nav-link" data-scroll-target="#when-this-data-is-updated">When this data is updated?</a></li>
+  <li><a href="#what-is-their-coverage" id="toc-what-is-their-coverage" class="nav-link" data-scroll-target="#what-is-their-coverage">What is their coverage?</a></li>
   </ul></li>
   <li><a href="#what-is-unserved-underseved" id="toc-what-is-unserved-underseved" class="nav-link" data-scroll-target="#what-is-unserved-underseved">What is unserved? Underseved?</a></li>
   <li><a href="#our-products" id="toc-our-products" class="nav-link" data-scroll-target="#our-products">Our products:</a></li>
+  <li><a href="#quick-facts-may-2024" id="toc-quick-facts-may-2024" class="nav-link" data-scroll-target="#quick-facts-may-2024">Quick facts, May 2024:</a>
+  <ul class="collapse">
+  <li><a href="#broadband-availibility" id="toc-broadband-availibility" class="nav-link" data-scroll-target="#broadband-availibility">Broadband Availibility:</a></li>
+  <li><a href="#funding-map" id="toc-funding-map" class="nav-link" data-scroll-target="#funding-map">Funding Map:</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -246,7 +252,16 @@ ul.task-list li input[type="checkbox"] {
 <section id="what-are-those-two" class="level2">
 <h2 class="anchored" data-anchor-id="what-are-those-two">What are those two?</h2>
 <p>The first one was started by FCC in November 2022<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while the second was first published in May 2023<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (and documentation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> in July 2023).</p>
-<p>NBM is providing information at the scale of a “service”: a location covered by a provider by a technology with specifics speeds.</p>
+<p>NBM is providing information at the scale of a “service”: a location covered by a provider by a technology with specifics speeds. Every location is caracterized by:</p>
+<ul>
+<li>who is providing those services (<code>frn</code>, <code>provider_id</code>, and <code>brand_name</code>)<br>
+</li>
+<li>a description of each services (<code>technology</code>, <code>max_advertised_download_speed</code>, <code>max_advertised_upload_speed</code>, <code>low_latency</code>)<br>
+</li>
+<li>is the location associated with residential, business or both<br>
+</li>
+<li>ways to localize the location (<code>state_abbr</code>, <code>block_geoid</code>, <code>h3_res8_id</code>)</li>
+</ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -257,11 +272,11 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A location (see <a href="#sec-BSL" class="quarto-xref">Section&nbsp;1.1</a>) can be covered by multiple Internet Services Provides (ISP) with, maybe, differents services and technologies.</p>
+<p>A location (see <a href="#sec-BSL" class="quarto-xref">Section&nbsp;1.1</a>) can be covered by multiple Internet Services Provides (ISP) with, maybe, differents services and technologies hence it can represented in the data can by many “rows”.</p>
 </div>
 </div>
-<p>We are using the “Broadband Availability” dataset (see <a href="#fig-broadbanddata" class="quarto-xref">Figure&nbsp;1</a>, below) that come from the “Fabric locations” (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data. The exact coordinates of every locations is only part of the Fabric data and within the Broadband Availability we can only link a location, thanks to specific field, to a Census Block (2020 vintage).</p>
-<p>The BFM is providing informations about “<em>broadband infrastructure deployment projects funded by the Federal government throughout the United States</em>”. The information is provided either at the scale of a specific project inside a program or for the whole program. Hence we have caracteristics of each projects with their associated boundaries (territories covered) (see link <a href="https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html">https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html</a>).</p>
+<p>We are using the “Broadband Availability” dataset (see <a href="#fig-broadbanddata" class="quarto-xref">Figure&nbsp;1</a>, below) that come from the “Fabric locations” (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data.</p>
+<p>The exact coordinates of every locations is only part of the Fabric data and within the Broadband Availability we can only link a location, thanks to specific field, to a Census Block (2020 vintage).</p>
 <div id="fig-broadbanddata" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -272,6 +287,7 @@ Figure&nbsp;1: “What on the national broadband map” Source: <a href="https:/
 </figcaption>
 </figure>
 </div>
+<p>The BFM is providing informations about “<em>broadband infrastructure deployment projects funded by the Federal government throughout the United States</em>”. The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have caracteristics of each projects with their associated boundaries (territories covered) (see link <a href="https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html">https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html</a>).</p>
 <section id="sec-BSL" class="level3">
 <h3 class="anchored" data-anchor-id="sec-BSL">What is a Broadband Service Location (BSL)?</h3>
 <blockquote class="blockquote">
@@ -283,10 +299,15 @@ Figure&nbsp;1: “What on the national broadband map” Source: <a href="https:/
 <p>NBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> ).</p>
 <p>BFM seems to follow a schedule of update every two weeks but we have not find any specifications.</p>
 </section>
+<section id="what-is-their-coverage" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-their-coverage">What is their coverage?</h3>
+<p>The Broadband Availability data is covering all US States, Puerto Rico and the US territories.</p>
+<p>The coverage of the funding map depend on each specific program.</p>
+</section>
 </section>
 <section id="what-is-unserved-underseved" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="what-is-unserved-underseved">What is unserved? Underseved?</h2>
-<p>Unserved, Served and Underseved are **overlapping* categories at the location level. They can be extended at the “area level”.</p>
+<p>Unserved, Served and Underseved are <strong>overlapping</strong> categories at the <strong>location level</strong>. They can be extended at the “<strong>area level</strong>”.</p>
 <p>A location is said <strong>served</strong> if it has a services that have equal or above 25 Mbps downstream speed and 3 in upstream (25/3 to simplify). If a location has internet below those numbers it is <strong>unserved</strong>.</p>
 <p>Underserved is sub category of “served”: if a location has a service with speed that are between 25/3 and 100/20 it is said to be <strong>underserved</strong>.</p>
 <p>Those definitions are specified in (TODO ref) and can be adapted by every States<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
@@ -296,15 +317,33 @@ Figure&nbsp;1: “What on the national broadband map” Source: <a href="https:/
 </div></div></section>
 <section id="our-products" class="level2">
 <h2 class="anchored" data-anchor-id="our-products">Our products:</h2>
-<p>TODO: impove</p>
+<p>TODO: improve</p>
 <ul>
 <li><p><a href="https://broadband-risk.ruralinnovation.us/">Broadband Climate Risk Mitigation Tool</a></p></li>
 <li><p><a href="https://rural-broadband-map.ruralinnovation.us/">Interactive Rural Broadband Map</a>,</p></li>
 <li><p>Helping our <a href="https://ruralinnovation.us/our-work/broadband/">Broadband team</a></p></li>
-<li><p>Research</p></li>
+<li><p>Helping our <a href="https://ruralinnovation.us/our-work/research_mapping/">Research team</a></p></li>
+</ul>
+</section>
+<section id="quick-facts-may-2024" class="level2">
+<h2 class="anchored" data-anchor-id="quick-facts-may-2024">Quick facts, May 2024:</h2>
+<section id="broadband-availibility" class="level3">
+<h3 class="anchored" data-anchor-id="broadband-availibility">Broadband Availibility:</h3>
+<ul>
+<li><p>Number of BSL:</p></li>
+<li><p>Number of unique <code>FRN</code>:</p></li>
+</ul>
+</section>
+<section id="funding-map" class="level3">
+<h3 class="anchored" data-anchor-id="funding-map">Funding Map:</h3>
+<ul>
+<li><p>4 agencies are contributing</p></li>
+<li><p>The Funding Map consist of 12 programs (1853 projects) with two specific to Puerto Rico (PR) and US territories.</p></li>
+<li><p>Those projects are classified by FCC in 3 categories: “Area”, “List of locations” and “Midle mile”<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p></li>
 </ul>
 
 
+</section>
 </section>
 
 
@@ -318,6 +357,7 @@ Figure&nbsp;1: “What on the national broadband map” Source: <a href="https:/
 <li id="fn5"><p><a href="https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf">https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>See “Change Log” <a href="https://us-fcc.app.box.com/v/bdc-data-downloads-output">https://us-fcc.app.box.com/v/bdc-data-downloads-output</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Page 4 <a href="https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf">https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>In May 2024 no Midle mile were present<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
