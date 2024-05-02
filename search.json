@@ -125,7 +125,19 @@
     "href": "fcc_funding.html",
     "title": "FCC Funding Map",
     "section": "",
-    "text": "Code\nsource(\"R/table_with_options.R\")\nLink: https://fundingmap.fcc.gov/home\nDocumentation: https://us-fcc.app.box.com/v/bfm-data-downloads-output\nThe download page has two tabs:",
+    "text": "Code\nsource(\"R/table_with_options.R\")",
+    "crumbs": [
+      "Home",
+      "EDA",
+      "FCC Funding Map"
+    ]
+  },
+  {
+    "objectID": "fcc_funding.html#important-links",
+    "href": "fcc_funding.html#important-links",
+    "title": "FCC Funding Map",
+    "section": "Important links:",
+    "text": "Important links:\nLink: https://fundingmap.fcc.gov/home\nDocumentation: https://us-fcc.app.box.com/v/bfm-data-downloads-output\nThe download page has two tabs:\n\nFunding data\nUnserved/unfunded",
     "crumbs": [
       "Home",
       "EDA",
@@ -149,7 +161,7 @@
     "href": "fcc_funding.html#project-data",
     "title": "FCC Funding Map",
     "section": "Project Data",
-    "text": "Project Data\nFCC is defining 3 types of projects:\n\nDefined by Area\nDefined by list of locations\nDefined by Middle Mile (No project representing this one: 07-03-2024)\n\nAll of those types of project will have a Project Attribute Information table (areaattributes_program or locationattributes_program). The structure of those files are close but not similar for example location project has columns related to locations (build_req, loc_plan, loc_sup).\nThe one for RDOF (areaattributes_program24_J23_12feb2024.csv) has 474 rows (inclunding headers ie 473 projects).\nArea projects will have an associated areapolygons_XXX.gpkg. A quick glance on the one from RDOF show full valid geometries with an expected number of rows (473).\nLocation projects have, instead, of a gpkg a csv with location_id and lat/long (and address)!\nIt seems that you can also have buildout data associated which each type of project but none of the project available are providing this information(07-03-2024).",
+    "text": "Project Data\nFCC is defining 3 types of projects:\n\nDefined by “Area”\nDefined by “List of locations”\nDefined by “Middle Mile” (No project representing this one: 02-05-2024)\n\nAll of those types of project will have a Project Attribute Information table (areaattributes_program or locationattributes_program). The structure of those files are close but not similar for example location project has columns related to locations (build_req, loc_plan, loc_sup).\nThe one for RDOF (areaattributes_program24_J23_12feb2024.csv) has 474 rows (inclunding headers ie 473 projects).\nArea projects will have an associated areapolygons_XXX.gpkg. A quick glance on the one from RDOF show full valid geometries with an expected number of rows (473).\nLocation projects have, instead, of a gpkg a csv with location_id, lat/long and addresses field (but those last those are not filled).",
     "crumbs": [
       "Home",
       "EDA",
