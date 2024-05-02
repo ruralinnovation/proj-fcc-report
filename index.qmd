@@ -102,9 +102,9 @@ TODO: improve
 
 ### Broadband Availibility: 
 
-- Number of BSL: 
+- Number of BSL: 115 342 225
 
-- Number of unique `FRN`: 
+- Number of unique `FRN`: 2879 
 
 ### Funding Map:
 
