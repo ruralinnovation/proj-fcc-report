@@ -15,17 +15,17 @@ website:
     style: "docked"
     search: true
     contents:
-      - section: "EDA"
-        contents:
-          - zero_dl_up.qmd
+      - section: "FCC Data"
+        contents: 
           - FCC_provider_list.qmd
           - isp_eda.qmd
-          - ntia_test.qmd
-          - ms-eda.qmd
-          - road-eda.qmd
-          - rdof.qmd
           - fcc_funding.qmd
-          - hubb.qmd
+          - zero_dl_up.qmd
+          - ntia_test.qmd
+      - section: "Other data sources"
+        contents:
+          - road-eda.qmd
+          - ms-eda.qmd
 
 format:
   html:

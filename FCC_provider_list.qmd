@@ -1,5 +1,5 @@
 ---
-title: "TL:DR on FCC providers list"
+title: "FCC providers list"
 date: last-modified
 format: 
   html:
