@@ -40,6 +40,10 @@ A location (see @sec-BSL) can be covered by multiple Internet Services Provides 
 
 We are using the "Broadband Availability" dataset (see @fig-broadbanddata, below) that come from the "Fabric locations" (developped by CostQuest) and is providing the basis of the National Broadband Map. The locations are determined within the Fabric Locations data. 
 
+:::{.aside}
+Sometimes the process of collecting those two datasets are called **B**roadband **D**ata **C**ollection (BDC) 
+:::
+
 The exact coordinates of every locations is only part of the Fabric data and within the Broadband Availability we can only link a location, thanks to specific field, to a Census Block (2020 vintage). 
 
 !["What on the national broadband map" Source: [https://www.fcc.gov/BroadbandData](https://www.fcc.gov/BroadbandData)](img/whats-on-the-national-broadband-map-113023-1.png){#fig-broadbanddata}

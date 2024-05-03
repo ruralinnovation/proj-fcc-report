@@ -12,9 +12,25 @@ engine: knitr
 source("R/table_with_options.R")
 ```
 
-The data set was [downloaded](https://www.fcc.gov/sites/default/files/ebb.provider.list_.xlsx) the 26-04-2024 and was apparently availiable since 11-03-2024. 
+We have multiple sources from FCC to define a provider. 
 
-A csv version of it is available in `data/`
+- Two are coming from the Broadband Data Collection:
+
+  * The first one from [FCC](https://us-fcc.app.box.com/v/bdcprovideridtable), accessed the 26-04-2024
+
+  * The second is comming from our pipelines of NBM (June 23 release)
+
+- One is comming from the Emergency Broadband Benefit[^ebb] and can be downloaded [here](https://www.fcc.gov/sites/default/files/ebb.provider.list_.xlsx) (accessed the 26-04-2024)    
+
+[^ebb]: The Emergency Broadband Benefit is the successor of the Affordable Connectivity Program, source: [https://www.fcc.gov/broadbandbenefit](https://www.fcc.gov/broadbandbenefit)
+
+::: {.callout-tip}
+A csv version of each is available in `data/` and the data can be downloaded with the download button. 
+:::
+ 
+# What does this data look likes?
+
+## Broadband Data Collection versions:
 
 ```{r}
 #|label: read csv
@@ -28,13 +44,47 @@ col_classe <- c("Provider.Name" = "character",
                "Provider.ID" = "character")
 
 isp <- read.csv(csv_path, colClasses = col_classe)
+```
 
+As we can see this table have 4 341 rows and 5 columns.
+
+Those columns are: 
+
+- `Provider.Name`: Sam than Brand Name?
+
+- `Affiliation`: Same number than `Provider.ID`
+
+```{r} 
+#| column: margin
+#| label: Operation type
+
+op_type <-as.data.frame(table(isp$Operation.Type, dnn = "Type"), responseName = "Nb." )
+
+knitr::kable(op_type)
+```
+
+- `Operation.Type`: Only two options "ILEC" or "Non-ILEC"
+
+- `FRN`: **F**CC **R**egistration **N**umber; "number of the entity that submited the data". It is supposed to be a string of 10 characters (with padding 0). Slighly more number than `Provider.Name` and seems to be the primary key.
+
+- `Provider.ID`: An ID for `Affiliations`
+
+```{r}
+#|label: display ISP from BDC
 table_with_options(isp)
 ```
 
-# Summary:
+ 
+# Data set with mail address and phone number
 
-As we can see this table have 4 341 rows and 5 columns.
+```{r}
+#| label: address and phone
+isp_contact <- read.csv("data/bb-provider_list.csv")
+table_with_options(isp_contact)
+```
+
+
+# EDA / Analysis 
 
 How many unique value do we have per column:
 
@@ -47,21 +97,9 @@ names(sum_table) <- c("Count of unique values")
 knitr::kable(sum_table)
 ```
 
-We can start by `Operation.Type` that can only take: "ILEC" or "Non-ILEC"
-
-```{r} 
-#| column: margin
-#| label: Operation type
-knitr::kable(table(isp$Operation.Type))
-```
-
-It seems `Affiliation` has the same number than `Provider.ID`. 
-
-`Provider.ID` is close but a bit less number than `FRN` which seems to be the "primary key" of this table.
-
 A quick check indicate that all `Provider.ID` are 6 characters (hence the one with 7 in FCC NBM is probably an error). `FRN` is also always 10 characters.
 
-# How FRN are split between Affiliations:
+### How FRN are split between Affiliations:
 
 ```{r}
 FRN_by_affiliations <- sapply(split(isp$FRN, isp$Affiliation), function(x) length(unique(x)))
@@ -73,12 +111,4 @@ knitr::kable(table(FRN_by_affiliations.dat$count_frn))
 ```
 
 
-Most of it are one for one. 
-
-# Data set with mail address and phone number
-
-```{r}
-#| label: address and phone
-isp_contact <- read.csv("data/bb-provider_list.csv")
-table_with_options(isp_contact)
-```
+Most of it are one for one.
