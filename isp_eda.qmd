@@ -337,29 +337,63 @@ sprintf("FRN with more than 500000 locations: %s",  nrow(frn_desc[frn_desc$cnt_l
 
 If we filter them out (removing 110 cases): 
 
-```{r}
-frn <- frn_desc[frn_desc$cnt_locations >= 10 & frn_desc$cnt_locations <= 500000,]
 
+::: {.panel-tabset}
+
+## 100 000
+```{r}
+location_filter <- 100000
+
+frn <- frn_desc[frn_desc$cnt_locations >= 10 & frn_desc$cnt_locations <= location_filter ,]
 # dim(frn_desc)
 # dim(frn)
 
-hist(frn$cnt_locations)
+hist(frn$cnt_locations,  col = 2, 
+     main = sprintf("Less than %s", location_filter), xlab = "count locations")
+
+frn$n_states <-  lengths(strsplit(gsub("\\{|\\}", "", frn$states), ","))
+```
+
+## 10 000
+```{r}
+location_filter <- 10000
+
+frn <- frn_desc[frn_desc$cnt_locations >= 10 & frn_desc$cnt_locations <= location_filter ,]
+# dim(frn_desc)
+# dim(frn)
+
+hist(frn$cnt_locations,  col = 2, 
+     main = sprintf("Less than %s", location_filter), xlab = "count locations")
 
 frn$n_states <-  lengths(strsplit(gsub("\\{|\\}", "", frn$states), ","))
 ```
 
 
-some test:
+:::
 
-```{r}
-#| label: tbl-datatable
-#| tbl-cap: "datatable"
-DT::datatable(iris)
-```
+List of ISP that the Broadband team that are good reference of small provider: 
 
+| Name  | FRN | Locations | 
+| --- | --- | --- |
+| Newport Utilities, TN | 0027152438 |15383 |
+| SandyNet, OR | 0004119376 | 4439|
+| ECFiber, VT| 0027379676 | 22926 |
+| Maple Broadband, VT| 0032366692 | 315|
+| Uplink|0026218602| 1611|
+| Black Bear Fiber|0025132648|1583|
+| QCOL|0019663095|5610|
+| Salsgiver|0011167079|29941|
+| All Points Broadband|0023524705|107803|
+| Marquette-Adams Telephone co-op  |0003774023|130783 |
+| USI fiber |||
+| Scott county telephone co | 0002069862|7829|
+| PANGAEA |0016202236| 8410|
+| Blue Mountain Networks |0005450507|310013|
 
-```{r}
-#| label: tbl-datatable2
-#| tbl-cap: "datatable2"
-table_with_options(iris)
-```
+ Side notes
+ 
+  Newport Utilities = NUconnect
+
+  SandyNet, OR = City of Sandy, OB
+  
+  Blue Mountain Networks = Blue Ridge Mountain Electric Membership Corporation
