@@ -117,7 +117,7 @@ count_and_clean <- function(vec) {
 num_brand_name <- count_and_clean(isp[["brand_name"]])
 ```
 
-Removing all capitalization and change underscore for white space help lower tthe number of unique brand names to: `r num_brand_name`
+Removing all capitalization and change underscore for white space help lower the number of unique brand names to: `r num_brand_name`
 
 ```{r}
 isp[["clean_name"]] <- tolower(trimws(gsub("_", " ", isp[["brand_name"]]))) 
@@ -196,9 +196,7 @@ table_with_options(more_frn_than_provider)
 
 Unique provider_id + brand_name are kind of "green" (for one time frame):
 
-```{r}
-sprintf("Number of green isp: %s", nrow(isp[isp$unique_brand_name_by_provider_id == 1,]))
-```
+Number of green isp: `r nrow(isp[isp$unique_brand_name_by_provider_id == 1,])`
 
 We can have one `provider_id` with multiple `frn` and same or not `brand_name` (see TSC for example / 150266) 
 
@@ -285,7 +283,7 @@ table_with_options(isp)
 ```
 
 
-A good example could be `131167` and how we can discriminate Orbitel communications. We can also prob raise the bar of "few locations". 
+A good example could be `131167` and how we can discriminate Orbitel communications. We can also prob. raise the bar of "few locations". 
 
 A quick summary of where we are:
 
@@ -298,7 +296,9 @@ table(isp[["rdy_to_go"]])
 
 # Typology of ISP
 
-The data was generated from June 23 FCC release and assumed that an FRN = ISP. Can we guess who is a small ISP?
+The data was generated from June 23 FCC release and assumed that an FRN = ISP. 
+
+Can we guess who is a small ISP?
 
 ```{r}
 # con <- cori.db::connect_to_db("proj_calix")
@@ -316,27 +316,26 @@ table_with_options(frn_desc)
 
 ```{r}
 cnt_locations <- frn_desc[["cnt_locations"]]
-
 summary(cnt_locations)
-
 ```
 
 
 ```{r}
 #| column: margin
-boxplot(cnt_locations) 
+boxplot(cnt_locations, horizontal = TRUE, col = 2, border = 2, frame = F, main = "Count of locations per ISP") 
 ```
 
 Some ISP are declaraing covering a huge number of locations. Some low counts are probably errors. 
 
+Count of FRN with a less than 10 locations: `r nrow(frn_desc[frn_desc$cnt_locations < 10,])`
+
+Count of FRN with more than 500 000 locations: `r nrow(frn_desc[frn_desc$cnt_locations > 500000,])`
+
 ```{r}
-#| label: removing big and small isp
-sprintf("FRN with a less than 10 locations: %s", nrow(frn_desc[frn_desc$cnt_locations < 10,]))
-sprintf("FRN with more than 500000 locations: %s",  nrow(frn_desc[frn_desc$cnt_locations > 500000,]))
+frn_desc$n_states <-  lengths(strsplit(gsub("\\{|\\}", "", frn_desc$states), ","))
 ```
 
 If we filter them out (removing 110 cases): 
-
 
 ::: {.panel-tabset}
 
@@ -350,8 +349,6 @@ frn <- frn_desc[frn_desc$cnt_locations >= 10 & frn_desc$cnt_locations <= locatio
 
 hist(frn$cnt_locations,  col = 2, 
      main = sprintf("Less than %s", location_filter), xlab = "count locations")
-
-frn$n_states <-  lengths(strsplit(gsub("\\{|\\}", "", frn$states), ","))
 ```
 
 ## 10 000
@@ -364,11 +361,7 @@ frn <- frn_desc[frn_desc$cnt_locations >= 10 & frn_desc$cnt_locations <= locatio
 
 hist(frn$cnt_locations,  col = 2, 
      main = sprintf("Less than %s", location_filter), xlab = "count locations")
-
-frn$n_states <-  lengths(strsplit(gsub("\\{|\\}", "", frn$states), ","))
 ```
-
-
 :::
 
 List of ISP that the Broadband team that are good reference of small provider: 
@@ -385,15 +378,19 @@ List of ISP that the Broadband team that are good reference of small provider:
 | Salsgiver|0011167079|29941|
 | All Points Broadband|0023524705|107803|
 | Marquette-Adams Telephone co-op  |0003774023|130783 |
-| USI fiber |||
+| USI fiber |0017096538|71466|
 | Scott county telephone co | 0002069862|7829|
 | PANGAEA |0016202236| 8410|
 | Blue Mountain Networks |0005450507|310013|
 
- Side notes
- 
-  Newport Utilities = NUconnect
 
-  SandyNet, OR = City of Sandy, OB
+ Side notes:
+ 
+- Newport Utilities = NUconnect
+
+- SandyNet, OR = City of Sandy, OR 
+
+- USI FIber = 
   
-  Blue Mountain Networks = Blue Ridge Mountain Electric Membership Corporation
+- Blue Mountain Networks = Blue Ridge Mountain Electric Membership Corporation
+
