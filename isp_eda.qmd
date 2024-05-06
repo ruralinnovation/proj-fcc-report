@@ -1,5 +1,5 @@
 ---
-title: "EDA on ISP"
+title: "EDA on Internet Service Providers"
 date: last-modified
 format: 
   html:
@@ -12,13 +12,15 @@ engine: knitr
 source("R/table_with_options.R")
 ```
 
-We are starting a first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be multiple time in the same location (offering multiple service).
+We are starting our first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be listed multiple times at the same location (offering multiple service).
 
-Our goal is being able to take FCC data and correctly identify an ISP over time (from the same program and from other FCC products).
+Our goal is being able to take FCC data and
+1. correctly identify the single ISP that is providing each reported service (i.e., deduplication of ISP names)
+2. correctly identify that ISP over time (from the same program and from other FCC products).
 
-How can we define an ISP? How can we define coverage, should a service 0/0 be considered as a coverage?
+How should we define an ISP? How can we define coverage (should a service 0/0 be considered as part of the extent of an ISP's coverage)?
 
-We shifted a bit from exploring to try to classify the quality of information we have from FCC about ISP.
+We shifted a bit from exploring to trying to classify the quality of information we have from FCC about ISP.
 
 The query that generated the data set is here: 
 
@@ -39,7 +41,7 @@ from staging.june23
 group by frn, provider_id, brand_name
 ```
 
-The name of the column match FCC [description](https://us-fcc.app.box.com/v/bdc-data-downloads-output). 
+The name of the columns match the FCC's documented [descriptions](https://us-fcc.app.box.com/v/bdc-data-downloads-output).
 
  
 We are adding: 

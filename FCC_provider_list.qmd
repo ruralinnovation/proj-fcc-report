@@ -28,7 +28,7 @@ We have multiple sources from FCC to define a provider.
 A csv version of each is available in `data/` and the data can be downloaded with the download button. 
 :::
  
-# What does this data look likes?
+# What does this data look like?
 
 ## Broadband Data Collection versions:
 
