@@ -73,13 +73,34 @@ We can count those points per block and compare to the number of location than F
 
 After that we build a small model that will provide either an estimate of BSL given MS footprint and how confidant the model is. 
 
+::: {.panel-tabset}
+
+## tot_loc ~ cnt_ms 
+
 ```{r}
-#| label: quick lm model for bsl
+#| label: quick lm model for bsl tot_loc ~ cnt_ms
 #| warning: false
 vt <- read.csv("data/vt_ms.csv")
 vt$tot_loc <-as.numeric(vt$tot_loc) 
 vt$tot_loc <- ifelse(is.na(vt$tot_loc), 0, vt$tot_loc)
 
+lm_loc <- lm(tot_loc ~  cnt_ms , data = vt)
+pot_val2 <- seq(min(vt$cnt_ms), max(vt$cnt_ms), by = 0.025)
+conf_interval <- predict(lm_loc, newdata = data.frame( cnt_ms = pot_val2) ,
+						 interval = "prediction", level = 0.95)
+
+plot(vt$tot_loc, vt$cnt_ms,  col = "#DF536B50", asp = 1, 
+ylab = "cnt of MS buildings", xlab = "cnt of fcc locations") 
+abline(lm_loc, col = 4)
+abline(1:500, 1:500, col = "black")
+lines(pot_val2, conf_interval[, "lwr"], col = "blue", lty = 2)
+lines(pot_val2, conf_interval[, "upr"], col =" blue", lty = 2)
+```
+
+## cnt_ms ~ tot_loc 
+```{r}
+#| label: quick lm model for bsl cnt_ms ~ tot_loc
+#| warning: false
 lm_ms <- lm(cnt_ms ~ tot_loc, data = vt)
 pot_val <- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)
 conf_interval <- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,
@@ -92,6 +113,8 @@ abline(1:500, 1:500, col = "black")
 lines(pot_val, conf_interval[, "lwr"], col = "blue", lty = 2)
 lines(pot_val, conf_interval[, "upr"], col =" blue", lty = 2)
 ```
+
+:::
 
 - my model (just a linear one) is probably bad (log should correct that)
 
