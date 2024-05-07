@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-05-06">
+<meta name="dcterms.date" content="2024-05-07">
 
 <title>FCC BDC EDA - Microsoft Building footprint</title>
 <style>
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 6, 2024</p>
+      <p class="date">May 7, 2024</p>
     </div>
   </div>
   
@@ -347,8 +347,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>conf_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_loc, <span class="at">newdata =</span> <span class="fu">data.frame</span>( <span class="at">cnt_ms =</span> pot_val2) ,</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vt<span class="sc">$</span>tot_loc, vt<span class="sc">$</span>cnt_ms,  <span class="at">col =</span> <span class="st">"#DF536B50"</span>, <span class="at">asp =</span> <span class="dv">1</span>, </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">"cnt of MS buildings"</span>, <span class="at">xlab =</span> <span class="st">"cnt of fcc locations"</span>) </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vt<span class="sc">$</span>cnt_ms, vt<span class="sc">$</span>tot_loc,  <span class="at">col =</span> <span class="st">"#DF536B50"</span>, <span class="at">asp =</span> <span class="dv">1</span>, </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">"cnt of MS buildings"</span>, <span class="at">ylab =</span> <span class="st">"cnt of fcc locations"</span>) </span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm_loc, <span class="at">col =</span> <span class="dv">4</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val2, conf_interval[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
@@ -372,8 +372,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>conf_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_ms, <span class="at">newdata =</span> <span class="fu">data.frame</span>( <span class="at">tot_loc =</span> pot_val) ,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vt<span class="sc">$</span>cnt_ms, vt<span class="sc">$</span>tot_loc,  <span class="at">col =</span> <span class="st">"#DF536B50"</span>, <span class="at">asp =</span> <span class="dv">1</span>, </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">"cnt of MS buildings"</span>, <span class="at">ylab =</span> <span class="st">"cnt of fcc locations"</span>) </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vt<span class="sc">$</span>tot_loc, vt<span class="sc">$</span>cnt_ms,  <span class="at">col =</span> <span class="st">"#DF536B50"</span>, <span class="at">asp =</span> <span class="dv">1</span>, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">"cnt of MS buildings"</span>, <span class="at">xlab =</span> <span class="st">"cnt of fcc locations"</span>) </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm_ms, <span class="at">col =</span> <span class="dv">4</span>)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val, conf_interval[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
