@@ -89,8 +89,8 @@ pot_val2 <- seq(min(vt$cnt_ms), max(vt$cnt_ms), by = 0.025)
 conf_interval <- predict(lm_loc, newdata = data.frame( cnt_ms = pot_val2) ,
 						 interval = "prediction", level = 0.95)
 
-plot(vt$tot_loc, vt$cnt_ms,  col = "#DF536B50", asp = 1, 
-ylab = "cnt of MS buildings", xlab = "cnt of fcc locations") 
+plot(vt$cnt_ms, vt$tot_loc,  col = "#DF536B50", asp = 1, 
+xlab = "cnt of MS buildings", ylab = "cnt of fcc locations") 
 abline(lm_loc, col = 4)
 abline(1:500, 1:500, col = "black")
 lines(pot_val2, conf_interval[, "lwr"], col = "blue", lty = 2)
@@ -106,8 +106,8 @@ pot_val <- seq(min(vt$tot_loc), max(vt$tot_loc), by = 0.025)
 conf_interval <- predict(lm_ms, newdata = data.frame( tot_loc = pot_val) ,
 						 interval = "prediction", level = 0.95)
 
-plot(vt$cnt_ms, vt$tot_loc,  col = "#DF536B50", asp = 1, 
-xlab = "cnt of MS buildings", ylab = "cnt of fcc locations") 
+plot(vt$tot_loc, vt$cnt_ms,  col = "#DF536B50", asp = 1, 
+ylab = "cnt of MS buildings", xlab = "cnt of fcc locations") 
 abline(lm_ms, col = 4)
 abline(1:500, 1:500, col = "black")
 lines(pot_val, conf_interval[, "lwr"], col = "blue", lty = 2)
