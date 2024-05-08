@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-05-07">
+<meta name="dcterms.date" content="2024-05-08">
 
 <title>FCC BDC EDA - Microsoft Building footprint</title>
 <style>
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 7, 2024</p>
+      <p class="date">May 8, 2024</p>
     </div>
   </div>
   
@@ -283,25 +283,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>Premises and Premise Counts</p>
 </blockquote>
-<p>Currently we have FCC total count locations at census block level.</p>
-<section id="ms-building-foot-print" class="level1">
+<p>Currently we have FCC total count of locations (BSL) at the census block level.</p>
+<section id="ms-building-foot-print" class="level1 page-columns page-full">
 <h1>MS Building Foot print</h1>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>MS used satellite data (from multiple campains/vintage) to get the footprint of buildings.</p>
+<p>Microsoft (MS) used satellite data (from multiple campains/vintage) to get the footprint of buildings.</p>
 <p>They are classifying pixels that are supposed to be part of a buildings (segmentation using a neural network) and then convert pixels to a shape.</p>
 <p>It exists <a href="https://github.com/microsoft/GlobalMLBuildingFootprints">worldwide</a> and for <a href="https://github.com/Microsoft/USBuildingFootprints?tab=readme-ov-file">US states</a>.</p>
 <ul>
 <li><p>We have processed the 51 states</p></li>
-<li><p>Additional works will be required for PR and US territories (parts of workflow from the US states can be reused).</p></li>
+<li><p>Additional works will be required for Puero Rico and the US territories (parts of workflow from the US states can be reused).</p></li>
 </ul>
-<p>The precision of the model vary depending on the region: the Carribean is at 92,2% and the US at 98.5%. The rate of false positive is 1% for the US and 1.8% for the Carribean. (Oceania was not provided)</p>
+<p>The precision of their model vary depending on the region: the Carribean is at 92,2% and the US at 98.5%. The rate of false positive is 1% for the US and 1.8% for the Carribean. (Oceania was not provided)</p>
 <p>The license is <a href="https://github.com/Microsoft/USBuildingFootprints?tab=License-1-ov-file">ODbL</a>.</p>
 </section>
-<section id="buildings-to-bsl" class="level2">
+<section id="buildings-to-bsl" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="buildings-to-bsl">Buildings to BSL?</h2>
 <p>Buildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data. Hence, now we have “buildings” summarized to points (lat/long).</p>
-<p>We do not have access to lat/long of BSL (fabrics). Our assumptions is if a count at block match they are describing the same reality (we can’t do the “on the ground verification”).</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Our pipeline can be find <a href="https://github.com/ruralinnovation/data-MS-buildings">here</a> (private repo)</p>
+</div></div><p>We do not have access to lat/long of BSL (this is only part of the fabric data). Our assumptions is if a count at block match they are describing the same reality (we can’t do the “on the ground verification”).</p>
 <p>The number of buildings reported for 51 states is: 130 099 920</p>
 <p>While is the number of BSL is: 114 074 438</p>
 <section id="other-potential-sources" class="level3">
@@ -317,10 +320,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="should-this-information-be-provided-and-how" class="level1 page-columns page-full">
 <h1>Should this information be provided and how?</h1>
 <p><strong>What could be the use cases?</strong></p>
-<p>Integrating those informations will have cost: information “overload”, documentation about is needed, and depending</p>
+<p>Integrating those informations will have cost: information “overload”, documentation about it is needed</p>
 <p>We can:</p>
 <ul>
-<li><p>Provide the count per census block of MS building footprint and the user</p></li>
+<li><p>Provide the count per census block of MS building footprint and let the user decide on the quality of the data around their specific geography</p></li>
 <li><p>Add the dot to the map</p></li>
 <li><p>if we add dot and/or count per block, how trustworthy this is information will be: add a “confidence” about it (will always be statitical)</p></li>
 </ul>
@@ -329,7 +332,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>How this data helps BEAD applicant?</p>
 </div></div><section id="ms-building-footprint-in-vt" class="level2">
 <h2 class="anchored" data-anchor-id="ms-building-footprint-in-vt">MS building footprint in VT</h2>
-<p>We can count those points per block and compare to the number of location than FCC is descriving.</p>
+<p>We can count those points per block and compare to the number of location than FCC is describing.</p>
 <p>After that we build a small model that will provide either an estimate of BSL given MS footprint and how confidant the model is.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">tot_loc ~ cnt_ms</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">cnt_ms ~ tot_loc</a></li></ul>
@@ -391,9 +394,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <ul>
-<li><p>my model (just a linear one) is probably bad (log should correct that)</p></li>
-<li><p>still strong relation</p></li>
-<li><p>the model is “overconfidant”, and the reality is more “spread”</p></li>
+<li><p>Strong relation</p></li>
+<li><p>the model is “overconfidant”, and the reality is more “spread” (what could possibly be the cause of it?)</p></li>
 <li><p>VT MS has also <strong>more</strong> locations (285333, versus 352618)</p></li>
 </ul>
 
