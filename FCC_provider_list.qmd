@@ -22,7 +22,7 @@ We have multiple sources from FCC to define a provider.
 
 - One is comming from the Emergency Broadband Benefit[^ebb] and can be downloaded [here](https://www.fcc.gov/sites/default/files/ebb.provider.list_.xlsx) (accessed the 26-04-2024)    
 
-[^ebb]: The Emergency Broadband Benefit is the successor of the Affordable Connectivity Program, source: [https://www.fcc.gov/broadbandbenefit](https://www.fcc.gov/broadbandbenefit)
+[^ebb]: The Emergency Broadband Benefit is the precursor of the Affordable Connectivity Program, source: [https://www.fcc.gov/broadbandbenefit](https://www.fcc.gov/broadbandbenefit)
 
 ::: {.callout-tip}
 A csv version of each is available in `data/` and the data can be downloaded with the download button. 
@@ -34,23 +34,16 @@ A csv version of each is available in `data/` and the data can be downloaded wit
 
 ```{r}
 #|label: read csv
+library("fcc.utils")
 
-csv_path <- "data/FCC_Providers_11_03_2024.csv"
-
-col_classe <- c("Provider.Name" = "character", 
-               "Affiliation" = "character",
-               "Operation.Type" = "factor",
-               "FRN" = "character",
-               "Provider.ID" = "character")
-
-isp <- read.csv(csv_path, colClasses = col_classe)
+isp <- fcc.utils::fcc_provider
 ```
 
 As we can see this table have 4 341 rows and 5 columns.
 
 Those columns are: 
 
-- `Provider.Name`: Sam than Brand Name?
+- `Provider.Name`: Same than Brand Name?
 
 - `Affiliation`: Same number than `Provider.ID`
 
@@ -75,7 +68,9 @@ table_with_options(isp)
 ```
 
  
-# Data set with mail address and phone number
+# Data set with mail address and phone numbers
+
+This data set is one that is coming from the ACP program.
 
 ```{r}
 #| label: address and phone
@@ -97,18 +92,32 @@ names(sum_table) <- c("Count of unique values")
 knitr::kable(sum_table)
 ```
 
-A quick check indicate that all `Provider.ID` are 6 characters (hence the one with 7 in FCC NBM is probably an error). `FRN` is also always 10 characters.
+A quick check indicate that all `Provider.ID` are 6 characters.
+`FRN` is also always 10 characters.
 
-### How FRN are split between Affiliations:
+:::{.aside}
+Hence the one with 7 in FCC NBM is probably an error.
+:::
+
+AS we can see we have the number of `Provider.ID`/`Affiliations` is smaller than FRN. 
+
+### How FRN are split between "Affiliations":
 
 ```{r}
 FRN_by_affiliations <- sapply(split(isp$FRN, isp$Affiliation), function(x) length(unique(x)))
 FRN_by_affiliations.dat <- data.frame(Affiliations = names(FRN_by_affiliations), 
                                       count_frn = FRN_by_affiliations)
 
+cnt_affiliation <- as.data.frame(table(FRN_by_affiliations.dat$count_frn), responseName = "")
+cnt_affiliation[["Num. of Affiliations / FRN"]] <- ifelse(as.numeric(cnt_affiliation[[1]]) < 10,  cnt_affiliation[[1]], "10+")
 
-knitr::kable(table(FRN_by_affiliations.dat$count_frn))
+cnt_affiliation <- aggregate(cnt_affiliation[[2]], list(cnt_affiliation[["Num. of Affiliations / FRN"]]), sum)
+
+names(cnt_affiliation) <- c("Num. of Affiliations / FRN", "Count")
+
+
+knitr::kable(cnt_affiliation[c(1, 3:9, 2 ),], row.names = FALSE)
 ```
 
 
-Most of it are one for one.
+ As expected most of of the relations FRN / provider are one to one (3135).
