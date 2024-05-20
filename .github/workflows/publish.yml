@@ -30,6 +30,7 @@ jobs:
           packages: |
             any::DT
             any::ggplot2
+            any::remotes
 
       - name: Install package from GH
         run: |
