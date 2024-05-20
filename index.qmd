@@ -77,7 +77,7 @@ NBM has two big releases per year (June and December) and have "unofficial" vers
 
 BFM seems to follow a schedule of update every two weeks but we have not find any specifications. 
 
-### What is the geographic coverage of these datasets?
+### What is the geographic coverage of those datasets?
 
 The Broadband Availability data is covering all US States, Puerto Rico and the US territories.  
 
