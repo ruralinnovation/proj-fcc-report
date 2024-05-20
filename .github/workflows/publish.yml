@@ -32,7 +32,7 @@ jobs:
             any::ggplot2
 
       - name: Install package from GH
-          run: |
+        run: |
             Rscript -e 'remotes::install_github("ruralinnovation/fcc.utils")'
 #
 #      - name: Install R Dependencies
