@@ -35,6 +35,8 @@ jobs:
       - name: Install package from GH
         run: |
             Rscript -e 'remotes::install_github("ruralinnovation/fcc.utils")'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #
 #      - name: Install R Dependencies
 #        uses: r-lib/actions/setup-renv@v2
