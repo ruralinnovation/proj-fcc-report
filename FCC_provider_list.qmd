@@ -103,9 +103,25 @@ Hence the one with 7 characters in FCC NBM is probably an error.
 
 ### What are the Provider Name thata re sharing multiple FRN:
 
+```{r}
+#| label: case where same name have different FRN
+provider.name_by_FRN <- sapply(split(isp$FRN, isp$Provider.Name), function(x) unique(x))
+
+multiple.frn <- provider.name_by_FRN[lengths(provider.name_by_FRN)> 1]
+
+value = sapply(multiple.frn, toString) |> unlist()
+
+provider.name_by_FRN.dat <- data.frame(Provide.Name = names(multiple.frn),
+                                   FRN = sapply(multiple.frn, toString)
+)
+
+table_with_options(provider.name_by_FRN.dat)
+```
 
 
 ### How FRN are split between "Affiliations"?
+
+We probably have case where companies have same name ("Farmers Mutual Telephone company") but we have probably havfe company that have multiple FRN ("Grand Mound Cooperative Telephone Association").
 
 ```{r}
 #| label: spliting number of affiliation by frn
