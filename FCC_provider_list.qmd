@@ -101,15 +101,15 @@ A quick check indicate that all `Provider.ID` are 6 characters.
 Hence the one with 7 characters in FCC NBM is probably an error.
 :::
 
-### What are the Provider Name thata re sharing multiple FRN:
+### What are the Provider Name that are sharing multiple `FRN`:
+
+We probably have cases where companies have same name ("Farmers Mutual Telephone company") but we have probably company that have multiple FRN ("Grand Mound Cooperative Telephone Association"). GRanted the low numbers I think we are fair to assume it does not matter to much. 
 
 ```{r}
 #| label: case where same name have different FRN
 provider.name_by_FRN <- sapply(split(isp$FRN, isp$Provider.Name), function(x) unique(x))
 
 multiple.frn <- provider.name_by_FRN[lengths(provider.name_by_FRN)> 1]
-
-value = sapply(multiple.frn, toString) |> unlist()
 
 provider.name_by_FRN.dat <- data.frame(Provide.Name = names(multiple.frn),
                                    FRN = sapply(multiple.frn, toString)
@@ -119,31 +119,49 @@ table_with_options(provider.name_by_FRN.dat)
 ```
 
 
-### How FRN are split between "Affiliations"?
+### How FRN are split between `Affiliations`/`Provider.ID`?
 
-We probably have case where companies have same name ("Farmers Mutual Telephone company") but we have probably havfe company that have multiple FRN ("Grand Mound Cooperative Telephone Association").
+ As expected most of of the relations FRN / provider are one to one (3135) while 387 have more than one FRN. 
 
 ```{r}
 #| label: spliting number of affiliation by frn
 #| column: margin
 #| tbl-cap: Affiliation per FRN
-FRN_by_affiliations <- sapply(split(isp$FRN, isp$Affiliation), function(x) length(unique(x)))
-FRN_by_affiliations.dat <- data.frame(Affiliations = names(FRN_by_affiliations), 
-                                      count_frn = FRN_by_affiliations)
+get_me_FRN_affiliations <- function(isp) { 
+  FRN_by_affiliations <- sapply(split(isp[["FRN"]], isp[["Affiliation"]]), 
+                                function(x) length(unique(x)))
+  FRN_by_affiliations.dat <- data.frame(Affiliations = names(FRN_by_affiliations), 
+                                        count_frn = FRN_by_affiliations)
+  return(FRN_by_affiliations.dat)
+}
 
-cnt_affiliation <- as.data.frame(table(FRN_by_affiliations.dat$count_frn), responseName = "")
-cnt_affiliation[["Num. of Affiliations / FRN"]] <- ifelse(as.numeric(cnt_affiliation[[1]]) < 10,  cnt_affiliation[[1]], "10+")
+FRN_affiliations.dat <- get_me_FRN_affiliations(isp) 
+ 
+cnt_affiliation <- as.data.frame(table(FRN_affiliations.dat$count_frn),
+                                       responseName = "")
 
-cnt_affiliation <- aggregate(cnt_affiliation[[2]], list(cnt_affiliation[["Num. of Affiliations / FRN"]]), sum)
+cnt_affiliation[["Num. of Affiliations / FRN"]] <- 
+  ifelse(as.numeric(cnt_affiliation[[1]]) < 10,  cnt_affiliation[[1]], "10+")
+
+cnt_affiliation <- aggregate(cnt_affiliation[[2]], 
+                             list(cnt_affiliation[["Num. of Affiliations / FRN"]]), 
+                             sum)
 
 names(cnt_affiliation) <- c("Number of Affiliations / FRN", "Count")
-
 
 knitr::kable(cnt_affiliation[c(1, 3:9, 2 ),], row.names = FALSE)
 ```
 
 
- As expected most of of the relations FRN / provider are one to one (3135).
+You can explore those 387 affiliations here: 
+
+```{r}
+#| label: 387 cases wth one affiliation and multiple FR
+dat <- FRN_affiliations.dat[FRN_affiliations.dat[["count_frn"]] > 1 ,]
+
+table_with_options(dat[order(dat[["count_frn"]], decreasing = TRUE), ])
+```
+
 
 # Data set with mail address and phone numbers
 
