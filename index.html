@@ -255,14 +255,14 @@ Map layer based on FCC BFM</code></pre>
 </blockquote>
 <section id="what-are-these-two-datasets" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="what-are-these-two-datasets">What are these two datasets?</h2>
-<p>The first one was started by the FCC in November 2022<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while the second was first published in May 2023<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (and documentation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> in July 2023).</p>
+<p>The first one (NBM) was started by the FCC in November 2022<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while the second was first published in May 2023<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (and documentation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> in July 2023).</p>
 <p>The NBM provides information at the scale of a “service” - a location covered by a provider by a technology with specifics maximum speeds.</p>
 <p>Every location is characterized by:</p>
 <ul>
 <li>Who is providing those services (<code>frn</code>, <code>provider_id</code>, and <code>brand_name</code>)</li>
 <li>A description of each services (<code>technology</code>, <code>max_advertised_download_speed</code>, <code>max_advertised_upload_speed</code>, <code>low_latency</code>)</li>
 <li>Whether the location associated with residential, business or both</li>
-<li>ways to localize the location (<code>state_abbr</code>, <code>block_geoid</code>, <code>h3_res8_id</code>)</li>
+<li>ways to localize it (<code>state_abbr</code>, <code>block_geoid</code>, <code>h3_res8_id</code>)</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -277,11 +277,11 @@ Tip
 <p>A location (see <a href="#sec-BSL" class="quarto-xref">Section&nbsp;2.1</a>) can be covered by multiple Internet Services Provides (ISP) with potentially different services and technologies. Hence, it can represented in the data can by many “rows”.</p>
 </div>
 </div>
-<p>We are using the “Broadband Availability” dataset (see <a href="#fig-broadbanddata" class="quarto-xref">Figure&nbsp;1</a>, below) that comes from the “Fabric” locations (developed by CostQuest) and provides the basis of the National Broadband Map. The locations are determined within the Fabric locations data.</p>
+<p>Behind the National Broadband Map they are <strong>two</strong> datasets (see <a href="#fig-broadbanddata" class="quarto-xref">Figure&nbsp;1</a>, below). We are using the “Broadband Availability” dataset that comes from the “Fabric” locations dataset (developed by CostQuest). The locations are determined within the Fabric locations data.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p>Sometimes the process of collecting those two datasets is called <strong>B</strong>roadband <strong>D</strong>ata <strong>C</strong>ollection (BDC)</p>
-</div></div><p>The exact coordinates of every locations is only part of the Fabric data and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.</p>
+</div></div><p>The exact coordinates of every locations is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.</p>
 <div id="fig-broadbanddata" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -301,7 +301,7 @@ Figure&nbsp;1: “What on the national broadband map” Source: <a href="https:/
 </section>
 <section id="when-is-this-data-updated" class="level3">
 <h3 class="anchored" data-anchor-id="when-is-this-data-updated">When is this data updated?</h3>
-<p>NBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> ).</p>
+<p>NBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>).</p>
 <p>BFM seems to follow a schedule of update every two weeks but we have not find any specifications.</p>
 </section>
 <section id="what-is-the-geographic-coverage-of-those-datasets" class="level3">
@@ -363,7 +363,7 @@ FCC could change those definitions and for example move the bar at 100/20: [http
 <li id="fn5"><p><a href="https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf">https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>See “Change Log” <a href="https://us-fcc.app.box.com/v/bdc-data-downloads-output">https://us-fcc.app.box.com/v/bdc-data-downloads-output</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Page 4 <a href="https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf">https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>In May 2024 no Midle mile were present<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>In May 2024 no “Midle mile” were present<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
