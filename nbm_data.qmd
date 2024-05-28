@@ -31,23 +31,29 @@ release <- get_release(filing_url)
 table_with_options(release)
 ```
 
+## Getting links for every CSV in NBM: 
 
+Even if NBM have a biannual release cycle it is updated more frequently (around every two weeks). 
 
-```{R}
-#| eval: FALSE
+```{r}
+#| label: list all available data
+
 get_data_url <- paste0("https://broadbandmap.fcc.gov/nbm/map/api/",
                        "national_map_process/nbm_get_data_download/")
+
 get_csv_to_dl <- function(release_file, release_nb) {
-  get_data_url_last <- paste0(get_data_url,
+  get_data_url <- paste0(get_data_url,
                               release_file[release_nb, "process_uuid"])
 
-  test <- curl_fetch_memory(get_data_url_last)
+  raw_dat <- curl::curl_fetch_memory(get_data_url)
 
-  csv_to_dl <- jsonlite::fromJSON(rawToChar(test$content))$data
+  csv_to_dl <- jsonlite::fromJSON(rawToChar(raw_dat$content))$data
+  csv_to_dl[["release"]] <- release_file[release_nb, "filing_subtype"] 
   return(csv_to_dl)
 }
 
-big_list <- lapply(1:4, get_csv_to_dl, release_file = release)
+big_list <- lapply(1:nrow(release), get_csv_to_dl, release_file = release)
 
-bob <- do.call(rbind, big_list)
+all_data <- do.call(rbind, big_list)
+table_with_options(all_data)
 ```
