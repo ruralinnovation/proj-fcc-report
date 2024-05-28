@@ -55,5 +55,10 @@ get_csv_to_dl <- function(release_file, release_nb) {
 big_list <- lapply(1:nrow(release), get_csv_to_dl, release_file = release)
 
 all_data <- do.call(rbind, big_list)
-table_with_options(all_data)
+
+col_to_keep <- c("release", "data_type", "technology_code", "state_fips", "provider_id", "file_name", "file_type")
+
+slim_all_data <- all_data[, col_to_keep]
+
+table_with_options(slim_all_data)
 ```
