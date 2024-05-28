@@ -1,0 +1,53 @@
+---
+title: "FCC NBM data"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+```{r}
+#| label: utility functions
+source("R/table_with_options.R")
+```
+
+This page will display all available data that can downloaded from FCC NBM. 
+
+## Getting the Information about NBM Release: 
+
+```{r}
+#| label: setting URL and getting a table with release
+filing_url <- "https://broadbandmap.fcc.gov/nbm/map/api/published/filing"
+
+# getting a list of release
+get_release <- function(filing_url) {
+  req <- curl::curl_fetch_memory(filing_url)
+  release <- jsonlite::fromJSON(rawToChar(req$content))$data
+  return(release)
+}
+
+release <- get_release(filing_url)
+table_with_options(release)
+```
+
+
+
+```{R}
+#| eval: FALSE
+get_data_url <- paste0("https://broadbandmap.fcc.gov/nbm/map/api/",
+                       "national_map_process/nbm_get_data_download/")
+get_csv_to_dl <- function(release_file, release_nb) {
+  get_data_url_last <- paste0(get_data_url,
+                              release_file[release_nb, "process_uuid"])
+
+  test <- curl_fetch_memory(get_data_url_last)
+
+  csv_to_dl <- jsonlite::fromJSON(rawToChar(test$content))$data
+  return(csv_to_dl)
+}
+
+big_list <- lapply(1:4, get_csv_to_dl, release_file = release)
+
+bob <- do.call(rbind, big_list)
+```

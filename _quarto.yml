@@ -16,7 +16,8 @@ website:
     search: true
     contents:
       - section: "FCC Data"
-        contents: 
+        contents:
+          - nbm_data.qmd 
           - FCC_provider_list.qmd
           - isp_eda.qmd
           - fcc_funding.qmd

@@ -31,6 +31,8 @@ jobs:
             any::DT
             any::ggplot2
             any::remotes
+            any::curl
+            any::jsonlite
 
       - name: Install package from GH
         run: |
