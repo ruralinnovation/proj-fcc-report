@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2024-05-30">
 
-<title>FCC BDC EDA - Microsoft Building footprint</title>
+<title>FCC BDC EDA - FCC NBM data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed slimcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -142,7 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./road-eda.html">Other data sources</a></li><li class="breadcrumb-item"><a href="./ms-eda.html">Microsoft Building footprint</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./nbm_data.html">FCC Data</a></li><li class="breadcrumb-item"><a href="./nbm_data.html">FCC NBM data</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -173,7 +173,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./nbm_data.html" class="sidebar-item-text sidebar-link">
+  <a href="./nbm_data.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">FCC NBM data</span></a>
   </div>
 </li>
@@ -226,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ms-eda.html" class="sidebar-item-text sidebar-link active">
+  <a href="./ms-eda.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Microsoft Building footprint</span></a>
   </div>
 </li>
@@ -242,27 +242,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ms-building-foot-print" id="toc-ms-building-foot-print" class="nav-link active" data-scroll-target="#ms-building-foot-print">MS Building Foot print</a>
-  <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#buildings-to-bsl" id="toc-buildings-to-bsl" class="nav-link" data-scroll-target="#buildings-to-bsl">Buildings to BSL?</a>
-  <ul class="collapse">
-  <li><a href="#other-potential-sources" id="toc-other-potential-sources" class="nav-link" data-scroll-target="#other-potential-sources">Other potential sources:</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#should-this-information-be-provided-and-how" id="toc-should-this-information-be-provided-and-how" class="nav-link" data-scroll-target="#should-this-information-be-provided-and-how">Should this information be provided and how?</a>
-  <ul class="collapse">
-  <li><a href="#ms-building-footprint-in-vt" id="toc-ms-building-footprint-in-vt" class="nav-link" data-scroll-target="#ms-building-footprint-in-vt">MS building footprint in VT</a></li>
-  </ul></li>
+  <li><a href="#getting-the-information-about-nbm-release" id="toc-getting-the-information-about-nbm-release" class="nav-link active" data-scroll-target="#getting-the-information-about-nbm-release">Getting the Information about NBM Release:</a></li>
+  <li><a href="#getting-links-for-every-csv-in-nbm" id="toc-getting-links-for-every-csv-in-nbm" class="nav-link" data-scroll-target="#getting-links-for-every-csv-in-nbm">Getting links for every CSV in NBM:</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/ms-eda.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/nbm_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./road-eda.html">Other data sources</a></li><li class="breadcrumb-item"><a href="./ms-eda.html">Microsoft Building footprint</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./nbm_data.html">FCC Data</a></li><li class="breadcrumb-item"><a href="./nbm_data.html">FCC NBM data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Microsoft Building footprint</h1>
+<h1 class="title">FCC NBM data</h1>
 </div>
 
 
@@ -285,131 +275,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Why are we doing it?</p>
-<blockquote class="blockquote">
-<p>Premises and Premise Counts</p>
-</blockquote>
-<p>Currently we have FCC total count of locations (BSL) at the census block level.</p>
-<section id="ms-building-foot-print" class="level1 page-columns page-full">
-<h1>MS Building Foot print</h1>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>Microsoft (MS) used satellite data (from multiple campains/vintage) to get the footprint of buildings.</p>
-<p>They are classifying pixels that are supposed to be part of a buildings (segmentation using a neural network) and then convert pixels to a shape.</p>
-<p>It exists <a href="https://github.com/microsoft/GlobalMLBuildingFootprints">worldwide</a> and for <a href="https://github.com/Microsoft/USBuildingFootprints?tab=readme-ov-file">US states</a>.</p>
-<ul>
-<li><p>We have processed the 51 states</p></li>
-<li><p>Additional works will be required for Puero Rico and the US territories (parts of workflow from the US states can be reused).</p></li>
-</ul>
-<p>The precision of their model vary depending on the region: the Carribean is at 92,2% and the US at 98.5%. The rate of false positive is 1% for the US and 1.8% for the Carribean. (Oceania was not provided)</p>
-<p>The license is <a href="https://github.com/Microsoft/USBuildingFootprints?tab=License-1-ov-file">ODbL</a>.</p>
-</section>
-<section id="buildings-to-bsl" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="buildings-to-bsl">Buildings to BSL?</h2>
-<p>Buildings are shapes, BSL are points. We converted the buildings to single point (arbitrary: the first vertex of the shape) to lower the amout of data. Hence, now we have “buildings” summarized to points (lat/long).</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>Our pipeline can be find <a href="https://github.com/ruralinnovation/data-MS-buildings">here</a> (private repo)</p>
-</div></div><p>We do not have access to lat/long of BSL (this is only part of the fabric data). Our assumptions is if a count at block match they are describing the same reality (we can’t do the “on the ground verification”).</p>
-<p>The number of buildings reported for 51 states is: 130 099 920</p>
-<p>While is the number of BSL is: 114 074 438</p>
-<section id="other-potential-sources" class="level3">
-<h3 class="anchored" data-anchor-id="other-potential-sources">Other potential sources:</h3>
-<ul>
-<li><p>OpenStreetMap</p></li>
-<li><p><a href="https://www.fcc.gov/staff-block-estimates">FCC staff estimates</a>: at census block level (only for US 51)</p></li>
-<li><p>ACS households</p></li>
-</ul>
-</section>
-</section>
-</section>
-<section id="should-this-information-be-provided-and-how" class="level1 page-columns page-full">
-<h1>Should this information be provided and how?</h1>
-<p><strong>What could be the use cases?</strong></p>
-<p>Integrating those informations will have cost: information “overload”, documentation about it is needed</p>
-<p>We can:</p>
-<ul>
-<li><p>Provide the count per census block of MS building footprint and let the user decide on the quality of the data around their specific geography</p></li>
-<li><p>Add the dot to the map</p></li>
-<li><p>if we add dot and/or count per block, how trustworthy this is information will be: add a “confidence” about it (will always be statitical)</p></li>
-</ul>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>How this data helps BEAD applicant?</p>
-</div></div><section id="ms-building-footprint-in-vt" class="level2">
-<h2 class="anchored" data-anchor-id="ms-building-footprint-in-vt">MS building footprint in VT</h2>
-<p>We can count those points per block and compare to the number of location than FCC is describing.</p>
-<p>After that we build a small model that will provide either an estimate of BSL given MS footprint and how confidant the model is.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">tot_loc ~ cnt_ms</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">cnt_ms ~ tot_loc</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/vt_ms.csv"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vt<span class="sc">$</span>tot_loc <span class="ot">&lt;-</span><span class="fu">as.numeric</span>(vt<span class="sc">$</span>tot_loc) </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>vt<span class="sc">$</span>tot_loc <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(vt<span class="sc">$</span>tot_loc), <span class="dv">0</span>, vt<span class="sc">$</span>tot_loc)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>lm_loc <span class="ot">&lt;-</span> <span class="fu">lm</span>(tot_loc <span class="sc">~</span>  cnt_ms , <span class="at">data =</span> vt)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pot_val2 <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(vt<span class="sc">$</span>cnt_ms), <span class="fu">max</span>(vt<span class="sc">$</span>cnt_ms), <span class="at">by =</span> <span class="fl">0.025</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>conf_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_loc, <span class="at">newdata =</span> <span class="fu">data.frame</span>( <span class="at">cnt_ms =</span> pot_val2) ,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vt<span class="sc">$</span>cnt_ms, vt<span class="sc">$</span>tot_loc,  <span class="at">col =</span> <span class="st">"#DF536B50"</span>, <span class="at">asp =</span> <span class="dv">1</span>, </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">xlab =</span> <span class="st">"cnt of MS buildings"</span>, <span class="at">ylab =</span> <span class="st">"cnt of fcc locations"</span>) </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm_loc, <span class="at">col =</span> <span class="dv">4</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val2, conf_interval[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val2, conf_interval[, <span class="st">"upr"</span>], <span class="at">col =</span><span class="st">" blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/table_with_options.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ms-eda_files/figure-html/quick lm model for bsl tot_loc ~ cnt_ms-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
-</div>
-</div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>This page will display all available data (minus challenge data<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>]) that can downloaded from FCC NBM.</p>
+<section id="getting-the-information-about-nbm-release" class="level2">
+<h2 class="anchored" data-anchor-id="getting-the-information-about-nbm-release">Getting the Information about NBM Release:</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>lm_ms <span class="ot">&lt;-</span> <span class="fu">lm</span>(cnt_ms <span class="sc">~</span> tot_loc, <span class="at">data =</span> vt)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pot_val <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(vt<span class="sc">$</span>tot_loc), <span class="fu">max</span>(vt<span class="sc">$</span>tot_loc), <span class="at">by =</span> <span class="fl">0.025</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>conf_interval <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_ms, <span class="at">newdata =</span> <span class="fu">data.frame</span>( <span class="at">tot_loc =</span> pot_val) ,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(vt<span class="sc">$</span>tot_loc, vt<span class="sc">$</span>cnt_ms,  <span class="at">col =</span> <span class="st">"#DF536B50"</span>, <span class="at">asp =</span> <span class="dv">1</span>, </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">ylab =</span> <span class="st">"cnt of MS buildings"</span>, <span class="at">xlab =</span> <span class="st">"cnt of fcc locations"</span>) </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm_ms, <span class="at">col =</span> <span class="dv">4</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val, conf_interval[, <span class="st">"lwr"</span>], <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(pot_val, conf_interval[, <span class="st">"upr"</span>], <span class="at">col =</span><span class="st">" blue"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>filing_url <span class="ot">&lt;-</span> <span class="st">"https://broadbandmap.fcc.gov/nbm/map/api/published/filing"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># getting a list of release</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>get_release <span class="ot">&lt;-</span> <span class="cf">function</span>(filing_url) {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  req <span class="ot">&lt;-</span> curl<span class="sc">::</span><span class="fu">curl_fetch_memory</span>(filing_url)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  release <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(req<span class="sc">$</span>content))<span class="sc">$</span>data</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(release)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>release <span class="ot">&lt;-</span> <span class="fu">get_release</span>(filing_url)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(release)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="ms-eda_files/figure-html/quick lm model for bsl cnt_ms ~ tot_loc-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
+</section>
+<section id="getting-links-for-every-csv-in-nbm" class="level2">
+<h2 class="anchored" data-anchor-id="getting-links-for-every-csv-in-nbm">Getting links for every CSV in NBM:</h2>
+<p>Even if NBM have a biannual release cycle it is updated more frequently (around every two weeks).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>get_data_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"https://broadbandmap.fcc.gov/nbm/map/api/"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"national_map_process/nbm_get_data_download/"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>get_csv_to_dl <span class="ot">&lt;-</span> <span class="cf">function</span>(release_file, release_nb) {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  get_data_url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(get_data_url,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                              release_file[release_nb, <span class="st">"process_uuid"</span>])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  raw_dat <span class="ot">&lt;-</span> curl<span class="sc">::</span><span class="fu">curl_fetch_memory</span>(get_data_url)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  csv_to_dl <span class="ot">&lt;-</span> jsonlite<span class="sc">::</span><span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(raw_dat<span class="sc">$</span>content))<span class="sc">$</span>data</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  csv_to_dl[[<span class="st">"release"</span>]] <span class="ot">&lt;-</span> release_file[release_nb, <span class="st">"filing_subtype"</span>] </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(csv_to_dl)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>big_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(release), get_csv_to_dl, <span class="at">release_file =</span> release)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, big_list)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>col_to_keep <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"release"</span>, <span class="st">"data_type"</span>, <span class="st">"technology_code"</span>, <span class="st">"state_fips"</span>, <span class="st">"provider_id"</span>, <span class="st">"file_name"</span>, <span class="st">"file_type"</span>, <span class="st">"data_category"</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>slim_all_data <span class="ot">&lt;-</span> all_data[, col_to_keep]</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>fixed <span class="ot">&lt;-</span> </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  slim_all_data[slim_all_data<span class="sc">$</span>data_type <span class="sc">==</span> <span class="st">"Fixed Broadband"</span> <span class="sc">|</span> slim_all_data<span class="sc">$</span>data_category <span class="sc">==</span> <span class="st">"Nationwide"</span> , ]</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(fixed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li><p>Strong relation</p></li>
-<li><p>the model is “overconfidant”, and the reality is more “spread” (what could possibly be the cause of it?)</p></li>
-<li><p>VT MS has also <strong>more</strong> locations (285333, versus 352618)</p></li>
-</ul>
 
 
 </section>
-</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>this data is stored in a slighly different endpoint see<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -824,4 +760,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/ms-eda.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/nbm_data.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

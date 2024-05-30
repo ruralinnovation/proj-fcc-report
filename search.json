@@ -28,7 +28,7 @@
     "href": "FCC_provider_list.html#how-many-unique-values-do-we-have-per-column",
     "title": "FCC providers list",
     "section": "How many unique values do we have per column:",
-    "text": "How many unique values do we have per column:\n\n\nCode\nsum_table &lt;-  apply(isp, 2, function(x)length(unique(x))) |&gt;\n                    as.data.frame()\nnames(sum_table) &lt;- c(\"Count of unique values\")\n\nknitr::kable(sum_table)\n\n\n\n\nCoutnt of unique values / columns\n\n\n\nCount of unique values\n\n\n\n\nProvider.Name\n4321\n\n\nAffiliation\n3522\n\n\nOperation.Type\n2\n\n\nFRN\n4341\n\n\nProvider.ID\n3522\n\n\n\n\nWe can confirm that:\n\nFRN here is unique for every row in this data set (our primary key)\nWe have a bit less Provider.Name (4321 / 4341) than FRN\nWe have the same number of Affiliations and Provider.ID\nThe number of Provider.ID/Affiliations is smaller than FRN.\n\nA quick check indicate that all Provider.ID are 6 characters. FRN is also always 10 characters.\n\n\nHence the one with 7 characters in FCC NBM is probably an error.\n\nWhat are the Provider Name that are sharing multiple FRN:\nWe probably have cases where companies have same name (“Farmers Mutual Telephone company”) but we have probably company that have multiple FRN (“Grand Mound Cooperative Telephone Association”). GRanted the low numbers I think we are fair to assume it does not matter to much.\n\n\nCode\nprovider.name_by_FRN &lt;- sapply(split(isp$FRN, isp$Provider.Name), function(x) unique(x))\n\nmultiple.frn &lt;- provider.name_by_FRN[lengths(provider.name_by_FRN)&gt; 1]\n\nprovider.name_by_FRN.dat &lt;- data.frame(Provide.Name = names(multiple.frn),\n                                   FRN = sapply(multiple.frn, toString)\n)\n\ntable_with_options(provider.name_by_FRN.dat)\n\n\n\n\n\n\n\n\nHow FRN are split between Affiliations/Provider.ID?\nAs expected most of of the relations FRN / provider are one to one (3135) while 387 have more than one FRN.\n\n\nCode\nget_me_FRN_affiliations &lt;- function(isp) { \n  FRN_by_affiliations &lt;- sapply(split(isp[[\"FRN\"]], isp[[\"Affiliation\"]]), \n                                function(x) length(unique(x)))\n  FRN_by_affiliations.dat &lt;- data.frame(Affiliations = names(FRN_by_affiliations), \n                                        count_frn = FRN_by_affiliations)\n  return(FRN_by_affiliations.dat)\n}\n\nFRN_affiliations.dat &lt;- get_me_FRN_affiliations(isp) \n \ncnt_affiliation &lt;- as.data.frame(table(FRN_affiliations.dat$count_frn),\n                                       responseName = \"\")\n\ncnt_affiliation[[\"Num. of Affiliations / FRN\"]] &lt;- \n  ifelse(as.numeric(cnt_affiliation[[1]]) &lt; 10,  cnt_affiliation[[1]], \"10+\")\n\ncnt_affiliation &lt;- aggregate(cnt_affiliation[[2]], \n                             list(cnt_affiliation[[\"Num. of Affiliations / FRN\"]]), \n                             sum)\n\nnames(cnt_affiliation) &lt;- c(\"Number of Affiliations / FRN\", \"Count\")\n\nknitr::kable(cnt_affiliation[c(1, 3:9, 2 ),], row.names = FALSE)\n\n\n\n\nAffiliation per FRN\n\n\nNumber of Affiliations / FRN\nCount\n\n\n\n\n1\n3135\n\n\n2\n256\n\n\n3\n66\n\n\n4\n26\n\n\n5\n8\n\n\n6\n7\n\n\n7\n3\n\n\n8\n4\n\n\n10+\n15\n\n\n\n\nYou can explore those 387 affiliations here:\n\n\nCode\ndat &lt;- FRN_affiliations.dat[FRN_affiliations.dat[[\"count_frn\"]] &gt; 1 ,]\n\ntable_with_options(dat[order(dat[[\"count_frn\"]], decreasing = TRUE), ])",
+    "text": "How many unique values do we have per column:\n\n\nCode\nsum_table &lt;-  apply(isp, 2, function(x)length(unique(x))) |&gt;\n                    as.data.frame()\nnames(sum_table) &lt;- c(\"Count of unique values\")\n\nknitr::kable(sum_table)\n\n\n\n\nCount of unique values / columns\n\n\n\nCount of unique values\n\n\n\n\nProvider.Name\n4321\n\n\nAffiliation\n3522\n\n\nOperation.Type\n2\n\n\nFRN\n4341\n\n\nProvider.ID\n3522\n\n\n\n\nWe can confirm that:\n\nFRN here is unique for every row in this data set (our primary key)\nWe have a bit less Provider.Name (4321 / 4341) than FRN\nWe have the same number of Affiliations and Provider.ID\nThe number of Provider.ID/Affiliations is smaller than FRN.\n\nA quick check indicate that all Provider.ID are 6 characters. FRN is also always 10 characters.\n\n\nHence the one with 7 characters in FCC NBM is probably an error.\n\nWhat are the Provider Name that are sharing multiple FRN:\nWe probably have cases where companies have same name (“Farmers Mutual Telephone company”) but we have probably company that have multiple FRN (“Grand Mound Cooperative Telephone Association”). Granted the low numbers I think we are fair to assume it does not matter to much.\n\n\nCode\nprovider.name_by_FRN &lt;- sapply(split(isp$FRN, isp$Provider.Name), function(x) unique(x))\n\nmultiple.frn &lt;- provider.name_by_FRN[lengths(provider.name_by_FRN)&gt; 1]\n\nprovider.name_by_FRN.dat &lt;- data.frame(Provide.Name = names(multiple.frn),\n                                   FRN = sapply(multiple.frn, toString)\n)\n\ntable_with_options(provider.name_by_FRN.dat)\n\n\n\n\n\n\n\n\nHow FRN are split between Affiliations/Provider.ID?\nAs expected most of of the relations FRN / provider are one to one (3135) while 387 have more than one FRN.\n\n\nCode\nget_me_FRN_affiliations &lt;- function(isp) { \n  FRN_by_affiliations &lt;- sapply(split(isp[[\"FRN\"]], isp[[\"Affiliation\"]]), \n                                function(x) length(unique(x)))\n  FRN_by_affiliations.dat &lt;- data.frame(Affiliations = names(FRN_by_affiliations), \n                                        count_frn = FRN_by_affiliations)\n  return(FRN_by_affiliations.dat)\n}\n\nFRN_affiliations.dat &lt;- get_me_FRN_affiliations(isp) \n \ncnt_affiliation &lt;- as.data.frame(table(FRN_affiliations.dat$count_frn),\n                                       responseName = \"\")\n\ncnt_affiliation[[\"Num. of Affiliations / FRN\"]] &lt;- \n  ifelse(as.numeric(cnt_affiliation[[1]]) &lt; 10,  cnt_affiliation[[1]], \"10+\")\n\ncnt_affiliation &lt;- aggregate(cnt_affiliation[[2]], \n                             list(cnt_affiliation[[\"Num. of Affiliations / FRN\"]]), \n                             sum)\n\nnames(cnt_affiliation) &lt;- c(\"Number of Affiliations / FRN\", \"Count\")\n\nknitr::kable(cnt_affiliation[c(1, 3:9, 2 ),], row.names = FALSE)\n\n\n\n\nAffiliation per FRN\n\n\nNumber of Affiliations / FRN\nCount\n\n\n\n\n1\n3135\n\n\n2\n256\n\n\n3\n66\n\n\n4\n26\n\n\n5\n8\n\n\n6\n7\n\n\n7\n3\n\n\n8\n4\n\n\n10+\n15\n\n\n\n\nYou can explore those 387 affiliations here:\n\n\nCode\ndat &lt;- FRN_affiliations.dat[FRN_affiliations.dat[[\"count_frn\"]] &gt; 1 ,]\n\ntable_with_options(dat[order(dat[[\"count_frn\"]], decreasing = TRUE), ])",
     "crumbs": [
       "Home",
       "FCC Data",
@@ -117,6 +117,187 @@
     ]
   },
   {
+    "objectID": "nbm_data.html",
+    "href": "nbm_data.html",
+    "title": "FCC NBM data",
+    "section": "",
+    "text": "Code\nsource(\"R/table_with_options.R\")\nThis page will display all available data (minus challenge data1]) that can downloaded from FCC NBM.",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "FCC NBM data"
+    ]
+  },
+  {
+    "objectID": "nbm_data.html#getting-the-information-about-nbm-release",
+    "href": "nbm_data.html#getting-the-information-about-nbm-release",
+    "title": "FCC NBM data",
+    "section": "Getting the Information about NBM Release:",
+    "text": "Getting the Information about NBM Release:\n\n\nCode\nfiling_url &lt;- \"https://broadbandmap.fcc.gov/nbm/map/api/published/filing\"\n\n# getting a list of release\nget_release &lt;- function(filing_url) {\n  req &lt;- curl::curl_fetch_memory(filing_url)\n  release &lt;- jsonlite::fromJSON(rawToChar(req$content))$data\n  return(release)\n}\n\nrelease &lt;- get_release(filing_url)\ntable_with_options(release)",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "FCC NBM data"
+    ]
+  },
+  {
+    "objectID": "nbm_data.html#getting-links-for-every-csv-in-nbm",
+    "href": "nbm_data.html#getting-links-for-every-csv-in-nbm",
+    "title": "FCC NBM data",
+    "section": "Getting links for every CSV in NBM:",
+    "text": "Getting links for every CSV in NBM:\nEven if NBM have a biannual release cycle it is updated more frequently (around every two weeks).\n\n\nCode\nget_data_url &lt;- paste0(\"https://broadbandmap.fcc.gov/nbm/map/api/\",\n                       \"national_map_process/nbm_get_data_download/\")\n\nget_csv_to_dl &lt;- function(release_file, release_nb) {\n  get_data_url &lt;- paste0(get_data_url,\n                              release_file[release_nb, \"process_uuid\"])\n\n  raw_dat &lt;- curl::curl_fetch_memory(get_data_url)\n\n  csv_to_dl &lt;- jsonlite::fromJSON(rawToChar(raw_dat$content))$data\n  csv_to_dl[[\"release\"]] &lt;- release_file[release_nb, \"filing_subtype\"] \n  return(csv_to_dl)\n}\n\nbig_list &lt;- lapply(1:nrow(release), get_csv_to_dl, release_file = release)\n\nall_data &lt;- do.call(rbind, big_list)\n\ncol_to_keep &lt;- c(\"release\", \"data_type\", \"technology_code\", \"state_fips\", \"provider_id\", \"file_name\", \"file_type\", \"data_category\")\n\nslim_all_data &lt;- all_data[, col_to_keep]\n\nfixed &lt;- \n  slim_all_data[slim_all_data$data_type == \"Fixed Broadband\" | slim_all_data$data_category == \"Nationwide\" , ]\n\ntable_with_options(fixed)",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "FCC NBM data"
+    ]
+  },
+  {
+    "objectID": "nbm_data.html#footnotes",
+    "href": "nbm_data.html#footnotes",
+    "title": "FCC NBM data",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nthis data is stored in a slighly different endpoint see↩︎",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "FCC NBM data"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "",
+    "text": "We are using two sources of data from the FCC (Federal Communications Commission):\nTheir license can be found here and here, respectively:"
+  },
+  {
+    "objectID": "index.html#what-are-these-two-datasets",
+    "href": "index.html#what-are-these-two-datasets",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "What are these two datasets?",
+    "text": "What are these two datasets?\nThe first one (NBM) was started by the FCC in November 20221 while the second was first published in May 20232 (and documentation3 in July 2023).\nThe NBM provides information at the scale of a “service” - a location covered by a provider by a technology with specifics maximum speeds.\nEvery location is characterized by:\n\nWho is providing those services (frn, provider_id, and brand_name)\nA description of each services (technology, max_advertised_download_speed, max_advertised_upload_speed, low_latency)\nWhether the location associated with residential, business or both\nways to localize it (state_abbr, block_geoid, h3_res8_id)\n\n\n\n\n\n\n\nTip\n\n\n\nA location (see Section 2.1) can be covered by multiple Internet Services Provides (ISP) with potentially different services and technologies. Hence, it can represented in the data can by many “rows”.\n\n\nBehind the National Broadband Map they are two datasets (see Figure 1, below). We are using the “Broadband Availability” dataset that comes from the “Fabric” locations dataset (developed by CostQuest). The locations are determined within the Fabric locations data.\n\n\nSometimes the process of collecting those two datasets is called Broadband Data Collection (BDC)\nThe exact coordinates of every locations is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.\n\n\n\n\n\n\nFigure 1: “What on the national broadband map” Source: https://www.fcc.gov/BroadbandData\n\n\n\nThe BFM provides information about “broadband infrastructure deployment projects funded by the Federal government throughout the United States”. The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have characteristics of each projects with their associated boundaries (territories covered) (see link https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html).\n\nWhat is a Broadband Service Location (BSL)?\n\nA broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC4)\n\n\n\nWhen is this data updated?\nNBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges5. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes6).\nBFM seems to follow a schedule of update every two weeks but we have not find any specifications.\n\n\nWhat is the geographic coverage of those datasets?\nThe Broadband Availability data is covering all US States, Puerto Rico and the US territories.\nThe coverage of the funding map depend on each specific program."
+  },
+  {
+    "objectID": "index.html#what-is-unserved-v.s.-underseved",
+    "href": "index.html#what-is-unserved-v.s.-underseved",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "What is unserved v.s. underseved?",
+    "text": "What is unserved v.s. underseved?\nServed, Unserved and Underseved are overlapping categories at the location level. They can be extended at the “area level”.\nIf all available internet services at a location have advertised (reported) maximum speeds that are below 25 Mbps downstream speed or below 3 Mbps upstream (25/3 to simplify), then that location is categorized as unserved. If a location has at least one service with maximum speeds that are equal to or above 25/3, but no service with maximum speeds that are equal to or above 100/20, it is categorized as underserved. If a location has at least one service with maximum speeds that are equal to or above 100/20, then that location is categorized as served.\nThose definitions are recommended in the FCC’s Broadband Speed Benchmark and can be adapted by every States7."
+  },
+  {
+    "objectID": "index.html#our-products",
+    "href": "index.html#our-products",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "Our products:",
+    "text": "Our products:\nTODO: improve\n\nBroadband Climate Risk Mitigation Tool\nInteractive Rural Broadband Map,\nHelping our Broadband team\nHelping our Research team"
+  },
+  {
+    "objectID": "index.html#quick-facts-may-2024",
+    "href": "index.html#quick-facts-may-2024",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "Quick facts, May 2024:",
+    "text": "Quick facts, May 2024:\n\nBroadband Availibility:\n\nNumber of BSL: 115 342 225\nNumber of unique FRN: 2879\n\n\n\nFunding Map:\n\n4 agencies are contributing\nThe Funding Map consist of 12 programs (1853 projects) with two specific to Puerto Rico (PR) and US territories.\nThose projects are classified by FCC in 3 categories: “Area”, “List of locations” and “Midle mile”8"
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nhttps://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here↩︎\nhttps://docs.fcc.gov/public/attachments/DA-23-410A1.pdf↩︎\nSee Changelog https://us-fcc.app.box.com/v/bfm-data-downloads-output↩︎\n“The Fabric data”↩︎\nhttps://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf↩︎\nSee “Change Log” https://us-fcc.app.box.com/v/bdc-data-downloads-output↩︎\nPage 4 https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf↩︎\nIn May 2024 no “Midle mile” were present↩︎"
+  },
+  {
+    "objectID": "zero_dl_up.html",
+    "href": "zero_dl_up.html",
+    "title": "EDA on 0/0 BSL",
+    "section": "",
+    "text": "TODO: update the SQL query\nCode\nsource(\"R/table_with_options.R\")\n# very lazish function, col should be a string \nagg_count &lt;- function(dat, col) {\n    agg &lt;- aggregate(cbind(count = dat$count),\n                     list(name_col = dat[[col]]),\n                      sum)\n    colnames(agg) &lt;- c(col, \"count\")\n    return(agg)\n}\nThe goals of this page is storing a quick EDA about broadband services locations with 0 MBps uploads and 0 MBps downloads. To be concise we are going to call them 0/0 speeds.\nWe have counted every services that have been declared with 0/0 speeds and associated with their States, ISP and technology. To clarify that does not mean a location have 0/0 speeds only but that one “ISP x technology” is provided with this kind of service in this location.\nThe data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in data/\nCode\nSELECT \n    state_abbr,\n    brand_name,\n    technology,\n    count(brand_name)\nFROM\n    staging.june23\nWHERE\n(max_advertised_download_speed = 0 AND\n    max_advertised_upload_speed = 0) = true\nGROUP BY brand_name, state_abbr, technology;\n\n-- first get all 0/0 then get all the non 0/0\n\nSELECT \n    state_abbr,\n    brand_name,\n    technology,\n    count(brand_name)\nFROM \n    staging.june23\nWHERE\n(max_advertised_download_speed = 0 AND\n    max_advertised_upload_speed = 0) = false\nGROUP BY brand_name, state_abbr, technology;\nCode\nzero_loc &lt;- read.csv(\"data/zero_dl_up.csv\")\nnot_zero &lt;- read.csv(\"data/not_zero_dl.csv\")",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "EDA on 0/0 BSL"
+    ]
+  },
+  {
+    "objectID": "zero_dl_up.html#summary-by-technologies",
+    "href": "zero_dl_up.html#summary-by-technologies",
+    "title": "EDA on 0/0 BSL",
+    "section": "Summary by technologies:",
+    "text": "Summary by technologies:\n\n\nCode\nagg &lt;- agg_count(zero_loc, \"technology\") \nagg_not &lt;- agg_count(not_zero, \"technology\")\n\ntechnology &lt;- merge(agg, agg_not, by.x = \"technology\", \n                    by.y = \"technology\", all.x = TRUE, all.y = TRUE) \ncolnames(technology) &lt;- c(\"technology\",  \"cnt_zero_dl\", \"cnt_non_zero\")\ntechnology$rate_zero &lt;- round(technology$cnt_zero_dl / \n                (technology$cnt_zero_dl +  technology$cnt_non_zero), 4)\n\ntable_with_options(technology)\n\n\n\n\n\n\n\nWe do not mind too much 70 (Unlicensed Terrestrial Fixed Wireless) because we are filtering it out but we are keeping 71 (Licensed Terrestrial Fixed Wireless) , 72 (Licensed-by-Rule Terrestrial Fixed Wireless)and 10 (Copper Wire).\nTo take that into account I will filter out Unlicensed Terrestrial Fixed Wireless for the rest of this document. I also filtered out 60 and 61 to be consistant with our pipelines.",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "EDA on 0/0 BSL"
+    ]
+  },
+  {
+    "objectID": "zero_dl_up.html#summary-by-isp",
+    "href": "zero_dl_up.html#summary-by-isp",
+    "title": "EDA on 0/0 BSL",
+    "section": "Summary by ISP",
+    "text": "Summary by ISP\n\n\nCode\nfilter_sat &lt;- c(60, 61, 70)\nzero_loc &lt;- zero_loc[which(! zero_loc$technology %in% filter_sat), ]\nnot_zero &lt;- not_zero[which(! not_zero$technology %in% filter_sat), ]\n\nagg &lt;- agg_count(zero_loc, \"brand_name\")\nagg_not &lt;- agg_count(not_zero, \"brand_name\")\n\nrate_zero &lt;- merge(agg, agg_not, \n                   by.x = \"brand_name\", by.y = \"brand_name\"\n                   , all.x = TRUE) \n\ncolnames(rate_zero) &lt;- c(\"brand_name\", \"cnt_zero_dl\", \"cnt_non_zero\")\nrate_zero$rate_zero &lt;- round(rate_zero$cnt_zero_dl /\n                 (rate_zero$cnt_zero_dl +  rate_zero$cnt_non_zero),\n                            4)\n\ntable_with_options(rate_zero[\n                    order(rate_zero$cnt_zero_dl, decreasing = TRUE),])\n\n\n\n\n\n\n\n\n402 ISPs are declaring services with 0/0 MBips (We have 2902 ISPs registered in FCC NBM)",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "EDA on 0/0 BSL"
+    ]
+  },
+  {
+    "objectID": "zero_dl_up.html#sumamry-by-states",
+    "href": "zero_dl_up.html#sumamry-by-states",
+    "title": "EDA on 0/0 BSL",
+    "section": "Sumamry by States",
+    "text": "Sumamry by States\n\n\nCode\nst_agg_zero &lt;- agg_count(zero_loc, \"state_abbr\")\nst_agg_not &lt;- agg_count(not_zero, \"state_abbr\")\n\nst_agg &lt;- merge(st_agg_zero, st_agg_not, \n                by.x = \"state_abbr\", by.y = \"state_abbr\",\n                all.x = TRUE, all.y = TRUE)\ncolnames(st_agg) &lt;- c(\"ST\", \"cnt_zero_dl\", \"cnt_non_zero\")\nst_agg$rate_zero &lt;- round(st_agg$cnt_zero_dl /\n                    (st_agg$cnt_zero_dl +  st_agg$cnt_non_zero),\n                            4) \nlibrary(ggplot2)\n\nggplot(st_agg[!is.na(st_agg$rate_zero),], aes(rate_zero)) +\n  geom_boxplot(orientation = \"y\",\n  fill='#A4A4A4', color=\"black\") +\n  coord_flip() +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nCode\ntable_with_options(st_agg[order(st_agg$rate_zero, decreasing = TRUE), ])\n\n\n\n\n\n\n One point of concern is that services with 0/0 speeds could be generated for various reasons. One could be that some technology offer very low downloads/uploads and that is rounding to 0 an other could be that the location is not actually deserved but the ISP think it can do it.",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "EDA on 0/0 BSL"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Sharing quick EDA about FCC data.\nLink: https://www.fcc.gov/BroadbandData\nFCC BDC: June 2023 release, downloaded 21-11-2023"
+  },
+  {
+    "objectID": "road-eda.html",
+    "href": "road-eda.html",
+    "title": "TIGER Roads",
+    "section": "",
+    "text": "Requirement:",
+    "crumbs": [
+      "Home",
+      "Other data sources",
+      "TIGER Roads"
+    ]
+  },
+  {
+    "objectID": "road-eda.html#what-is-inside-the-data",
+    "href": "road-eda.html#what-is-inside-the-data",
+    "title": "TIGER Roads",
+    "section": "what is inside the data:",
+    "text": "what is inside the data:\nWe have linestrings with those attributes:\n\nlinearid: primary id, used by ither TIGER product\nfullname: road name, humane-readable\nrttyp: route type code, type of road.\n\n\n\n\nRoute Type Code\nRoute Type Code Description\n\n\n\n\nC\nCounty\n\n\nI\nInterstate\n\n\nM\nCommon Name\n\n\nO\nOther\n\n\nS\nState recognized\n\n\nU\nU.S.\n\n\n\n\nmtfcc: MAF/TIGER Feature Class Codes, example, S1400 (Local Neighborhood Road, Rural Road, City Street)\n\n\nClasses of Roads according to TIGER/line census\n\n\nTIGER: Topologically Integrated Geographic Encoding and Referencing\n\n\n\n\n\n\n\nmtfcc\nFeatures\n\n\n\n\n“S1100”\nPrimary Road\n\n\n“S1200”\nSecondary Road\n\n\n“S1400”\nLocal Neighborhood Road, Rural Road, City Street\n\n\n“S1500”\nVehicular Trail (4WD)\n\n\n“S1630”\nRamp\n\n\n“S1640”\nService Drive usually along a limited access highway\n\n\n“S1710”\nWalkway/Pedestrian Trail\n\n\n“S1720”\nStairway\n\n\n“S1730”\nAlley\n\n\n“S1740”\nPrivate Road for service vehicles (logging, oil fields, ranches, etc.)\n\n\n“S1750”\nInternal U.S. Census Bureau use\n\n\n“S1780”\nParking Lot Road\n\n\n“S1810”\nWinter Trail\n\n\n“S1820”\nBike Path or Trail\n\n\n“S1830”\nBridle Path",
+    "crumbs": [
+      "Home",
+      "Other data sources",
+      "TIGER Roads"
+    ]
+  },
+  {
+    "objectID": "road-eda.html#should-this-information-provided-and-how",
+    "href": "road-eda.html#should-this-information-provided-and-how",
+    "title": "TIGER Roads",
+    "section": "Should this information provided and how?",
+    "text": "Should this information provided and how?\nWe should probably not keep the bridle paths?\nShould it be provided at block level: ie an estimate route miles?\nHow the user will interact with it?\n\nResources\n\nhttps://www2.census.gov/geo/pdfs/reference/mtfccs2020.pdf\nhttps://www.census.gov/library/reference/code-lists/route-type-codes.html",
+    "crumbs": [
+      "Home",
+      "Other data sources",
+      "TIGER Roads"
+    ]
+  },
+  {
     "objectID": "fcc_funding.html",
     "href": "fcc_funding.html",
     "title": "FCC Funding Map",
@@ -187,139 +368,6 @@
       "FCC Data",
       "FCC Funding Map"
     ]
-  },
-  {
-    "objectID": "road-eda.html",
-    "href": "road-eda.html",
-    "title": "TIGER Roads",
-    "section": "",
-    "text": "Requirement:",
-    "crumbs": [
-      "Home",
-      "Other data sources",
-      "TIGER Roads"
-    ]
-  },
-  {
-    "objectID": "road-eda.html#what-is-inside-the-data",
-    "href": "road-eda.html#what-is-inside-the-data",
-    "title": "TIGER Roads",
-    "section": "what is inside the data:",
-    "text": "what is inside the data:\nWe have linestrings with those attributes:\n\nlinearid: primary id, used by ither TIGER product\nfullname: road name, humane-readable\nrttyp: route type code, type of road.\n\n\n\n\nRoute Type Code\nRoute Type Code Description\n\n\n\n\nC\nCounty\n\n\nI\nInterstate\n\n\nM\nCommon Name\n\n\nO\nOther\n\n\nS\nState recognized\n\n\nU\nU.S.\n\n\n\n\nmtfcc: MAF/TIGER Feature Class Codes, example, S1400 (Local Neighborhood Road, Rural Road, City Street)\n\n\nClasses of Roads according to TIGER/line census\n\n\nTIGER: Topologically Integrated Geographic Encoding and Referencing\n\n\n\n\n\n\n\nmtfcc\nFeatures\n\n\n\n\n“S1100”\nPrimary Road\n\n\n“S1200”\nSecondary Road\n\n\n“S1400”\nLocal Neighborhood Road, Rural Road, City Street\n\n\n“S1500”\nVehicular Trail (4WD)\n\n\n“S1630”\nRamp\n\n\n“S1640”\nService Drive usually along a limited access highway\n\n\n“S1710”\nWalkway/Pedestrian Trail\n\n\n“S1720”\nStairway\n\n\n“S1730”\nAlley\n\n\n“S1740”\nPrivate Road for service vehicles (logging, oil fields, ranches, etc.)\n\n\n“S1750”\nInternal U.S. Census Bureau use\n\n\n“S1780”\nParking Lot Road\n\n\n“S1810”\nWinter Trail\n\n\n“S1820”\nBike Path or Trail\n\n\n“S1830”\nBridle Path",
-    "crumbs": [
-      "Home",
-      "Other data sources",
-      "TIGER Roads"
-    ]
-  },
-  {
-    "objectID": "road-eda.html#should-this-information-provided-and-how",
-    "href": "road-eda.html#should-this-information-provided-and-how",
-    "title": "TIGER Roads",
-    "section": "Should this information provided and how?",
-    "text": "Should this information provided and how?\nWe should probably not keep the bridle paths?\nShould it be provided at block level: ie an estimate route miles?\nHow the user will interact with it?\n\nResources\n\nhttps://www2.census.gov/geo/pdfs/reference/mtfccs2020.pdf\nhttps://www.census.gov/library/reference/code-lists/route-type-codes.html",
-    "crumbs": [
-      "Home",
-      "Other data sources",
-      "TIGER Roads"
-    ]
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Sharing quick EDA about FCC data.\nLink: https://www.fcc.gov/BroadbandData\nFCC BDC: June 2023 release, downloaded 21-11-2023"
-  },
-  {
-    "objectID": "zero_dl_up.html",
-    "href": "zero_dl_up.html",
-    "title": "EDA on 0/0 BSL",
-    "section": "",
-    "text": "TODO: update the SQL query\nCode\nsource(\"R/table_with_options.R\")\n# very lazish function, col should be a string \nagg_count &lt;- function(dat, col) {\n    agg &lt;- aggregate(cbind(count = dat$count),\n                     list(name_col = dat[[col]]),\n                      sum)\n    colnames(agg) &lt;- c(col, \"count\")\n    return(agg)\n}\nThe goals of this page is storing a quick EDA about broadband services locations with 0 MBps uploads and 0 MBps downloads. To be concise we are going to call them 0/0 speeds.\nWe have counted every services that have been declared with 0/0 speeds and associated with their States, ISP and technology. To clarify that does not mean a location have 0/0 speeds only but that one “ISP x technology” is provided with this kind of service in this location.\nThe data used to provide most of the analysis was done with this 2 SQL queries. They were saved and stored in data/\nCode\nSELECT \n    state_abbr,\n    brand_name,\n    technology,\n    count(brand_name)\nFROM\n    staging.june23\nWHERE\n(max_advertised_download_speed = 0 AND\n    max_advertised_upload_speed = 0) = true\nGROUP BY brand_name, state_abbr, technology;\n\n-- first get all 0/0 then get all the non 0/0\n\nSELECT \n    state_abbr,\n    brand_name,\n    technology,\n    count(brand_name)\nFROM \n    staging.june23\nWHERE\n(max_advertised_download_speed = 0 AND\n    max_advertised_upload_speed = 0) = false\nGROUP BY brand_name, state_abbr, technology;\nCode\nzero_loc &lt;- read.csv(\"data/zero_dl_up.csv\")\nnot_zero &lt;- read.csv(\"data/not_zero_dl.csv\")",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "EDA on 0/0 BSL"
-    ]
-  },
-  {
-    "objectID": "zero_dl_up.html#summary-by-technologies",
-    "href": "zero_dl_up.html#summary-by-technologies",
-    "title": "EDA on 0/0 BSL",
-    "section": "Summary by technologies:",
-    "text": "Summary by technologies:\n\n\nCode\nagg &lt;- agg_count(zero_loc, \"technology\") \nagg_not &lt;- agg_count(not_zero, \"technology\")\n\ntechnology &lt;- merge(agg, agg_not, by.x = \"technology\", \n                    by.y = \"technology\", all.x = TRUE, all.y = TRUE) \ncolnames(technology) &lt;- c(\"technology\",  \"cnt_zero_dl\", \"cnt_non_zero\")\ntechnology$rate_zero &lt;- round(technology$cnt_zero_dl / \n                (technology$cnt_zero_dl +  technology$cnt_non_zero), 4)\n\ntable_with_options(technology)\n\n\n\n\n\n\n\nWe do not mind too much 70 (Unlicensed Terrestrial Fixed Wireless) because we are filtering it out but we are keeping 71 (Licensed Terrestrial Fixed Wireless) , 72 (Licensed-by-Rule Terrestrial Fixed Wireless)and 10 (Copper Wire).\nTo take that into account I will filter out Unlicensed Terrestrial Fixed Wireless for the rest of this document. I also filtered out 60 and 61 to be consistant with our pipelines.",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "EDA on 0/0 BSL"
-    ]
-  },
-  {
-    "objectID": "zero_dl_up.html#summary-by-isp",
-    "href": "zero_dl_up.html#summary-by-isp",
-    "title": "EDA on 0/0 BSL",
-    "section": "Summary by ISP",
-    "text": "Summary by ISP\n\n\nCode\nfilter_sat &lt;- c(60, 61, 70)\nzero_loc &lt;- zero_loc[which(! zero_loc$technology %in% filter_sat), ]\nnot_zero &lt;- not_zero[which(! not_zero$technology %in% filter_sat), ]\n\nagg &lt;- agg_count(zero_loc, \"brand_name\")\nagg_not &lt;- agg_count(not_zero, \"brand_name\")\n\nrate_zero &lt;- merge(agg, agg_not, \n                   by.x = \"brand_name\", by.y = \"brand_name\"\n                   , all.x = TRUE) \n\ncolnames(rate_zero) &lt;- c(\"brand_name\", \"cnt_zero_dl\", \"cnt_non_zero\")\nrate_zero$rate_zero &lt;- round(rate_zero$cnt_zero_dl /\n                 (rate_zero$cnt_zero_dl +  rate_zero$cnt_non_zero),\n                            4)\n\ntable_with_options(rate_zero[\n                    order(rate_zero$cnt_zero_dl, decreasing = TRUE),])\n\n\n\n\n\n\n\n\n402 ISPs are declaring services with 0/0 MBips (We have 2902 ISPs registered in FCC NBM)",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "EDA on 0/0 BSL"
-    ]
-  },
-  {
-    "objectID": "zero_dl_up.html#sumamry-by-states",
-    "href": "zero_dl_up.html#sumamry-by-states",
-    "title": "EDA on 0/0 BSL",
-    "section": "Sumamry by States",
-    "text": "Sumamry by States\n\n\nCode\nst_agg_zero &lt;- agg_count(zero_loc, \"state_abbr\")\nst_agg_not &lt;- agg_count(not_zero, \"state_abbr\")\n\nst_agg &lt;- merge(st_agg_zero, st_agg_not, \n                by.x = \"state_abbr\", by.y = \"state_abbr\",\n                all.x = TRUE, all.y = TRUE)\ncolnames(st_agg) &lt;- c(\"ST\", \"cnt_zero_dl\", \"cnt_non_zero\")\nst_agg$rate_zero &lt;- round(st_agg$cnt_zero_dl /\n                    (st_agg$cnt_zero_dl +  st_agg$cnt_non_zero),\n                            4) \nlibrary(ggplot2)\n\nggplot(st_agg[!is.na(st_agg$rate_zero),], aes(rate_zero)) +\n  geom_boxplot(orientation = \"y\",\n  fill='#A4A4A4', color=\"black\") +\n  coord_flip() +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nCode\ntable_with_options(st_agg[order(st_agg$rate_zero, decreasing = TRUE), ])\n\n\n\n\n\n\n One point of concern is that services with 0/0 speeds could be generated for various reasons. One could be that some technology offer very low downloads/uploads and that is rounding to 0 an other could be that the location is not actually deserved but the ISP think it can do it.",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "EDA on 0/0 BSL"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "",
-    "text": "We are using two sources of data from the FCC (Federal Communications Commission):\nTheir license can be found here and here, respectively:"
-  },
-  {
-    "objectID": "index.html#what-are-these-two-datasets",
-    "href": "index.html#what-are-these-two-datasets",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "What are these two datasets?",
-    "text": "What are these two datasets?\nThe first one (NBM) was started by the FCC in November 20221 while the second was first published in May 20232 (and documentation3 in July 2023).\nThe NBM provides information at the scale of a “service” - a location covered by a provider by a technology with specifics maximum speeds.\nEvery location is characterized by:\n\nWho is providing those services (frn, provider_id, and brand_name)\nA description of each services (technology, max_advertised_download_speed, max_advertised_upload_speed, low_latency)\nWhether the location associated with residential, business or both\nways to localize it (state_abbr, block_geoid, h3_res8_id)\n\n\n\n\n\n\n\nTip\n\n\n\nA location (see Section 2.1) can be covered by multiple Internet Services Provides (ISP) with potentially different services and technologies. Hence, it can represented in the data can by many “rows”.\n\n\nBehind the National Broadband Map they are two datasets (see Figure 1, below). We are using the “Broadband Availability” dataset that comes from the “Fabric” locations dataset (developed by CostQuest). The locations are determined within the Fabric locations data.\n\n\nSometimes the process of collecting those two datasets is called Broadband Data Collection (BDC)\nThe exact coordinates of every locations is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.\n\n\n\n\n\n\nFigure 1: “What on the national broadband map” Source: https://www.fcc.gov/BroadbandData\n\n\n\nThe BFM provides information about “broadband infrastructure deployment projects funded by the Federal government throughout the United States”. The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have characteristics of each projects with their associated boundaries (territories covered) (see link https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html).\n\nWhat is a Broadband Service Location (BSL)?\n\nA broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC4)\n\n\n\nWhen is this data updated?\nNBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges5. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes6).\nBFM seems to follow a schedule of update every two weeks but we have not find any specifications.\n\n\nWhat is the geographic coverage of those datasets?\nThe Broadband Availability data is covering all US States, Puerto Rico and the US territories.\nThe coverage of the funding map depend on each specific program."
-  },
-  {
-    "objectID": "index.html#what-is-unserved-v.s.-underseved",
-    "href": "index.html#what-is-unserved-v.s.-underseved",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "What is unserved v.s. underseved?",
-    "text": "What is unserved v.s. underseved?\nServed, Unserved and Underseved are overlapping categories at the location level. They can be extended at the “area level”.\nIf all available internet services at a location have advertised (reported) maximum speeds that are below 25 Mbps downstream speed or below 3 Mbps upstream (25/3 to simplify), then that location is categorized as unserved. If a location has at least one service with maximum speeds that are equal to or above 25/3, but no service with maximum speeds that are equal to or above 100/20, it is categorized as underserved. If a location has at least one service with maximum speeds that are equal to or above 100/20, then that location is categorized as served.\nThose definitions are recommended in the FCC’s Broadband Speed Benchmark and can be adapted by every States7."
-  },
-  {
-    "objectID": "index.html#our-products",
-    "href": "index.html#our-products",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "Our products:",
-    "text": "Our products:\nTODO: improve\n\nBroadband Climate Risk Mitigation Tool\nInteractive Rural Broadband Map,\nHelping our Broadband team\nHelping our Research team"
-  },
-  {
-    "objectID": "index.html#quick-facts-may-2024",
-    "href": "index.html#quick-facts-may-2024",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "Quick facts, May 2024:",
-    "text": "Quick facts, May 2024:\n\nBroadband Availibility:\n\nNumber of BSL: 115 342 225\nNumber of unique FRN: 2879\n\n\n\nFunding Map:\n\n4 agencies are contributing\nThe Funding Map consist of 12 programs (1853 projects) with two specific to Puerto Rico (PR) and US territories.\nThose projects are classified by FCC in 3 categories: “Area”, “List of locations” and “Midle mile”8"
-  },
-  {
-    "objectID": "index.html#footnotes",
-    "href": "index.html#footnotes",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nhttps://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here↩︎\nhttps://docs.fcc.gov/public/attachments/DA-23-410A1.pdf↩︎\nSee Changelog https://us-fcc.app.box.com/v/bfm-data-downloads-output↩︎\n“The Fabric data”↩︎\nhttps://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf↩︎\nSee “Change Log” https://us-fcc.app.box.com/v/bdc-data-downloads-output↩︎\nPage 4 https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf↩︎\nIn May 2024 no “Midle mile” were present↩︎"
   },
   {
     "objectID": "isp_eda.html",
