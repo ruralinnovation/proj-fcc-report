@@ -76,7 +76,7 @@ table_with_options(isp)
 ```{r}
 #| label: count me some unique
 #| column: margin
-#| tbl-cap: Coutnt of unique values / columns
+#| tbl-cap: Count of unique values / columns
 sum_table <-  apply(isp, 2, function(x)length(unique(x))) |>
                     as.data.frame()
 names(sum_table) <- c("Count of unique values")
@@ -103,7 +103,7 @@ Hence the one with 7 characters in FCC NBM is probably an error.
 
 ### What are the Provider Name that are sharing multiple `FRN`:
 
-We probably have cases where companies have same name ("Farmers Mutual Telephone company") but we have probably company that have multiple FRN ("Grand Mound Cooperative Telephone Association"). GRanted the low numbers I think we are fair to assume it does not matter to much. 
+We probably have cases where companies have same name ("Farmers Mutual Telephone company") but we have probably company that have multiple FRN ("Grand Mound Cooperative Telephone Association"). Granted the low numbers I think we are fair to assume it does not matter to much. 
 
 ```{r}
 #| label: case where same name have different FRN
