@@ -1,0 +1,31 @@
+---
+title: "FCC NBM CORI metadata and storage"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+We stored the raw data of FCC NBM we downloaded in a s3 bucket. 
+
+This is how the structure of the bucket look likes:
+
+```bash
+.
+├── D22
+│   ├── 01july2023
+│   ├── 09august2023
+│   ├── 10october2023
+│   └── old-api
+├── D23
+│   └── 14may2024
+├── J22
+│   ├── 03november2023
+│   ├── 10may2024
+│   └── old-api
+└── J23
+    └── 14november2023
+```
+
+In each directory we get a zip file per csv (technology/state). 

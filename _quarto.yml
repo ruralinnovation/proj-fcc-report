@@ -27,6 +27,9 @@ website:
         contents:
           - road-eda.qmd
           - ms-eda.qmd
+      - section: "Metadata and Storage"
+        contents:
+          - metadata_raw_nbm.qmd 
 
 format:
   html:
