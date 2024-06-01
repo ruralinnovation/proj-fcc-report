@@ -255,6 +255,18 @@
     ]
   },
   {
+    "objectID": "metadata_raw_nbm.html",
+    "href": "metadata_raw_nbm.html",
+    "title": "FCC NBM CORI metadata and storage",
+    "section": "",
+    "text": "We stored the raw data of FCC NBM we downloaded in a s3 bucket.\nThis is how the structure of the bucket look likes:\n.\n├── D22\n│   ├── 01july2023\n│   ├── 09august2023\n│   ├── 10october2023\n│   └── old-api\n├── D23\n│   └── 14may2024\n├── J22\n│   ├── 03november2023\n│   ├── 10may2024\n│   └── old-api\n└── J23\n    └── 14november2023\nIn each directory we get a zip file per csv (technology/state).",
+    "crumbs": [
+      "Home",
+      "Metadata and Storage",
+      "FCC NBM CORI metadata and storage"
+    ]
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",

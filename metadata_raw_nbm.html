@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2024-06-01">
 
-<title>FCC BDC EDA - FCC Primer for CORI’s MDA</title>
+<title>FCC BDC EDA - FCC NBM CORI metadata and storage</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -71,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed slimcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -89,7 +124,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -107,7 +142,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">FCC Primer for CORI’s MDA</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metadata_raw_nbm.html">Metadata and Storage</a></li><li class="breadcrumb-item"><a href="./metadata_raw_nbm.html">FCC NBM CORI metadata and storage</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -208,7 +243,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./metadata_raw_nbm.html" class="sidebar-item-text sidebar-link">
+  <a href="./metadata_raw_nbm.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">FCC NBM CORI metadata and storage</span></a>
   </div>
 </li>
@@ -220,32 +255,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#what-are-these-two-datasets" id="toc-what-are-these-two-datasets" class="nav-link active" data-scroll-target="#what-are-these-two-datasets">What are these two datasets?</a>
-  <ul class="collapse">
-  <li><a href="#sec-BSL" id="toc-sec-BSL" class="nav-link" data-scroll-target="#sec-BSL">What is a Broadband Service Location (BSL)?</a></li>
-  <li><a href="#when-is-this-data-updated" id="toc-when-is-this-data-updated" class="nav-link" data-scroll-target="#when-is-this-data-updated">When is this data updated?</a></li>
-  <li><a href="#what-is-the-geographic-coverage-of-those-datasets" id="toc-what-is-the-geographic-coverage-of-those-datasets" class="nav-link" data-scroll-target="#what-is-the-geographic-coverage-of-those-datasets">What is the geographic coverage of those datasets?</a></li>
-  </ul></li>
-  <li><a href="#what-is-unserved-v.s.-underseved" id="toc-what-is-unserved-v.s.-underseved" class="nav-link" data-scroll-target="#what-is-unserved-v.s.-underseved">What is unserved v.s. underseved?</a></li>
-  <li><a href="#our-products" id="toc-our-products" class="nav-link" data-scroll-target="#our-products">Our products:</a></li>
-  <li><a href="#quick-facts-may-2024" id="toc-quick-facts-may-2024" class="nav-link" data-scroll-target="#quick-facts-may-2024">Quick facts, May 2024:</a>
-  <ul class="collapse">
-  <li><a href="#broadband-availibility" id="toc-broadband-availibility" class="nav-link" data-scroll-target="#broadband-availibility">Broadband Availibility:</a></li>
-  <li><a href="#funding-map" id="toc-funding-map" class="nav-link" data-scroll-target="#funding-map">Funding Map:</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+        
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metadata_raw_nbm.html">Metadata and Storage</a></li><li class="breadcrumb-item"><a href="./metadata_raw_nbm.html">FCC NBM CORI metadata and storage</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">FCC Primer for CORI’s MDA</h1>
+<h1 class="title">FCC NBM CORI metadata and storage</h1>
 </div>
 
 
@@ -253,6 +270,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 1, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -262,133 +285,27 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>We are using two sources of data from the FCC (Federal Communications Commission):</p>
-<ul>
-<li><p>National Broadband Map (<a href="https://broadbandmap.fcc.gov/home">NBM</a>)</p></li>
-<li><p>Broadband Funding Map (<a href="https://fundingmap.fcc.gov/home">BFM</a>)</p></li>
-</ul>
-<p>Their license can be found <a href="https://broadbandmap.fcc.gov/about">here</a> and <a href="https://fundingmap.fcc.gov/about">here</a>, respectively:</p>
-<blockquote class="blockquote">
-<h2 id="license-and-attribution" class="anchored">License and Attribution</h2>
-<p>Broadband availability data from the BDC, and data from the U.S. Census Bureau that are presented on this site, are offered free and not subject to copyright restriction. Data and content created by government employees within the scope of their employment are not subject to domestic copyright protection under 17 U.S.C. § 105. See, e.g., <a href="https://www.usa.gov/government-copyright">U.S. Government Works</a>.</p>
-<p>While not required, when using in your own work content, data, documentation, code, and related materials from fcc.gov or broadbandmap.fcc.gov, we ask that you provide proper attribution of the data. Examples include:</p>
-<pre><code>Source data: FCC Broadband Funding Map
-Map layer based on FCC BFM</code></pre>
-<p>CostQuest Associates, Inc.&nbsp;and its third-party licensors, as applicable, own all right, title, and interest, including all intellectual property rights, in and to the data for locations reflected in the Fabric (including the Location ID, latitude and longitude, address, unit count, and building type code for each location in the Fabric). CostQuest is granted certain rights to Fabric correction submissions for the purpose of correcting or otherwise modifying BDC Fabric data. Broadband service providers, governmental entities, and other third parties are able to license Fabric data, including any changes to Fabric data that have been made as a result of challenges, at no cost for purposes of their participation in the FCC’s Broadband Data Collection.</p>
-</blockquote>
-<section id="what-are-these-two-datasets" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="what-are-these-two-datasets">What are these two datasets?</h2>
-<p>The first one (NBM) was started by the FCC in November 2022<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while the second was first published in May 2023<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (and documentation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> in July 2023).</p>
-<p>The NBM provides information at the scale of a “service” - a location covered by a provider by a technology with specifics maximum speeds.</p>
-<p>Every location is characterized by:</p>
-<ul>
-<li>Who is providing those services (<code>frn</code>, <code>provider_id</code>, and <code>brand_name</code>)</li>
-<li>A description of each services (<code>technology</code>, <code>max_advertised_download_speed</code>, <code>max_advertised_upload_speed</code>, <code>low_latency</code>)</li>
-<li>Whether the location associated with residential, business or both</li>
-<li>ways to localize it (<code>state_abbr</code>, <code>block_geoid</code>, <code>h3_res8_id</code>)</li>
-</ul>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>A location (see <a href="#sec-BSL" class="quarto-xref">Section&nbsp;2.1</a>) can be covered by multiple Internet Services Provides (ISP) with potentially different services and technologies. Hence, it can represented in the data can by many “rows”.</p>
-</div>
-</div>
-<p>Behind the National Broadband Map they are <strong>two</strong> datasets (see <a href="#fig-broadbanddata" class="quarto-xref">Figure&nbsp;1</a>, below). We are using the “Broadband Availability” dataset that comes from the “Fabric” locations dataset (developed by CostQuest). The locations are determined within the Fabric locations data.</p>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p>Sometimes the process of collecting those two datasets is called <strong>B</strong>roadband <strong>D</strong>ata <strong>C</strong>ollection (BDC)</p>
-</div></div><p>The exact coordinates of every locations is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.</p>
-<div id="fig-broadbanddata" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="img/whats-on-the-national-broadband-map-113023-1.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: “What on the national broadband map” Source: <a href="https://www.fcc.gov/BroadbandData">https://www.fcc.gov/BroadbandData</a>
-</figcaption>
-</figure>
-</div>
-<p>The BFM provides information about “<em>broadband infrastructure deployment projects funded by the Federal government throughout the United States</em>”. The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have characteristics of each projects with their associated boundaries (territories covered) (see link <a href="https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html">https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html</a>).</p>
-<section id="sec-BSL" class="level3">
-<h3 class="anchored" data-anchor-id="sec-BSL">What is a Broadband Service Location (BSL)?</h3>
-<blockquote class="blockquote">
-<p>A broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>)</p>
-</blockquote>
-</section>
-<section id="when-is-this-data-updated" class="level3">
-<h3 class="anchored" data-anchor-id="when-is-this-data-updated">When is this data updated?</h3>
-<p>NBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>).</p>
-<p>BFM seems to follow a schedule of update every two weeks but we have not find any specifications.</p>
-</section>
-<section id="what-is-the-geographic-coverage-of-those-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-geographic-coverage-of-those-datasets">What is the geographic coverage of those datasets?</h3>
-<p>The Broadband Availability data is covering all US States, Puerto Rico and the US territories.</p>
-<p>The coverage of the funding map depend on each specific program.</p>
-</section>
-</section>
-<section id="what-is-unserved-v.s.-underseved" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-unserved-v.s.-underseved">What is unserved v.s. underseved?</h2>
-<p>Served, Unserved and Underseved are <strong>overlapping</strong> categories at the <strong>location level</strong>. They can be extended at the “<strong>area level</strong>”.</p>
-<p>If all available internet services at a location have advertised (reported) maximum speeds that are below 25 Mbps downstream speed or below 3 Mbps upstream (25/3 to simplify), then that location is categorized as <strong>unserved</strong>. If a location has at least one service with maximum speeds that are equal to or above 25/3, but no service with maximum speeds that are equal to or above 100/20, it is categorized as <strong>underserved</strong>. If a location has at least one service with maximum speeds that are equal to or above 100/20, then that location is categorized as <strong>served</strong>.</p>
-<p>Those definitions are recommended in the <a href="https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark">FCC’s Broadband Speed Benchmark</a> and can be adapted by every States<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
-<!--
-:::{.aside}
-FCC could change those definitions and for example move the bar at 100/20: [https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark](https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark)
-:::
--->
-</section>
-<section id="our-products" class="level2">
-<h2 class="anchored" data-anchor-id="our-products">Our products:</h2>
-<p>TODO: improve</p>
-<ul>
-<li><p><a href="https://broadband-risk.ruralinnovation.us/">Broadband Climate Risk Mitigation Tool</a></p></li>
-<li><p><a href="https://rural-broadband-map.ruralinnovation.us/">Interactive Rural Broadband Map</a>,</p></li>
-<li><p>Helping our <a href="https://ruralinnovation.us/our-work/broadband/">Broadband team</a></p></li>
-<li><p>Helping our <a href="https://ruralinnovation.us/our-work/research_mapping/">Research team</a></p></li>
-</ul>
-</section>
-<section id="quick-facts-may-2024" class="level2">
-<h2 class="anchored" data-anchor-id="quick-facts-may-2024">Quick facts, May 2024:</h2>
-<section id="broadband-availibility" class="level3">
-<h3 class="anchored" data-anchor-id="broadband-availibility">Broadband Availibility:</h3>
-<ul>
-<li><p>Number of BSL: 115 342 225</p></li>
-<li><p>Number of unique <code>FRN</code>: 2879</p></li>
-</ul>
-</section>
-<section id="funding-map" class="level3">
-<h3 class="anchored" data-anchor-id="funding-map">Funding Map:</h3>
-<ul>
-<li><p>4 agencies are contributing</p></li>
-<li><p>The Funding Map consist of 12 programs (1853 projects) with two specific to Puerto Rico (PR) and US territories.</p></li>
-<li><p>Those projects are classified by FCC in 3 categories: “Area”, “List of locations” and “Midle mile”<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p></li>
-</ul>
+<p>We stored the raw data of FCC NBM we downloaded in a s3 bucket.</p>
+<p>This is how the structure of the bucket look likes:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> D22</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 01july2023</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 09august2023</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 10october2023</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── old-api</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> D23</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── 14may2024</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> J22</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 03november2023</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 10may2024</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── old-api</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> J23</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> 14november2023</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In each directory we get a zip file per csv (technology/state).</p>
 
 
-</section>
-</section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p><a href="https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here">https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf">https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>See Changelog <a href="https://us-fcc.app.box.com/v/bfm-data-downloads-output">https://us-fcc.app.box.com/v/bfm-data-downloads-output</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p><a href="https://help.bdc.fcc.gov/hc/en-us/articles/7412732399003-Fabric-FAQs">“The Fabric data”</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p><a href="https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf">https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>See “Change Log” <a href="https://us-fcc.app.box.com/v/bdc-data-downloads-output">https://us-fcc.app.box.com/v/bdc-data-downloads-output</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>Page 4 <a href="https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf">https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>In May 2024 no “Midle mile” were present<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -803,4 +720,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/metadata_raw_nbm.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
