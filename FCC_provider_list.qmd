@@ -36,7 +36,7 @@ We have multiple sources from FCC to define a provider.
 
 ```{r}
 #|label: read csv
-library("fcc.utils")
+library("cori.data.fcc")
 
 isp <- fcc.utils::fcc_provider
 ```
