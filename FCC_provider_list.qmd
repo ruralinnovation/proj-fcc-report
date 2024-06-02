@@ -25,7 +25,7 @@ We have multiple sources from FCC to define a provider.
 [^ebb]: The Emergency Broadband Benefit is the precursor of the Affordable Connectivity Program, source: [https://www.fcc.gov/broadbandbenefit](https://www.fcc.gov/broadbandbenefit)
 
 ::: {.callout-tip}
-- [fcc.utils](https://github.com/ruralinnovation/fcc.utils) is a small R package that contains providers data and is used here
+- [cori.data.fcc](https://github.com/ruralinnovation/fcc.utils) is a small R package that contains providers data and is used here
 
 - Data is downlable using the download button
 :::
@@ -38,7 +38,7 @@ We have multiple sources from FCC to define a provider.
 #|label: read csv
 library("cori.data.fcc")
 
-isp <- fcc.utils::fcc_provider
+isp <- cori.data.fcc::fcc_provider
 ```
 
 `FCC provider` has 4 341 rows and 5 columns.
