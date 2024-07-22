@@ -1,5 +1,47 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "",
+    "text": "We are using two sources of data from the FCC (Federal Communications Commission):\nTheir license can be found here and here, respectively:"
+  },
+  {
+    "objectID": "index.html#what-are-these-two-datasets",
+    "href": "index.html#what-are-these-two-datasets",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "What are these two datasets?",
+    "text": "What are these two datasets?\nThe first one (NBM) was started by the FCC in November 20221 while the second was first published in May 20232 (and documentation3 in July 2023).\nThe NBM provides information at the scale of a “service” - a location covered by a provider by a technology with specifics maximum speeds.\nEvery location is characterized by:\n\nWho is providing those services (frn, provider_id, and brand_name)\nA description of each services (technology, max_advertised_download_speed, max_advertised_upload_speed, low_latency)\nWhether the location associated with residential, business or both\nways to localize it (state_abbr, block_geoid, h3_res8_id)\n\n\n\n\n\n\n\nTip\n\n\n\nA location (see Section 2.1) can be covered by multiple Internet Services Provides (ISP) with potentially different services and technologies. Hence, it can represented in the data can by many “rows”.\n\n\nBehind the National Broadband Map they are two datasets (see Figure 1, below). We are using the “Broadband Availability” dataset that comes from the “Fabric” locations dataset (developed by CostQuest). The locations are determined within the Fabric locations data.\n\n\nSometimes the process of collecting those two datasets is called Broadband Data Collection (BDC)\nThe exact coordinates of every locations is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.\n\n\n\n\n\n\nFigure 1: “What on the national broadband map” Source: https://www.fcc.gov/BroadbandData\n\n\n\nThe BFM provides information about “broadband infrastructure deployment projects funded by the Federal government throughout the United States”. The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have characteristics of each projects with their associated boundaries (territories covered) (see link https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html).\n\nWhat is a Broadband Service Location (BSL)?\n\nA broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC4)\n\n\n\nWhen is this data updated?\nNBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges5. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes6).\nBFM seems to follow a schedule of update every two weeks but we have not find any specifications.\n\n\nWhat is the geographic coverage of those datasets?\nThe Broadband Availability data is covering all US States, Puerto Rico and the US territories.\nThe coverage of the funding map depend on each specific program."
+  },
+  {
+    "objectID": "index.html#what-is-unserved-v.s.-underseved",
+    "href": "index.html#what-is-unserved-v.s.-underseved",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "What is unserved v.s. underseved?",
+    "text": "What is unserved v.s. underseved?\nServed, Unserved and Underseved are overlapping categories at the location level. They can be extended at the “area level”.\nIf all available internet services at a location have advertised (reported) maximum speeds that are below 25 Mbps downstream speed or below 3 Mbps upstream (25/3 to simplify), then that location is categorized as unserved. If a location has at least one service with maximum speeds that are equal to or above 25/3, but no service with maximum speeds that are equal to or above 100/20, it is categorized as underserved. If a location has at least one service with maximum speeds that are equal to or above 100/20, then that location is categorized as served.\nThose definitions are recommended in the FCC’s Broadband Speed Benchmark and can be adapted by every States7."
+  },
+  {
+    "objectID": "index.html#our-products",
+    "href": "index.html#our-products",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "Our products:",
+    "text": "Our products:\nTODO: improve\n\nBroadband Climate Risk Mitigation Tool\nInteractive Rural Broadband Map,\nHelping our Broadband team\nHelping our Research team"
+  },
+  {
+    "objectID": "index.html#quick-facts-may-2024",
+    "href": "index.html#quick-facts-may-2024",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "Quick facts, May 2024:",
+    "text": "Quick facts, May 2024:\n\nBroadband Availibility:\n\nNumber of BSL: 115 342 225\nNumber of unique FRN: 2879\n\n\n\nFunding Map:\n\n4 agencies are contributing\nThe Funding Map consist of 12 programs (1853 projects) with two specific to Puerto Rico (PR) and US territories.\nThose projects are classified by FCC in 3 categories: “Area”, “List of locations” and “Midle mile”8"
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "FCC Primer for CORI’s MDA",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nhttps://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here↩︎\nhttps://docs.fcc.gov/public/attachments/DA-23-410A1.pdf↩︎\nSee Changelog https://us-fcc.app.box.com/v/bfm-data-downloads-output↩︎\n“The Fabric data”↩︎\nhttps://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf↩︎\nSee “Change Log” https://us-fcc.app.box.com/v/bdc-data-downloads-output↩︎\nPage 4 https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf↩︎\nIn May 2024 no “Midle mile” were present↩︎"
+  },
+  {
     "objectID": "FCC_provider_list.html",
     "href": "FCC_provider_list.html",
     "title": "FCC providers list",
@@ -16,7 +58,7 @@
     "href": "FCC_provider_list.html#broadband-data-collection-versions",
     "title": "FCC providers list",
     "section": "Broadband Data Collection versions:",
-    "text": "Broadband Data Collection versions:\n\n\nCode\n#|label: read csv\nlibrary(\"cori.data.fcc\")\n\nisp &lt;- cori.data.fcc::fcc_provider\n\n\nFCC provider has 4 341 rows and 5 columns.\nThose columns are:\n\nProvider.Name: Same than Brand Name?\nAffiliation: Same number than Provider.ID\n\n\n\nCode\nop_type &lt;-as.data.frame(table(isp$Operation.Type, dnn = \"Type\"), responseName = \"Nb.\" )\n\nknitr::kable(op_type)\n\n\n\n\n\n\nType\nNb.\n\n\n\n\nILEC\n973\n\n\nNon-ILEC\n3368\n\n\n\n\n\nOperation.Type: Only two options “ILEC” or “Non-ILEC”\nFRN: FCC Registration Number; “number of the entity that submited the data”. It is supposed to be a string of 10 characters (with padding 0). Slighly more number than Provider.Name and seems to be the primary key.\nProvider.ID: An ID for Affiliations\n\n\n\nCode\n#|label: display ISP from BDC\ntable_with_options(isp)",
+    "text": "Broadband Data Collection versions:\n\n\nCode\n#|label: read csv\nlibrary(\"cori.data.fcc\")\n\nisp &lt;- cori.data.fcc::fcc_provider\n\n\nFCC provider has 4 341 rows and 5 columns.\nThose columns are:\n\nProvider.Name: Same than Brand Name?\nAffiliation: Same number than Provider.ID\n\n\n\nCode\nop_type &lt;-as.data.frame(table(isp$operation_type, dnn = \"Type\"), responseName = \"Nb.\" )\n\nknitr::kable(op_type)\n\n\n\n\n\n\nType\nNb.\n\n\n\n\nILEC\n972\n\n\nNon-ILEC\n3484\n\n\n\n\n\nOperation.Type: Only two options “ILEC” or “Non-ILEC”\nFRN: FCC Registration Number; “number of the entity that submited the data”. It is supposed to be a string of 10 characters (with padding 0). Slighly more number than Provider.Name and seems to be the primary key.\nProvider.ID: An ID for Affiliations\n\n\n\nCode\n#|label: display ISP from BDC\ntable_with_options(isp)",
     "crumbs": [
       "Home",
       "FCC Data",
@@ -28,7 +70,7 @@
     "href": "FCC_provider_list.html#how-many-unique-values-do-we-have-per-column",
     "title": "FCC providers list",
     "section": "How many unique values do we have per column:",
-    "text": "How many unique values do we have per column:\n\n\nCode\nsum_table &lt;-  apply(isp, 2, function(x)length(unique(x))) |&gt;\n                    as.data.frame()\nnames(sum_table) &lt;- c(\"Count of unique values\")\n\nknitr::kable(sum_table)\n\n\n\n\nCount of unique values / columns\n\n\n\nCount of unique values\n\n\n\n\nProvider.Name\n4321\n\n\nAffiliation\n3522\n\n\nOperation.Type\n2\n\n\nFRN\n4341\n\n\nProvider.ID\n3522\n\n\n\n\nWe can confirm that:\n\nFRN here is unique for every row in this data set (our primary key)\nWe have a bit less Provider.Name (4321 / 4341) than FRN\nWe have the same number of Affiliations and Provider.ID\nThe number of Provider.ID/Affiliations is smaller than FRN.\n\nA quick check indicate that all Provider.ID are 6 characters. FRN is also always 10 characters.\n\n\nHence the one with 7 characters in FCC NBM is probably an error.\n\nWhat are the Provider Name that are sharing multiple FRN:\nWe probably have cases where companies have same name (“Farmers Mutual Telephone company”) but we have probably company that have multiple FRN (“Grand Mound Cooperative Telephone Association”). Granted the low numbers I think we are fair to assume it does not matter to much.\n\n\nCode\nprovider.name_by_FRN &lt;- sapply(split(isp$FRN, isp$Provider.Name), function(x) unique(x))\n\nmultiple.frn &lt;- provider.name_by_FRN[lengths(provider.name_by_FRN)&gt; 1]\n\nprovider.name_by_FRN.dat &lt;- data.frame(Provide.Name = names(multiple.frn),\n                                   FRN = sapply(multiple.frn, toString)\n)\n\ntable_with_options(provider.name_by_FRN.dat)\n\n\n\n\n\n\n\n\nHow FRN are split between Affiliations/Provider.ID?\nAs expected most of of the relations FRN / provider are one to one (3135) while 387 have more than one FRN.\n\n\nCode\nget_me_FRN_affiliations &lt;- function(isp) { \n  FRN_by_affiliations &lt;- sapply(split(isp[[\"FRN\"]], isp[[\"Affiliation\"]]), \n                                function(x) length(unique(x)))\n  FRN_by_affiliations.dat &lt;- data.frame(Affiliations = names(FRN_by_affiliations), \n                                        count_frn = FRN_by_affiliations)\n  return(FRN_by_affiliations.dat)\n}\n\nFRN_affiliations.dat &lt;- get_me_FRN_affiliations(isp) \n \ncnt_affiliation &lt;- as.data.frame(table(FRN_affiliations.dat$count_frn),\n                                       responseName = \"\")\n\ncnt_affiliation[[\"Num. of Affiliations / FRN\"]] &lt;- \n  ifelse(as.numeric(cnt_affiliation[[1]]) &lt; 10,  cnt_affiliation[[1]], \"10+\")\n\ncnt_affiliation &lt;- aggregate(cnt_affiliation[[2]], \n                             list(cnt_affiliation[[\"Num. of Affiliations / FRN\"]]), \n                             sum)\n\nnames(cnt_affiliation) &lt;- c(\"Number of Affiliations / FRN\", \"Count\")\n\nknitr::kable(cnt_affiliation[c(1, 3:9, 2 ),], row.names = FALSE)\n\n\n\n\nAffiliation per FRN\n\n\nNumber of Affiliations / FRN\nCount\n\n\n\n\n1\n3135\n\n\n2\n256\n\n\n3\n66\n\n\n4\n26\n\n\n5\n8\n\n\n6\n7\n\n\n7\n3\n\n\n8\n4\n\n\n10+\n15\n\n\n\n\nYou can explore those 387 affiliations here:\n\n\nCode\ndat &lt;- FRN_affiliations.dat[FRN_affiliations.dat[[\"count_frn\"]] &gt; 1 ,]\n\ntable_with_options(dat[order(dat[[\"count_frn\"]], decreasing = TRUE), ])",
+    "text": "How many unique values do we have per column:\n\n\nCode\nsum_table &lt;-  apply(isp, 2, function(x)length(unique(x))) |&gt;\n                    as.data.frame()\nnames(sum_table) &lt;- c(\"Count of unique values\")\n\nknitr::kable(sum_table)\n\n\n\n\nCount of unique values / columns\n\n\n\nCount of unique values\n\n\n\n\nprovider_name\n4435\n\n\naffiliation\n3619\n\n\noperation_type\n2\n\n\nfrn\n4456\n\n\nprovider_id\n3619\n\n\n\n\nWe can confirm that:\n\nFRN here is unique for every row in this data set (our primary key)\nWe have a bit less Provider.Name (4321 / 4341) than FRN\nWe have the same number of Affiliations and Provider.ID\nThe number of Provider.ID/Affiliations is smaller than FRN.\n\nA quick check indicate that all Provider.ID are 6 characters. FRN is also always 10 characters.\n\n\nHence the one with 7 characters in FCC NBM is probably an error.\n\nWhat are the Provider Name that are sharing multiple FRN:\nWe probably have cases where companies have same name (“Farmers Mutual Telephone company”) but we have probably company that have multiple FRN (“Grand Mound Cooperative Telephone Association”). Granted the low numbers I think we are fair to assume it does not matter to much.\n\n\nCode\nprovider.name_by_FRN &lt;- sapply(split(isp$frn, isp$provider_name), function(x) unique(x))\n\nmultiple.frn &lt;- provider.name_by_FRN[lengths(provider.name_by_FRN)&gt; 1]\n\nprovider.name_by_FRN.dat &lt;- data.frame(provider_name = names(multiple.frn),\n                                   FRN = sapply(multiple.frn, toString)\n)\n\ntable_with_options(provider.name_by_FRN.dat)\n\n\n\n\n\n\n\n\nHow FRN are split between Affiliations/Provider.ID?\nAs expected most of of the relations FRN / provider are one to one (3135) while 387 have more than one FRN.\n\n\nCode\nget_me_FRN_affiliations &lt;- function(isp) { \n  FRN_by_affiliations &lt;- sapply(split(isp[[\"frn\"]], isp[[\"affiliation\"]]), \n                                function(x) length(unique(x)))\n  FRN_by_affiliations.dat &lt;- data.frame(Affiliations = names(FRN_by_affiliations), \n                                        count_frn = FRN_by_affiliations)\n  return(FRN_by_affiliations.dat)\n}\n\nFRN_affiliations.dat &lt;- get_me_FRN_affiliations(isp) \n \ncnt_affiliation &lt;- as.data.frame(table(FRN_affiliations.dat$count_frn),\n                                       responseName = \"\")\n\ncnt_affiliation[[\"Num. of Affiliations / FRN\"]] &lt;- \n  ifelse(as.numeric(cnt_affiliation[[1]]) &lt; 10,  cnt_affiliation[[1]], \"10+\")\n\ncnt_affiliation &lt;- aggregate(cnt_affiliation[[2]], \n                             list(cnt_affiliation[[\"Num. of Affiliations / FRN\"]]), \n                             sum)\n\nnames(cnt_affiliation) &lt;- c(\"Number of Affiliations / FRN\", \"Count\")\n\nknitr::kable(cnt_affiliation[c(1, 3:9, 2 ),], row.names = FALSE)\n\n\n\n\nAffiliation per FRN\n\n\nNumber of Affiliations / FRN\nCount\n\n\n\n\n1\n3226\n\n\n2\n259\n\n\n3\n66\n\n\n4\n29\n\n\n5\n8\n\n\n6\n8\n\n\n7\n3\n\n\n8\n2\n\n\n10+\n15\n\n\n\n\nYou can explore those 387 affiliations here:\n\n\nCode\ndat &lt;- FRN_affiliations.dat[FRN_affiliations.dat[[\"count_frn\"]] &gt; 1 ,]\n\ntable_with_options(dat[order(dat[[\"count_frn\"]], decreasing = TRUE), ])",
     "crumbs": [
       "Home",
       "FCC Data",
@@ -48,25 +90,54 @@
     ]
   },
   {
-    "objectID": "rdof.html",
-    "href": "rdof.html",
-    "title": "RDOF EDA",
+    "objectID": "hubb.html",
+    "href": "hubb.html",
+    "title": "High Cost: Connect America Fund Broadband Map (CAF Map)",
     "section": "",
-    "text": "We had some previous works on RDOF for BCAT. It used shapefiles and gpkg to produce the output. This was not needed anymore as we could relly on census boundary (with less topological error) and just use the spreadsheet profided (.xls).\nIf we were about to change our workflow it was a good opportunity to test the end results.\nThe R script used for that can be find in the doc section of data-bead-etl repo.\nHere I will summarize some of the key results and dive a bit more on the trouble we ran into."
+    "text": "This dataset serves as the foundation for the Connect America Fund Broadband Map (CAF Map), which displays the geographic areas eligible for CAF support, as well as the specific fixed locations where carriers participating in the program have built out broadband service. The information in the CAF Map comes directly from carriers, which submit broadband deployment data annually through USAC’s High Cost Universal Broadband (HUBB) portal. The current CAF Map is based on data certified in the HUBB as of September 30, 2023. USAC independently verifies deployment to a random sample of reported locations each year to monitor carrier compliance with CAF build-out obligations, but not all data in the map has been subject to this review.\nHUBB\nSource Data\nAbout Page\n\n\n\nRecords represent a single address with awards deployed or will deploy in this year. The locations have a deployed date spanning from 2000-01-01 to 2023-09-19.\nA single address may have multiple households. This is represented by the column “Locations Deployed”.\nAvailable Fund Types are listed below but for the purpose of this request we filtered to ACAM I and ACAM II fund type.\nFund Type\n\nACAM\nACAM II\nAK Plan\nCAF II\nCAF II Auc\nCAF-BLS\nPR Fixed\nRBE\nRDOF\n\nTo determine the census block we used the field, Census Block, 2010 Census block of the deployment location.\nWe created 3 different flags:\n\nacam_i_flag: 1 indicates the block received ACAM I and 0 indicates it did not.\nacam_ii_flag: 1 indicates the block received ACAM II and 0 indicates it did not.\nhas_previous_funding: 1 indicates the block received ACAM I and/or ACAM II and 0 indicates it did not.\n\nWe produced two tables, proj_bead.acam_bl_tidy and proj_bead.acam_bl_wide.\nWhen generating the proj_bead.acam_bl_tidy table we had to crosswalk the 2010 block fips to the 2020 block fips using the proj_bead.cross_tab1020. We did this to create consistency with the other BEAD datasets.\nSome 2010 blocks with different funding flags were merged into one block in 2020. The 2020 block will be flagged as previously funded`if any of the 2010 blocks were previously funded.\nWide format table, proj_bead.acam_bl_wideis grouped by Census Block and summarized. The table is kept at 2010 blocks to avoid duplicate rows."
   },
   {
-    "objectID": "rdof.html#key-results",
-    "href": "rdof.html#key-results",
-    "title": "RDOF EDA",
-    "section": "Key results:",
-    "text": "Key results:\n\nWe do not have any difference between our previous pipeline and the new one for “Authorized RDOF”\nIn 2024 they are no difference in “ready to authorized” to “authorized”: everything was authorized.\nWe also verified that RDOF data is matching to a Census block 2010 geoid.\nWe have data issue between “default”: ie we have two contradictory data sources."
+    "objectID": "hubb.html#acam-i-and-acam-ii",
+    "href": "hubb.html#acam-i-and-acam-ii",
+    "title": "High Cost: Connect America Fund Broadband Map (CAF Map)",
+    "section": "",
+    "text": "This dataset serves as the foundation for the Connect America Fund Broadband Map (CAF Map), which displays the geographic areas eligible for CAF support, as well as the specific fixed locations where carriers participating in the program have built out broadband service. The information in the CAF Map comes directly from carriers, which submit broadband deployment data annually through USAC’s High Cost Universal Broadband (HUBB) portal. The current CAF Map is based on data certified in the HUBB as of September 30, 2023. USAC independently verifies deployment to a random sample of reported locations each year to monitor carrier compliance with CAF build-out obligations, but not all data in the map has been subject to this review.\nHUBB\nSource Data\nAbout Page\n\n\n\nRecords represent a single address with awards deployed or will deploy in this year. The locations have a deployed date spanning from 2000-01-01 to 2023-09-19.\nA single address may have multiple households. This is represented by the column “Locations Deployed”.\nAvailable Fund Types are listed below but for the purpose of this request we filtered to ACAM I and ACAM II fund type.\nFund Type\n\nACAM\nACAM II\nAK Plan\nCAF II\nCAF II Auc\nCAF-BLS\nPR Fixed\nRBE\nRDOF\n\nTo determine the census block we used the field, Census Block, 2010 Census block of the deployment location.\nWe created 3 different flags:\n\nacam_i_flag: 1 indicates the block received ACAM I and 0 indicates it did not.\nacam_ii_flag: 1 indicates the block received ACAM II and 0 indicates it did not.\nhas_previous_funding: 1 indicates the block received ACAM I and/or ACAM II and 0 indicates it did not.\n\nWe produced two tables, proj_bead.acam_bl_tidy and proj_bead.acam_bl_wide.\nWhen generating the proj_bead.acam_bl_tidy table we had to crosswalk the 2010 block fips to the 2020 block fips using the proj_bead.cross_tab1020. We did this to create consistency with the other BEAD datasets.\nSome 2010 blocks with different funding flags were merged into one block in 2020. The 2020 block will be flagged as previously funded`if any of the 2010 blocks were previously funded.\nWide format table, proj_bead.acam_bl_wideis grouped by Census Block and summarized. The table is kept at 2010 blocks to avoid duplicate rows."
   },
   {
-    "objectID": "rdof.html#two-data-sources",
-    "href": "rdof.html#two-data-sources",
-    "title": "RDOF EDA",
-    "section": "Two data sources:",
-    "text": "Two data sources:\nOur previous works was on a release from the end of 2022 (16dec2022 according to the file name) and the new one end of 2023 (2023-12-20 according to the file name).\nThe version of 2022 have 266 994 and 286 892 for 2023. Our first thought was that it makes sense to have nore “default” as time go but some cases of default in 2022 are missing in 2023 (is it possible for a default RDOF to be not defaulted?).\n48 121 rows are only present in 2022 (they are the potentially weirds one). 68 019 rows are only present in 2023 version. Finally, 218873 are identics.\n\nOther small “hiccups”\nWe have some cases that were defaulted but still are present in authorized.: 47 cases, all in Wisconsin (County: 55043) and same company.\nThey will be removed from Authorized.\n\n\nUsing High Cost: Connect America Fund Broadband Map (CAF Map)\nThis data has a column for “Fund type” and one of this type is RDOF. It has 447 939 rows matching for RDOF. Unlike RDOF this data set is at the “location” scale, ie we can have multiple location per block.\nWe only get 54 825 Census Blocks, RDOF authorized has 489 811.\nThe vast majority of those are already present in RDOF data set, only 175 are ony present in the CAF data set.\nAccording to the metadata it seems that the CAF data set was produced in september 2023 but they did not provide their sources. It is hard to tract what was used.\nOur recomendation: use FCC source has much has possible and be mindfull when using other data sets."
+    "objectID": "metadata_raw_nbm.html",
+    "href": "metadata_raw_nbm.html",
+    "title": "FCC NBM CORI metadata and storage",
+    "section": "",
+    "text": "We are storing a transformed FCC’s NBM version for differents geographyical units:\n\nCensus blocks\n\nCensus tracts\nCensus counties\nCensus places (Incomming)\n\nHere we will describe fields used and value stored for each of them:\n\n\nCode\nsource(\"R/table_with_options.R\")\nmetadata &lt;- read.csv(\"data/metadata_fcc.csv\")\ntable_with_options(metadata)",
+    "crumbs": [
+      "Home",
+      "Metadata and Storage",
+      "FCC NBM CORI metadata and storage"
+    ]
+  },
+  {
+    "objectID": "metadata_raw_nbm.html#db-fields-descriptions",
+    "href": "metadata_raw_nbm.html#db-fields-descriptions",
+    "title": "FCC NBM CORI metadata and storage",
+    "section": "",
+    "text": "We are storing a transformed FCC’s NBM version for differents geographyical units:\n\nCensus blocks\n\nCensus tracts\nCensus counties\nCensus places (Incomming)\n\nHere we will describe fields used and value stored for each of them:\n\n\nCode\nsource(\"R/table_with_options.R\")\nmetadata &lt;- read.csv(\"data/metadata_fcc.csv\")\ntable_with_options(metadata)",
+    "crumbs": [
+      "Home",
+      "Metadata and Storage",
+      "FCC NBM CORI metadata and storage"
+    ]
+  },
+  {
+    "objectID": "metadata_raw_nbm.html#s3-archive",
+    "href": "metadata_raw_nbm.html#s3-archive",
+    "title": "FCC NBM CORI metadata and storage",
+    "section": "S3 Archive:",
+    "text": "S3 Archive:\nWe stored the raw data of FCC NBM we downloaded in a s3 bucket.\nThis is how the structure of the bucket look likes:\n.\n├── D22\n│   ├── 01july2023\n│   ├── 09august2023\n│   ├── 10october2023\n│   └── old-api\n├── D23\n│   └── 14may2024\n├── J22\n│   ├── 03november2023\n│   ├── 10may2024\n│   └── old-api\n└── J23\n    └── 14november2023\nIn each directory we get a zip file per csv (technology/state).",
+    "crumbs": [
+      "Home",
+      "Metadata and Storage",
+      "FCC NBM CORI metadata and storage"
+    ]
   },
   {
     "objectID": "ms-eda.html",
@@ -117,94 +188,104 @@
     ]
   },
   {
-    "objectID": "nbm_data.html",
-    "href": "nbm_data.html",
-    "title": "FCC NBM data",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "Code\nsource(\"R/table_with_options.R\")\nThis page will display all available data (minus challenge data1]) that can downloaded from FCC NBM.",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "FCC NBM data"
-    ]
+    "text": "Sharing quick EDA about FCC data.\nLink: https://www.fcc.gov/BroadbandData\nFCC BDC: June 2023 release, downloaded 21-11-2023"
   },
   {
-    "objectID": "nbm_data.html#getting-the-information-about-nbm-release",
-    "href": "nbm_data.html#getting-the-information-about-nbm-release",
-    "title": "FCC NBM data",
-    "section": "Getting the Information about NBM Release:",
-    "text": "Getting the Information about NBM Release:\n\n\nCode\nfiling_url &lt;- \"https://broadbandmap.fcc.gov/nbm/map/api/published/filing\"\n\n# getting a list of release\nget_release &lt;- function(filing_url) {\n  req &lt;- curl::curl_fetch_memory(filing_url)\n  release &lt;- jsonlite::fromJSON(rawToChar(req$content))$data\n  return(release)\n}\n\nrelease &lt;- get_release(filing_url)\ntable_with_options(release)",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "FCC NBM data"
-    ]
-  },
-  {
-    "objectID": "nbm_data.html#getting-links-for-every-csv-in-nbm",
-    "href": "nbm_data.html#getting-links-for-every-csv-in-nbm",
-    "title": "FCC NBM data",
-    "section": "Getting links for every CSV in NBM:",
-    "text": "Getting links for every CSV in NBM:\nEven if NBM have a biannual release cycle it is updated more frequently (around every two weeks).\n\n\nCode\nget_data_url &lt;- paste0(\"https://broadbandmap.fcc.gov/nbm/map/api/\",\n                       \"national_map_process/nbm_get_data_download/\")\n\nget_csv_to_dl &lt;- function(release_file, release_nb) {\n  get_data_url &lt;- paste0(get_data_url,\n                              release_file[release_nb, \"process_uuid\"])\n\n  raw_dat &lt;- curl::curl_fetch_memory(get_data_url)\n\n  csv_to_dl &lt;- jsonlite::fromJSON(rawToChar(raw_dat$content))$data\n  csv_to_dl[[\"release\"]] &lt;- release_file[release_nb, \"filing_subtype\"] \n  return(csv_to_dl)\n}\n\nbig_list &lt;- lapply(1:nrow(release), get_csv_to_dl, release_file = release)\n\nall_data &lt;- do.call(rbind, big_list)\n\ncol_to_keep &lt;- c(\"release\", \"data_type\", \"technology_code\", \"state_fips\", \"provider_id\", \"file_name\", \"file_type\", \"data_category\")\n\nslim_all_data &lt;- all_data[, col_to_keep]\n\nfixed &lt;- \n  slim_all_data[slim_all_data$data_type == \"Fixed Broadband\" | slim_all_data$data_category == \"Nationwide\" , ]\n\ntable_with_options(fixed)",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "FCC NBM data"
-    ]
-  },
-  {
-    "objectID": "nbm_data.html#footnotes",
-    "href": "nbm_data.html#footnotes",
-    "title": "FCC NBM data",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nthis data is stored in a slighly different endpoint see↩︎",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "FCC NBM data"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "FCC Primer for CORI’s MDA",
+    "objectID": "rdof.html",
+    "href": "rdof.html",
+    "title": "RDOF EDA",
     "section": "",
-    "text": "We are using two sources of data from the FCC (Federal Communications Commission):\nTheir license can be found here and here, respectively:"
+    "text": "We had some previous works on RDOF for BCAT. It used shapefiles and gpkg to produce the output. This was not needed anymore as we could relly on census boundary (with less topological error) and just use the spreadsheet profided (.xls).\nIf we were about to change our workflow it was a good opportunity to test the end results.\nThe R script used for that can be find in the doc section of data-bead-etl repo.\nHere I will summarize some of the key results and dive a bit more on the trouble we ran into."
   },
   {
-    "objectID": "index.html#what-are-these-two-datasets",
-    "href": "index.html#what-are-these-two-datasets",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "What are these two datasets?",
-    "text": "What are these two datasets?\nThe first one (NBM) was started by the FCC in November 20221 while the second was first published in May 20232 (and documentation3 in July 2023).\nThe NBM provides information at the scale of a “service” - a location covered by a provider by a technology with specifics maximum speeds.\nEvery location is characterized by:\n\nWho is providing those services (frn, provider_id, and brand_name)\nA description of each services (technology, max_advertised_download_speed, max_advertised_upload_speed, low_latency)\nWhether the location associated with residential, business or both\nways to localize it (state_abbr, block_geoid, h3_res8_id)\n\n\n\n\n\n\n\nTip\n\n\n\nA location (see Section 2.1) can be covered by multiple Internet Services Provides (ISP) with potentially different services and technologies. Hence, it can represented in the data can by many “rows”.\n\n\nBehind the National Broadband Map they are two datasets (see Figure 1, below). We are using the “Broadband Availability” dataset that comes from the “Fabric” locations dataset (developed by CostQuest). The locations are determined within the Fabric locations data.\n\n\nSometimes the process of collecting those two datasets is called Broadband Data Collection (BDC)\nThe exact coordinates of every locations is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.\n\n\n\n\n\n\nFigure 1: “What on the national broadband map” Source: https://www.fcc.gov/BroadbandData\n\n\n\nThe BFM provides information about “broadband infrastructure deployment projects funded by the Federal government throughout the United States”. The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have characteristics of each projects with their associated boundaries (territories covered) (see link https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html).\n\nWhat is a Broadband Service Location (BSL)?\n\nA broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC4)\n\n\n\nWhen is this data updated?\nNBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges5. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes6).\nBFM seems to follow a schedule of update every two weeks but we have not find any specifications.\n\n\nWhat is the geographic coverage of those datasets?\nThe Broadband Availability data is covering all US States, Puerto Rico and the US territories.\nThe coverage of the funding map depend on each specific program."
+    "objectID": "rdof.html#key-results",
+    "href": "rdof.html#key-results",
+    "title": "RDOF EDA",
+    "section": "Key results:",
+    "text": "Key results:\n\nWe do not have any difference between our previous pipeline and the new one for “Authorized RDOF”\nIn 2024 they are no difference in “ready to authorized” to “authorized”: everything was authorized.\nWe also verified that RDOF data is matching to a Census block 2010 geoid.\nWe have data issue between “default”: ie we have two contradictory data sources."
   },
   {
-    "objectID": "index.html#what-is-unserved-v.s.-underseved",
-    "href": "index.html#what-is-unserved-v.s.-underseved",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "What is unserved v.s. underseved?",
-    "text": "What is unserved v.s. underseved?\nServed, Unserved and Underseved are overlapping categories at the location level. They can be extended at the “area level”.\nIf all available internet services at a location have advertised (reported) maximum speeds that are below 25 Mbps downstream speed or below 3 Mbps upstream (25/3 to simplify), then that location is categorized as unserved. If a location has at least one service with maximum speeds that are equal to or above 25/3, but no service with maximum speeds that are equal to or above 100/20, it is categorized as underserved. If a location has at least one service with maximum speeds that are equal to or above 100/20, then that location is categorized as served.\nThose definitions are recommended in the FCC’s Broadband Speed Benchmark and can be adapted by every States7."
+    "objectID": "rdof.html#two-data-sources",
+    "href": "rdof.html#two-data-sources",
+    "title": "RDOF EDA",
+    "section": "Two data sources:",
+    "text": "Two data sources:\nOur previous works was on a release from the end of 2022 (16dec2022 according to the file name) and the new one end of 2023 (2023-12-20 according to the file name).\nThe version of 2022 have 266 994 and 286 892 for 2023. Our first thought was that it makes sense to have nore “default” as time go but some cases of default in 2022 are missing in 2023 (is it possible for a default RDOF to be not defaulted?).\n48 121 rows are only present in 2022 (they are the potentially weirds one). 68 019 rows are only present in 2023 version. Finally, 218873 are identics.\n\nOther small “hiccups”\nWe have some cases that were defaulted but still are present in authorized.: 47 cases, all in Wisconsin (County: 55043) and same company.\nThey will be removed from Authorized.\n\n\nUsing High Cost: Connect America Fund Broadband Map (CAF Map)\nThis data has a column for “Fund type” and one of this type is RDOF. It has 447 939 rows matching for RDOF. Unlike RDOF this data set is at the “location” scale, ie we can have multiple location per block.\nWe only get 54 825 Census Blocks, RDOF authorized has 489 811.\nThe vast majority of those are already present in RDOF data set, only 175 are ony present in the CAF data set.\nAccording to the metadata it seems that the CAF data set was produced in september 2023 but they did not provide their sources. It is hard to tract what was used.\nOur recomendation: use FCC source has much has possible and be mindfull when using other data sets."
   },
   {
-    "objectID": "index.html#our-products",
-    "href": "index.html#our-products",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "Our products:",
-    "text": "Our products:\nTODO: improve\n\nBroadband Climate Risk Mitigation Tool\nInteractive Rural Broadband Map,\nHelping our Broadband team\nHelping our Research team"
+    "objectID": "isp_eda.html",
+    "href": "isp_eda.html",
+    "title": "EDA on Internet Service Providers",
+    "section": "",
+    "text": "Code\nsource(\"R/table_with_options.R\")\nWe are starting our first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be listed multiple times at the same location (offering multiple service).\nOur goal is being able to take FCC data and 1. correctly identify the single ISP that is providing each reported service (i.e., deduplication of ISP names) 2. correctly identify that ISP over time (from the same program and from other FCC products).\nHow should we define an ISP? How can we define coverage (should a service 0/0 be considered as part of the extent of an ISP’s coverage)?\nWe shifted a bit from exploring to trying to classify the quality of information we have from FCC about ISP.\nThe query that generated the data set is here:\nThe name of the columns match the FCC’s documented descriptions.\nWe are adding:\nWe have from FCC:\nCode\nget_me_isp &lt;- function(path) {\n  isp &lt;- read.csv(path,\n                  colClasses = c(frn =\"character\",\n                                provider_id = \"character\",\n                                brand_name = \"character\",\n                                cnt_locations = \"character\",\n                                cnt_locations_services = \"character\",\n                                has_copperwire = \"logical\",\n                                has_coaxial_cable = \"logical\",\n                                has_fiber = \"logical\",\n                                has_wireless = \"logical\",\n                                has_satel = \"logical\",\n                                array_agg = \"character\"))\n\n  isp[[\"cnt_locations\"]] &lt;- as.numeric(isp[[\"cnt_locations\"]])                               \n  isp[[\"cnt_locations_services\"]] &lt;- as.numeric(isp[[\"cnt_locations_services\"]])  \nreturn(isp)\n}\n\nisp &lt;- get_me_isp(\"data/isp.csv\")\nCode\ntable_with_options(isp)",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "EDA on Internet Service Providers"
+    ]
   },
   {
-    "objectID": "index.html#quick-facts-may-2024",
-    "href": "index.html#quick-facts-may-2024",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "Quick facts, May 2024:",
-    "text": "Quick facts, May 2024:\n\nBroadband Availibility:\n\nNumber of BSL: 115 342 225\nNumber of unique FRN: 2879\n\n\n\nFunding Map:\n\n4 agencies are contributing\nThe Funding Map consist of 12 programs (1853 projects) with two specific to Puerto Rico (PR) and US territories.\nThose projects are classified by FCC in 3 categories: “Area”, “List of locations” and “Midle mile”8"
+    "objectID": "isp_eda.html#numbers-for-context",
+    "href": "isp_eda.html#numbers-for-context",
+    "title": "EDA on Internet Service Providers",
+    "section": "Numbers for context:",
+    "text": "Numbers for context:\n\nRaw numbers out of the box:\nNumber of unique frn: 2879\nNumber of unique provider_id: 2184\nNumber of unique brand name pre cleaning: 2902\n\n\nCode\ncount_and_clean &lt;- function(vec) {\n  length(unique(tolower(trimws(gsub(\"_\", \" \", vec)))))} \n\nnum_brand_name &lt;- count_and_clean(isp[[\"brand_name\"]])\n\n\nRemoving all capitalization and change underscore for white space help lower the number of unique brand names to: 2878\n\n\nCode\nisp[[\"clean_name\"]] &lt;- tolower(trimws(gsub(\"_\", \" \", isp[[\"brand_name\"]]))) \n\n\n\n\nPotential sources of errors:\n\nFRN can be wrong or not meaningfull\nprovider_id can be wrong\nbrand names can be different or evolve over time.\n\nOne case:\n\nFirst example different FRN and Provider ID\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfrn\nprovider_id\nbrand_name\ncnt_locations\ncnt_locations_services\nhas_copperwire\nhas_coaxial_cable\nhas_fiber\nhas_wireless\nhas_satel\narray_agg\n\n\n\n\n\n\n0003738655\n130432\n“EATEL Corp.”\n83537\n86548\ntrue\ntrue\ntrue\nfalse\nfalse\n{LA}\n\n\n\n\n0009873712\n131103\n“EATEL Corp.”\n34494\n34497\nfalse\ntrue\ntrue\nfalse\nfalse\n{LA}\n\n\n\n\n\nOther case:\n\nAcentek here have the same provider ID but different FRN\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfrn\nprovider_id\nbrand_name\ncnt_locations\ncnt_locations_services\nhas_copperwire\nhas_coaxial_cable\nhas_fiber\nhas_wireless\nhas_satel\narray_agg\n\n\n\n\n\n\n0002626984\n130008\nAcentek\n47\n47\ntrue\nfalse\ntrue\nfalse\nfalse\n{MN}\n\n\n\n\n0002626984\n130008\nACENTEK\n1395\n1395\ntrue\nfalse\nfalse\nfalse\nfalse\n{MN}\n\n\n\n\n0002645927\n130008\nAcentek\n19521\n26636\ntrue\nfalse\ntrue\ntrue\nfalse\n{IA,MN}\n\n\n\n\n\n\n\nRules for problems:\n\nLess than 10 locations per rows:\n\n\nCode\nisp[[\"few_locations\"]] &lt;- NA_integer_\n\nfor (i in 1:10) {\n  isp[isp[[\"cnt_locations\"]] == i, \"few_locations\"] &lt;- i\n}\n\n#feel bad relying on table removing NA\nfew_loc &lt;- as.data.frame(table(isp$few_locations))\nnames(few_loc) &lt;- c(\"Number of locations\", \"Number of cases\")\n\nknitr::kable(few_loc)\n\n\n\nRow with less than 10 locations\n\n\nNumber of locations\nNumber of cases\n\n\n\n\n1\n43\n\n\n2\n9\n\n\n3\n12\n\n\n4\n5\n\n\n5\n2\n\n\n6\n4\n\n\n7\n8\n\n\n8\n5\n\n\n9\n3\n\n\n10\n3\n\n\n\n\n\nPotential solutions:\n\nWe can decide to not keep those rows\nMerge them with either other rows that is matching provider_id or frn (when this is an option)\n\n\n\nMore than one frn for a provider_id\n\n\nCode\ntemp &lt;- sapply(split(isp$frn, isp$provider_id), function(x) length(unique(x)))\n\ndta &lt;- data.frame(provider_id = names(temp), frn_by_provider_id = temp)\n\n# correct lower/upper case / replace underscore by  \" \"  / some white space on both side \n# triming whispace did not improve for this dataset but I should keept doing it\ndta[[\"unique_brand_name_by_provider_id\"]] &lt;-  sapply(split(isp$brand_name, isp$provider_id),\n                                      count_and_clean)\ndta[[\"same_state_by_provider_id\"]] &lt;- sapply(split(isp$array_agg, isp$provider_id), function(x) length(unique(x))) \n\nisp &lt;- merge(isp, dta, by.x = \"provider_id\", by.y = \"provider_id\",\n             all.x = TRUE, all.y = TRUE)\nmore_frn_than_provider &lt;- subset(isp, isp$frn_by_provider_id  &gt; 1)\n\ntable_with_options(more_frn_than_provider)\n\n\n\n\n\n\nUnique provider_id + brand_name are kind of “green” (for one time frame):\nNumber of green isp: 1972\nWe can have one provider_id with multiple frn and same or not brand_name (see TSC for example / 150266)\nIt seems:\n\nWindstream has 37 different frn: we can maybe test if it has windstream in it’s name ..\nOtelco/GoNet (18 cases)\nRally Networks/Oregon Telephone Company, is their frn wrongs ? (17 cases)\nSame Provider for differents frn and brand_name in Minesota (MN) (16 cases)\n160127 I do not see any kind of specific pattern for this one\n131486 seems to be RiverStreet Networks with various frn (13 cases) -&gt; will be catch by unique_brand_name_by_provider_id\n190233 multiple brand name and frn but seems to be in Texas and Oklahoma (13)\n131226 seems to be Fastwyre Broadband divided by technology and states (12 cases) -&gt; will be catch by unique_brand_name_by_provider_id\n130804 seems to be Mediacom (+ Bolt) with different states and names indicating their states (11 cases)\nGoogle Fiber (240041) seems to be have frn split by states (with a weird ‘Webpass, Inc.’) (11 cases) -&gt; will be catch by unique_brand_name_by_provider_id (except Webpass, Inc which is weird, technology is 70 that I should correct)\nAT&T Inc (130077) multiple frn (10 cases) -&gt; filter by unique_brand_name_by_provider_id\n130079 = Astound_Broadband (10 cases) -&gt; will be catch by unique_brand_name_by_provider_id\nVerizon -&gt; filter by unique_brand_name_by_provider_id\nlong ling (130757 ) & co are problematics (multiples names / one provider / 3 states )\n130906 is also hard to fix\n\nAssuming that same name (clean version) + same provider_id provide us with a unique ISP, it helps move to greensih:\n\n\nCode\ntable_with_options(more_frn_than_provider[more_frn_than_provider$unique_brand_name_by_provider_id == 1,])\n\n\n\n\n\n\nThis is removing 194 out of 1170.\n\n\nSame provider_id and same states\nNot too sure about this one.\n\n\nMore than one provider_id for a cleaned brand name\nThis is the case for “EATEL”.\n\n\nCode\ntemp &lt;- sapply(split(isp$provider_id, isp$clean_name),\n         function(x) length(unique(x)))\ndta &lt;- data.frame(clean_name = names(temp), provider_id_by_clean_name = temp)\nisp &lt;- merge(isp, dta, by.x = \"clean_name\", by.y = \"clean_name\",\n             all.x = TRUE, all.y = TRUE)\n\nprovider_id_by_clean_name &lt;- subset(isp, isp$provider_id_by_clean_name  &gt; 1)\n\ntable_with_options(provider_id_by_clean_name)\n\n\n\n\n\n\nThis could also move 63 cases in the greenish spot. -&gt; nop",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "EDA on Internet Service Providers"
+    ]
   },
   {
-    "objectID": "index.html#footnotes",
-    "href": "index.html#footnotes",
-    "title": "FCC Primer for CORI’s MDA",
-    "section": "Footnotes",
-    "text": "Footnotes\n\n\nhttps://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here↩︎\nhttps://docs.fcc.gov/public/attachments/DA-23-410A1.pdf↩︎\nSee Changelog https://us-fcc.app.box.com/v/bfm-data-downloads-output↩︎\n“The Fabric data”↩︎\nhttps://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf↩︎\nSee “Change Log” https://us-fcc.app.box.com/v/bdc-data-downloads-output↩︎\nPage 4 https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf↩︎\nIn May 2024 no “Midle mile” were present↩︎"
+    "objectID": "isp_eda.html#what-are-our-optionsnext-steps",
+    "href": "isp_eda.html#what-are-our-optionsnext-steps",
+    "title": "EDA on Internet Service Providers",
+    "section": "What are our options/next steps:",
+    "text": "What are our options/next steps:\n\nMake a column “ready to go”\n\n\n\nCode\n# if it has unique brand name and frn by provider id id should be good\ntemp &lt;- isp$frn_by_provider_id + isp$unique_brand_name_by_provider_id\nisp[[\"rdy_to_go\"]] &lt;- ifelse(temp == 2, \"green\", \"not green\")\n\n# cases where we have a unique frn and provider id but not unique brand name \n# default of olive is that we need to pick a name out of more than one\ntemp &lt;- ifelse(isp$frn_by_provider_id == 1, 1, 0) + ifelse(isp$unique_brand_name_by_provider_id &gt; 1, 1, 0)\nisp[temp == 2, \"rdy_to_go\"] &lt;- \"olive\"\n\n# the few locations should be \"red\" and maybe dropped later \nisp[which(isp$few_locations == \"few locations\"), \"rdy_to_go\"] &lt;- \"red\"\n\ntable_with_options(isp)\n\n\n\n\n\n\nA good example could be 131167 and how we can discriminate Orbitel communications. We can also prob. raise the bar of “few locations”.\nA quick summary of where we are:\n\n\nCode\ntable(isp[[\"rdy_to_go\"]])\n\n\n\n    green not green     olive \n     1778      1170       222 \n\n\n\nMake an id &lt;—&gt; provider_id / frn / brand_name table",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "EDA on Internet Service Providers"
+    ]
+  },
+  {
+    "objectID": "ntia_test.html",
+    "href": "ntia_test.html",
+    "title": "Testing other eligibilities",
+    "section": "",
+    "text": "Code\nsource(\"R/table_with_options.R\")\nsource(\"https://gist.githubusercontent.com/defuneste/32d5bffce8c6e88b6322ca4c9861793b/raw/893462fed28362601e63434ecc140bbdcbf6928b/us_states_df.R\")\nThe goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block.",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "Testing other eligibilities"
+    ]
+  },
+  {
+    "objectID": "ntia_test.html#excluding-dsl-service",
+    "href": "ntia_test.html#excluding-dsl-service",
+    "title": "Testing other eligibilities",
+    "section": "Excluding DSL service",
+    "text": "Excluding DSL service\n\n\nCode\nselect\n    geoid_st,\n    sum(cnt_total_locations) as cnt_total_locations,\n    sum(cnt_underserved) as cnt_underserved,\n    sum(cnt_underserved_dsl_excluded) as cnt_loc_underserved_dsl_excluded,\n    count(*) as cnt_blocks,\n    sum(case when bl_100_20_area = 'underserved_area' then 1 else 0 end) as cnt_underserved_block,\n    sum(case when bl_100_20_area_dsl_excluded = 'underserved_area' then 1 else 0 end) as cnt_underserved_block_dsl_excluded\nfrom staging.bead_source_tiger_2020_blocks\ngroup by geoid_st\norder by geoid_st\n\n\nThis table will summarize some effects on locations and census blocks categories.\nOur previous definition:\n\nWe are excluding satellites and unlicensed wireless\nIf a location has only services lower than 25/3 it is unserved. If a location only has services with speed between 25/3 and 100/20 it is underserved. It will be served if it equal and above 100/20.\n\nNew definition:\n\nWe are now excluding DSL (technology 10).\nUnserved are not changing (if they had DSL under 25/3 it was already unserved). Underseved and Served will change because some locations who were served will now move to underserved.\n\nThis was for locations. If we move to census block (where we apply this “uncommun” 80/20) it will also change the category of eligibility (because we are changing the classification of locations).\nTable dicvtionnary:\n\n“United.States.of.America”: names of States\n“geoid_st: ANSI”number”\n“number_block”: Number of Census Block per states\n“cnt_underserved_block” : count of blocks underserved with the previous definition\n“cnt_underserved_block_dsl_excluded”: count of block if we exclude DSL\n“diff_block” : cnt_underserved_block_dsl_excluded - cnt_underserved_block\n“cnt_total_locations”: count of total locations per States\n“cnt_underserved”: count of locations underserved with previous definition\n“cnt_loc_underserved_dsl_excluded”: count of locations underserved if we removed DSL\n\nI provided the locations to:\n\ndo a bit of sanity check\nWorking at the block level imply using the 80/20 rules and kind of assum all block are the same.\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/dsl-exluded.csv\", colClasses =c(\"geoid_st\" = \"character\"))\nUS_slim &lt;- US_states[,c(\"United.States.of.America\", \"ANSI_num\", \"ANSI_let\")]\neasy_table &lt;- merge(eligibiliy_st_ntia, US_slim, \n                    by.x = \"geoid_st\", by.y = \"ANSI_num\",\n                    all.x = TRUE, all.y = TRUE)\n\neasy_table$diff_block &lt;- easy_table$cnt_underserved_block_dsl_excluded - easy_table$cnt_underserved_block\n\neasy_table &lt;- easy_table[, c(\"United.States.of.America\",\n                            \"geoid_st\",\n                            \"number_block\", \n                            \"cnt_underserved_block\",\n                            \"cnt_underserved_block_dsl_excluded\",\n                            \"diff_block\",\n                            \"cnt_total_locations\",\n                            \"cnt_underserved\",\n                            \"cnt_loc_underserved_dsl_excluded\"\n                            )]\n\ntable_with_options(easy_table)",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "Testing other eligibilities"
+    ]
+  },
+  {
+    "objectID": "ntia_test.html#some-tldr",
+    "href": "ntia_test.html#some-tldr",
+    "title": "Testing other eligibilities",
+    "section": "Some tl:dr:",
+    "text": "Some tl:dr:\nNot keeping DSL move 26907 blocks from being served to be underserved.\nIt has heterogneous effects: for some States it has nearly or very low impacts but for other it is importants.",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "Testing other eligibilities"
+    ]
   },
   {
     "objectID": "zero_dl_up.html",
@@ -255,23 +336,52 @@
     ]
   },
   {
-    "objectID": "metadata_raw_nbm.html",
-    "href": "metadata_raw_nbm.html",
-    "title": "FCC NBM CORI metadata and storage",
+    "objectID": "nbm_data.html",
+    "href": "nbm_data.html",
+    "title": "FCC NBM data",
     "section": "",
-    "text": "We stored the raw data of FCC NBM we downloaded in a s3 bucket.\nThis is how the structure of the bucket look likes:\n.\n├── D22\n│   ├── 01july2023\n│   ├── 09august2023\n│   ├── 10october2023\n│   └── old-api\n├── D23\n│   └── 14may2024\n├── J22\n│   ├── 03november2023\n│   ├── 10may2024\n│   └── old-api\n└── J23\n    └── 14november2023\nIn each directory we get a zip file per csv (technology/state).",
+    "text": "Code\nsource(\"R/table_with_options.R\")\nThis page will display all available data (minus challenge data1]) that can downloaded from FCC NBM.",
     "crumbs": [
       "Home",
-      "Metadata and Storage",
-      "FCC NBM CORI metadata and storage"
+      "FCC Data",
+      "FCC NBM data"
     ]
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Sharing quick EDA about FCC data.\nLink: https://www.fcc.gov/BroadbandData\nFCC BDC: June 2023 release, downloaded 21-11-2023"
+    "objectID": "nbm_data.html#getting-the-information-about-nbm-release",
+    "href": "nbm_data.html#getting-the-information-about-nbm-release",
+    "title": "FCC NBM data",
+    "section": "Getting the Information about NBM Release:",
+    "text": "Getting the Information about NBM Release:\n\n\nCode\nfiling_url &lt;- \"https://broadbandmap.fcc.gov/nbm/map/api/published/filing\"\n\n# getting a list of release\nget_release &lt;- function(filing_url) {\n  req &lt;- curl::curl_fetch_memory(filing_url)\n  release &lt;- jsonlite::fromJSON(rawToChar(req$content))$data\n  return(release)\n}\n\nrelease &lt;- get_release(filing_url)\ntable_with_options(release)",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "FCC NBM data"
+    ]
+  },
+  {
+    "objectID": "nbm_data.html#getting-links-for-every-csv-in-nbm",
+    "href": "nbm_data.html#getting-links-for-every-csv-in-nbm",
+    "title": "FCC NBM data",
+    "section": "Getting links for every CSV in NBM:",
+    "text": "Getting links for every CSV in NBM:\nEven if NBM have a biannual release cycle it is updated more frequently (around every two weeks).\n\n\nCode\nget_data_url &lt;- paste0(\"https://broadbandmap.fcc.gov/nbm/map/api/\",\n                       \"national_map_process/nbm_get_data_download/\")\n\nget_csv_to_dl &lt;- function(release_file, release_nb) {\n  get_data_url &lt;- paste0(get_data_url,\n                              release_file[release_nb, \"process_uuid\"])\n\n  raw_dat &lt;- curl::curl_fetch_memory(get_data_url)\n\n  csv_to_dl &lt;- jsonlite::fromJSON(rawToChar(raw_dat$content))$data\n  csv_to_dl[[\"release\"]] &lt;- release_file[release_nb, \"filing_subtype\"] \n  return(csv_to_dl)\n}\n\nbig_list &lt;- lapply(1:nrow(release), get_csv_to_dl, release_file = release)\n\nall_data &lt;- do.call(rbind, big_list)\n\ncol_to_keep &lt;- c(\"release\", \"data_type\", \"technology_code\", \"state_fips\", \"provider_id\", \"file_name\", \"file_type\", \"data_category\")\n\nslim_all_data &lt;- all_data[, col_to_keep]\n\nfixed &lt;- \n  slim_all_data[slim_all_data$data_type == \"Fixed Broadband\" | slim_all_data$data_category == \"Nationwide\" , ]\n\ntable_with_options(fixed)",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "FCC NBM data"
+    ]
+  },
+  {
+    "objectID": "nbm_data.html#footnotes",
+    "href": "nbm_data.html#footnotes",
+    "title": "FCC NBM data",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nthis data is stored in a slighly different endpoint see↩︎",
+    "crumbs": [
+      "Home",
+      "FCC Data",
+      "FCC NBM data"
+    ]
   },
   {
     "objectID": "road-eda.html",
@@ -379,92 +489,6 @@
       "Home",
       "FCC Data",
       "FCC Funding Map"
-    ]
-  },
-  {
-    "objectID": "isp_eda.html",
-    "href": "isp_eda.html",
-    "title": "EDA on Internet Service Providers",
-    "section": "",
-    "text": "Code\nsource(\"R/table_with_options.R\")\nWe are starting our first exploratory data analysis around ISPs in the FCC NBM data set. It should be kept in mind that an ISP can be listed multiple times at the same location (offering multiple service).\nOur goal is being able to take FCC data and 1. correctly identify the single ISP that is providing each reported service (i.e., deduplication of ISP names) 2. correctly identify that ISP over time (from the same program and from other FCC products).\nHow should we define an ISP? How can we define coverage (should a service 0/0 be considered as part of the extent of an ISP’s coverage)?\nWe shifted a bit from exploring to trying to classify the quality of information we have from FCC about ISP.\nThe query that generated the data set is here:\nThe name of the columns match the FCC’s documented descriptions.\nWe are adding:\nWe have from FCC:\nCode\nget_me_isp &lt;- function(path) {\n  isp &lt;- read.csv(path,\n                  colClasses = c(frn =\"character\",\n                                provider_id = \"character\",\n                                brand_name = \"character\",\n                                cnt_locations = \"character\",\n                                cnt_locations_services = \"character\",\n                                has_copperwire = \"logical\",\n                                has_coaxial_cable = \"logical\",\n                                has_fiber = \"logical\",\n                                has_wireless = \"logical\",\n                                has_satel = \"logical\",\n                                array_agg = \"character\"))\n\n  isp[[\"cnt_locations\"]] &lt;- as.numeric(isp[[\"cnt_locations\"]])                               \n  isp[[\"cnt_locations_services\"]] &lt;- as.numeric(isp[[\"cnt_locations_services\"]])  \nreturn(isp)\n}\n\nisp &lt;- get_me_isp(\"data/isp.csv\")\nCode\ntable_with_options(isp)",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "EDA on Internet Service Providers"
-    ]
-  },
-  {
-    "objectID": "isp_eda.html#numbers-for-context",
-    "href": "isp_eda.html#numbers-for-context",
-    "title": "EDA on Internet Service Providers",
-    "section": "Numbers for context:",
-    "text": "Numbers for context:\n\nRaw numbers out of the box:\nNumber of unique frn: 2879\nNumber of unique provider_id: 2184\nNumber of unique brand name pre cleaning: 2902\n\n\nCode\ncount_and_clean &lt;- function(vec) {\n  length(unique(tolower(trimws(gsub(\"_\", \" \", vec)))))} \n\nnum_brand_name &lt;- count_and_clean(isp[[\"brand_name\"]])\n\n\nRemoving all capitalization and change underscore for white space help lower the number of unique brand names to: 2878\n\n\nCode\nisp[[\"clean_name\"]] &lt;- tolower(trimws(gsub(\"_\", \" \", isp[[\"brand_name\"]]))) \n\n\n\n\nPotential sources of errors:\n\nFRN can be wrong or not meaningfull\nprovider_id can be wrong\nbrand names can be different or evolve over time.\n\nOne case:\n\nFirst example different FRN and Provider ID\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfrn\nprovider_id\nbrand_name\ncnt_locations\ncnt_locations_services\nhas_copperwire\nhas_coaxial_cable\nhas_fiber\nhas_wireless\nhas_satel\narray_agg\n\n\n\n\n\n\n0003738655\n130432\n“EATEL Corp.”\n83537\n86548\ntrue\ntrue\ntrue\nfalse\nfalse\n{LA}\n\n\n\n\n0009873712\n131103\n“EATEL Corp.”\n34494\n34497\nfalse\ntrue\ntrue\nfalse\nfalse\n{LA}\n\n\n\n\n\nOther case:\n\nAcentek here have the same provider ID but different FRN\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nfrn\nprovider_id\nbrand_name\ncnt_locations\ncnt_locations_services\nhas_copperwire\nhas_coaxial_cable\nhas_fiber\nhas_wireless\nhas_satel\narray_agg\n\n\n\n\n\n\n0002626984\n130008\nAcentek\n47\n47\ntrue\nfalse\ntrue\nfalse\nfalse\n{MN}\n\n\n\n\n0002626984\n130008\nACENTEK\n1395\n1395\ntrue\nfalse\nfalse\nfalse\nfalse\n{MN}\n\n\n\n\n0002645927\n130008\nAcentek\n19521\n26636\ntrue\nfalse\ntrue\ntrue\nfalse\n{IA,MN}\n\n\n\n\n\n\n\nRules for problems:\n\nLess than 10 locations per rows:\n\n\nCode\nisp[[\"few_locations\"]] &lt;- NA_integer_\n\nfor (i in 1:10) {\n  isp[isp[[\"cnt_locations\"]] == i, \"few_locations\"] &lt;- i\n}\n\n#feel bad relying on table removing NA\nfew_loc &lt;- as.data.frame(table(isp$few_locations))\nnames(few_loc) &lt;- c(\"Number of locations\", \"Number of cases\")\n\nknitr::kable(few_loc)\n\n\n\nRow with less than 10 locations\n\n\nNumber of locations\nNumber of cases\n\n\n\n\n1\n43\n\n\n2\n9\n\n\n3\n12\n\n\n4\n5\n\n\n5\n2\n\n\n6\n4\n\n\n7\n8\n\n\n8\n5\n\n\n9\n3\n\n\n10\n3\n\n\n\n\n\nPotential solutions:\n\nWe can decide to not keep those rows\nMerge them with either other rows that is matching provider_id or frn (when this is an option)\n\n\n\nMore than one frn for a provider_id\n\n\nCode\ntemp &lt;- sapply(split(isp$frn, isp$provider_id), function(x) length(unique(x)))\n\ndta &lt;- data.frame(provider_id = names(temp), frn_by_provider_id = temp)\n\n# correct lower/upper case / replace underscore by  \" \"  / some white space on both side \n# triming whispace did not improve for this dataset but I should keept doing it\ndta[[\"unique_brand_name_by_provider_id\"]] &lt;-  sapply(split(isp$brand_name, isp$provider_id),\n                                      count_and_clean)\ndta[[\"same_state_by_provider_id\"]] &lt;- sapply(split(isp$array_agg, isp$provider_id), function(x) length(unique(x))) \n\nisp &lt;- merge(isp, dta, by.x = \"provider_id\", by.y = \"provider_id\",\n             all.x = TRUE, all.y = TRUE)\nmore_frn_than_provider &lt;- subset(isp, isp$frn_by_provider_id  &gt; 1)\n\ntable_with_options(more_frn_than_provider)\n\n\n\n\n\n\nUnique provider_id + brand_name are kind of “green” (for one time frame):\nNumber of green isp: 1972\nWe can have one provider_id with multiple frn and same or not brand_name (see TSC for example / 150266)\nIt seems:\n\nWindstream has 37 different frn: we can maybe test if it has windstream in it’s name ..\nOtelco/GoNet (18 cases)\nRally Networks/Oregon Telephone Company, is their frn wrongs ? (17 cases)\nSame Provider for differents frn and brand_name in Minesota (MN) (16 cases)\n160127 I do not see any kind of specific pattern for this one\n131486 seems to be RiverStreet Networks with various frn (13 cases) -&gt; will be catch by unique_brand_name_by_provider_id\n190233 multiple brand name and frn but seems to be in Texas and Oklahoma (13)\n131226 seems to be Fastwyre Broadband divided by technology and states (12 cases) -&gt; will be catch by unique_brand_name_by_provider_id\n130804 seems to be Mediacom (+ Bolt) with different states and names indicating their states (11 cases)\nGoogle Fiber (240041) seems to be have frn split by states (with a weird ‘Webpass, Inc.’) (11 cases) -&gt; will be catch by unique_brand_name_by_provider_id (except Webpass, Inc which is weird, technology is 70 that I should correct)\nAT&T Inc (130077) multiple frn (10 cases) -&gt; filter by unique_brand_name_by_provider_id\n130079 = Astound_Broadband (10 cases) -&gt; will be catch by unique_brand_name_by_provider_id\nVerizon -&gt; filter by unique_brand_name_by_provider_id\nlong ling (130757 ) & co are problematics (multiples names / one provider / 3 states )\n130906 is also hard to fix\n\nAssuming that same name (clean version) + same provider_id provide us with a unique ISP, it helps move to greensih:\n\n\nCode\ntable_with_options(more_frn_than_provider[more_frn_than_provider$unique_brand_name_by_provider_id == 1,])\n\n\n\n\n\n\nThis is removing 194 out of 1170.\n\n\nSame provider_id and same states\nNot too sure about this one.\n\n\nMore than one provider_id for a cleaned brand name\nThis is the case for “EATEL”.\n\n\nCode\ntemp &lt;- sapply(split(isp$provider_id, isp$clean_name),\n         function(x) length(unique(x)))\ndta &lt;- data.frame(clean_name = names(temp), provider_id_by_clean_name = temp)\nisp &lt;- merge(isp, dta, by.x = \"clean_name\", by.y = \"clean_name\",\n             all.x = TRUE, all.y = TRUE)\n\nprovider_id_by_clean_name &lt;- subset(isp, isp$provider_id_by_clean_name  &gt; 1)\n\ntable_with_options(provider_id_by_clean_name)\n\n\n\n\n\n\nThis could also move 63 cases in the greenish spot. -&gt; nop",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "EDA on Internet Service Providers"
-    ]
-  },
-  {
-    "objectID": "isp_eda.html#what-are-our-optionsnext-steps",
-    "href": "isp_eda.html#what-are-our-optionsnext-steps",
-    "title": "EDA on Internet Service Providers",
-    "section": "What are our options/next steps:",
-    "text": "What are our options/next steps:\n\nMake a column “ready to go”\n\n\n\nCode\n# if it has unique brand name and frn by provider id id should be good\ntemp &lt;- isp$frn_by_provider_id + isp$unique_brand_name_by_provider_id\nisp[[\"rdy_to_go\"]] &lt;- ifelse(temp == 2, \"green\", \"not green\")\n\n# cases where we have a unique frn and provider id but not unique brand name \n# default of olive is that we need to pick a name out of more than one\ntemp &lt;- ifelse(isp$frn_by_provider_id == 1, 1, 0) + ifelse(isp$unique_brand_name_by_provider_id &gt; 1, 1, 0)\nisp[temp == 2, \"rdy_to_go\"] &lt;- \"olive\"\n\n# the few locations should be \"red\" and maybe dropped later \nisp[which(isp$few_locations == \"few locations\"), \"rdy_to_go\"] &lt;- \"red\"\n\ntable_with_options(isp)\n\n\n\n\n\n\nA good example could be 131167 and how we can discriminate Orbitel communications. We can also prob. raise the bar of “few locations”.\nA quick summary of where we are:\n\n\nCode\ntable(isp[[\"rdy_to_go\"]])\n\n\n\n    green not green     olive \n     1778      1170       222 \n\n\n\nMake an id &lt;—&gt; provider_id / frn / brand_name table",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "EDA on Internet Service Providers"
-    ]
-  },
-  {
-    "objectID": "hubb.html",
-    "href": "hubb.html",
-    "title": "High Cost: Connect America Fund Broadband Map (CAF Map)",
-    "section": "",
-    "text": "This dataset serves as the foundation for the Connect America Fund Broadband Map (CAF Map), which displays the geographic areas eligible for CAF support, as well as the specific fixed locations where carriers participating in the program have built out broadband service. The information in the CAF Map comes directly from carriers, which submit broadband deployment data annually through USAC’s High Cost Universal Broadband (HUBB) portal. The current CAF Map is based on data certified in the HUBB as of September 30, 2023. USAC independently verifies deployment to a random sample of reported locations each year to monitor carrier compliance with CAF build-out obligations, but not all data in the map has been subject to this review.\nHUBB\nSource Data\nAbout Page\n\n\n\nRecords represent a single address with awards deployed or will deploy in this year. The locations have a deployed date spanning from 2000-01-01 to 2023-09-19.\nA single address may have multiple households. This is represented by the column “Locations Deployed”.\nAvailable Fund Types are listed below but for the purpose of this request we filtered to ACAM I and ACAM II fund type.\nFund Type\n\nACAM\nACAM II\nAK Plan\nCAF II\nCAF II Auc\nCAF-BLS\nPR Fixed\nRBE\nRDOF\n\nTo determine the census block we used the field, Census Block, 2010 Census block of the deployment location.\nWe created 3 different flags:\n\nacam_i_flag: 1 indicates the block received ACAM I and 0 indicates it did not.\nacam_ii_flag: 1 indicates the block received ACAM II and 0 indicates it did not.\nhas_previous_funding: 1 indicates the block received ACAM I and/or ACAM II and 0 indicates it did not.\n\nWe produced two tables, proj_bead.acam_bl_tidy and proj_bead.acam_bl_wide.\nWhen generating the proj_bead.acam_bl_tidy table we had to crosswalk the 2010 block fips to the 2020 block fips using the proj_bead.cross_tab1020. We did this to create consistency with the other BEAD datasets.\nSome 2010 blocks with different funding flags were merged into one block in 2020. The 2020 block will be flagged as previously funded`if any of the 2010 blocks were previously funded.\nWide format table, proj_bead.acam_bl_wideis grouped by Census Block and summarized. The table is kept at 2010 blocks to avoid duplicate rows."
-  },
-  {
-    "objectID": "hubb.html#acam-i-and-acam-ii",
-    "href": "hubb.html#acam-i-and-acam-ii",
-    "title": "High Cost: Connect America Fund Broadband Map (CAF Map)",
-    "section": "",
-    "text": "This dataset serves as the foundation for the Connect America Fund Broadband Map (CAF Map), which displays the geographic areas eligible for CAF support, as well as the specific fixed locations where carriers participating in the program have built out broadband service. The information in the CAF Map comes directly from carriers, which submit broadband deployment data annually through USAC’s High Cost Universal Broadband (HUBB) portal. The current CAF Map is based on data certified in the HUBB as of September 30, 2023. USAC independently verifies deployment to a random sample of reported locations each year to monitor carrier compliance with CAF build-out obligations, but not all data in the map has been subject to this review.\nHUBB\nSource Data\nAbout Page\n\n\n\nRecords represent a single address with awards deployed or will deploy in this year. The locations have a deployed date spanning from 2000-01-01 to 2023-09-19.\nA single address may have multiple households. This is represented by the column “Locations Deployed”.\nAvailable Fund Types are listed below but for the purpose of this request we filtered to ACAM I and ACAM II fund type.\nFund Type\n\nACAM\nACAM II\nAK Plan\nCAF II\nCAF II Auc\nCAF-BLS\nPR Fixed\nRBE\nRDOF\n\nTo determine the census block we used the field, Census Block, 2010 Census block of the deployment location.\nWe created 3 different flags:\n\nacam_i_flag: 1 indicates the block received ACAM I and 0 indicates it did not.\nacam_ii_flag: 1 indicates the block received ACAM II and 0 indicates it did not.\nhas_previous_funding: 1 indicates the block received ACAM I and/or ACAM II and 0 indicates it did not.\n\nWe produced two tables, proj_bead.acam_bl_tidy and proj_bead.acam_bl_wide.\nWhen generating the proj_bead.acam_bl_tidy table we had to crosswalk the 2010 block fips to the 2020 block fips using the proj_bead.cross_tab1020. We did this to create consistency with the other BEAD datasets.\nSome 2010 blocks with different funding flags were merged into one block in 2020. The 2020 block will be flagged as previously funded`if any of the 2010 blocks were previously funded.\nWide format table, proj_bead.acam_bl_wideis grouped by Census Block and summarized. The table is kept at 2010 blocks to avoid duplicate rows."
-  },
-  {
-    "objectID": "ntia_test.html",
-    "href": "ntia_test.html",
-    "title": "Testing other eligibilities",
-    "section": "",
-    "text": "Code\nsource(\"R/table_with_options.R\")\nsource(\"https://gist.githubusercontent.com/defuneste/32d5bffce8c6e88b6322ca4c9861793b/raw/893462fed28362601e63434ecc140bbdcbf6928b/us_states_df.R\")\nThe goal of this page is to record the effect on not including some technologies on the eligibility of BSL and census block.",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#excluding-dsl-service",
-    "href": "ntia_test.html#excluding-dsl-service",
-    "title": "Testing other eligibilities",
-    "section": "Excluding DSL service",
-    "text": "Excluding DSL service\n\n\nCode\nselect\n    geoid_st,\n    sum(cnt_total_locations) as cnt_total_locations,\n    sum(cnt_underserved) as cnt_underserved,\n    sum(cnt_underserved_dsl_excluded) as cnt_loc_underserved_dsl_excluded,\n    count(*) as cnt_blocks,\n    sum(case when bl_100_20_area = 'underserved_area' then 1 else 0 end) as cnt_underserved_block,\n    sum(case when bl_100_20_area_dsl_excluded = 'underserved_area' then 1 else 0 end) as cnt_underserved_block_dsl_excluded\nfrom staging.bead_source_tiger_2020_blocks\ngroup by geoid_st\norder by geoid_st\n\n\nThis table will summarize some effects on locations and census blocks categories.\nOur previous definition:\n\nWe are excluding satellites and unlicensed wireless\nIf a location has only services lower than 25/3 it is unserved. If a location only has services with speed between 25/3 and 100/20 it is underserved. It will be served if it equal and above 100/20.\n\nNew definition:\n\nWe are now excluding DSL (technology 10).\nUnserved are not changing (if they had DSL under 25/3 it was already unserved). Underseved and Served will change because some locations who were served will now move to underserved.\n\nThis was for locations. If we move to census block (where we apply this “uncommun” 80/20) it will also change the category of eligibility (because we are changing the classification of locations).\nTable dicvtionnary:\n\n“United.States.of.America”: names of States\n“geoid_st: ANSI”number”\n“number_block”: Number of Census Block per states\n“cnt_underserved_block” : count of blocks underserved with the previous definition\n“cnt_underserved_block_dsl_excluded”: count of block if we exclude DSL\n“diff_block” : cnt_underserved_block_dsl_excluded - cnt_underserved_block\n“cnt_total_locations”: count of total locations per States\n“cnt_underserved”: count of locations underserved with previous definition\n“cnt_loc_underserved_dsl_excluded”: count of locations underserved if we removed DSL\n\nI provided the locations to:\n\ndo a bit of sanity check\nWorking at the block level imply using the 80/20 rules and kind of assum all block are the same.\n\n\n\nCode\neligibiliy_st_ntia &lt;- read.csv(\"data/dsl-exluded.csv\", colClasses =c(\"geoid_st\" = \"character\"))\nUS_slim &lt;- US_states[,c(\"United.States.of.America\", \"ANSI_num\", \"ANSI_let\")]\neasy_table &lt;- merge(eligibiliy_st_ntia, US_slim, \n                    by.x = \"geoid_st\", by.y = \"ANSI_num\",\n                    all.x = TRUE, all.y = TRUE)\n\neasy_table$diff_block &lt;- easy_table$cnt_underserved_block_dsl_excluded - easy_table$cnt_underserved_block\n\neasy_table &lt;- easy_table[, c(\"United.States.of.America\",\n                            \"geoid_st\",\n                            \"number_block\", \n                            \"cnt_underserved_block\",\n                            \"cnt_underserved_block_dsl_excluded\",\n                            \"diff_block\",\n                            \"cnt_total_locations\",\n                            \"cnt_underserved\",\n                            \"cnt_loc_underserved_dsl_excluded\"\n                            )]\n\ntable_with_options(easy_table)",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "Testing other eligibilities"
-    ]
-  },
-  {
-    "objectID": "ntia_test.html#some-tldr",
-    "href": "ntia_test.html#some-tldr",
-    "title": "Testing other eligibilities",
-    "section": "Some tl:dr:",
-    "text": "Some tl:dr:\nNot keeping DSL move 26907 blocks from being served to be underserved.\nIt has heterogneous effects: for some States it has nearly or very low impacts but for other it is importants.",
-    "crumbs": [
-      "Home",
-      "FCC Data",
-      "Testing other eligibilities"
     ]
   }
 ]
