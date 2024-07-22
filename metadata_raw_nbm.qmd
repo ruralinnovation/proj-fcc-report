@@ -7,6 +7,28 @@ format:
 engine: knitr
 ---
 
+## DB fields Descriptions
+
+We are storing a transformed FCC's NBM version for differents geographyical units:
+
+- Census blocks  
+- Census tracts
+- Census counties 
+- Census places (Incomming)
+
+Here we will describe fields used and value stored for each of them:
+
+```{r}
+#| label: utility functions
+source("R/table_with_options.R")
+metadata <- read.csv("data/metadata_fcc.csv")
+table_with_options(metadata)
+```
+
+
+
+## S3 Archive:
+
 We stored the raw data of FCC NBM we downloaded in a s3 bucket. 
 
 This is how the structure of the bucket look likes:
