@@ -53,7 +53,7 @@ Those columns are:
 #| column: margin
 #| label: Operation type
 
-op_type <-as.data.frame(table(isp$Operation.Type, dnn = "Type"), responseName = "Nb." )
+op_type <-as.data.frame(table(isp$operation_type, dnn = "Type"), responseName = "Nb." )
 
 knitr::kable(op_type)
 ```
@@ -107,11 +107,11 @@ We probably have cases where companies have same name ("Farmers Mutual Telephone
 
 ```{r}
 #| label: case where same name have different FRN
-provider.name_by_FRN <- sapply(split(isp$FRN, isp$Provider.Name), function(x) unique(x))
+provider.name_by_FRN <- sapply(split(isp$frn, isp$provider_name), function(x) unique(x))
 
 multiple.frn <- provider.name_by_FRN[lengths(provider.name_by_FRN)> 1]
 
-provider.name_by_FRN.dat <- data.frame(Provide.Name = names(multiple.frn),
+provider.name_by_FRN.dat <- data.frame(provider_name = names(multiple.frn),
                                    FRN = sapply(multiple.frn, toString)
 )
 
@@ -128,7 +128,7 @@ table_with_options(provider.name_by_FRN.dat)
 #| column: margin
 #| tbl-cap: Affiliation per FRN
 get_me_FRN_affiliations <- function(isp) { 
-  FRN_by_affiliations <- sapply(split(isp[["FRN"]], isp[["Affiliation"]]), 
+  FRN_by_affiliations <- sapply(split(isp[["frn"]], isp[["affiliation"]]), 
                                 function(x) length(unique(x)))
   FRN_by_affiliations.dat <- data.frame(Affiliations = names(FRN_by_affiliations), 
                                         count_frn = FRN_by_affiliations)
