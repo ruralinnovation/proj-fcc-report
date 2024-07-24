@@ -33,6 +33,7 @@ jobs:
             any::remotes
             any::curl
             any::jsonlite
+            any::pkgdown
 
       - name: Install package from GH
         run: |
