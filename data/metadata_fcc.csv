@@ -19,9 +19,9 @@ pct_is_fiber,cnt_fiber_locations / cnt_total_locations,Yes,No,No,No
 pct_is_underserved,1 - cnt_100_20 / cnt_total_locations,Yes,No,No,No
 pct_is_unserved,1 - cnt_25_3 / cnt_total_locations,Yes,No,No,No
 geom,"geometry, MultiPolygon, 4269",Yes,No,No,No
-distinct_frn,PG array of distinct FRN,Yes,,,
-distinct_frn_cnt,count of distinct FRN,Yes,,,
-tech_code,PG array of disctint technology code,Yes,Yes,Yes,TBD
+distinct_frn,PG array of distinct FRN,Yes,Yes,Yes,Yes
+distinct_frn_cnt,count of distinct FRN,Yes,Yes,Yes,Yes
+tech_code,PG array of disctint technology code,Yes,Yes,Yes,Yes
 max_ad_down,Max speed download,Yes,No,No,No
 max_ad_up,Max speed upload,Yes,No,No,No
 max_ad_down_gig_other,Max speed download when 1k/1k and not fiber,Yes,No,No,No
