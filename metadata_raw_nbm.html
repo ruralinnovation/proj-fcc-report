@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-07-24">
+<meta name="dcterms.date" content="2024-07-25">
 
 <title>FCC NBM CORI metadata and storage – FCC BDC EDA</title>
 <style>
@@ -275,7 +275,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#db-fields-descriptions" id="toc-db-fields-descriptions" class="nav-link active" data-scroll-target="#db-fields-descriptions">DB fields Descriptions</a></li>
+  <li><a href="#db-fields-descriptions" id="toc-db-fields-descriptions" class="nav-link active" data-scroll-target="#db-fields-descriptions">DB fields Descriptions</a>
+  <ul class="collapse">
+  <li><a href="#tests-on-data" id="toc-tests-on-data" class="nav-link" data-scroll-target="#tests-on-data">Tests on data:</a></li>
+  </ul></li>
   <li><a href="#s3-archive" id="toc-s3-archive" class="nav-link" data-scroll-target="#s3-archive">S3 Archive:</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/metadata_raw_nbm.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -296,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 24, 2024</p>
+      <p class="date">July 25, 2024</p>
     </div>
   </div>
   
@@ -326,29 +329,112 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-d98624e2e0d07bbb94cf" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-d98624e2e0d07bbb94cf">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["geoid_st","geoid_cty","geoid_tr","geoid_pl ","geoid_bl","cnt_total_locations","cnt_bcat_locations","cnt_25_3","cnt_100_20","cnt_100_100","cnt_fiber","pct_25_3","pct_100_20","bl_100_20_area","bl_25_3_area","category","pct_is_fiber","pct_is_underserved","pct_is_unserved","geom","distinct_frn","distinct_frn_cnt","tech_code","max_ad_down","max_ad_up","max_ad_down_gig_other","max_ad_up_gig_other","max_ad_down_gig_fiber","max_ad_up_gig_fiber","max_ad_down_all_fiber","max_ad_up_all_fiber","max_ad_down_cable","max_ad_up_cable","max_ad_down_adsl","max_ad_up_adsl","max_ad_down_fixed_wireless","max_ad_up_fixed_wireless","cnt_gig_other","cnt_gig_fiber","cnt_fiber_cable_access","cnt_dsl"],["char(2)","char(5)","char(11)","TBD","char(15)","count of every locations reported","count of every locations that are not:/low_latency = FALSE/max up/down = 0/technology 60-61-70","count of bcat locations that match 25/3 speeds","count of bcat locations that match 100/20 speeds","count of bcat locations that match 100/100 speeds","count of bcat locations with fiber","cnt_100_20/cnt_total_locations","cnt_25_3/cnt_total_locations","Temp logic to determine if block is not_reported/unserved_area/unserved_area/underserved_area/served_area","Temp logic to determine if block is not_reported/unserved_area/unserved_area/underserved_area/served_area","Determine if block is Not Reported/Unserved/Underserved/Served","cnt_fiber_locations / cnt_total_locations","1 - cnt_100_20 / cnt_total_locations","1 - cnt_25_3 / cnt_total_locations","geometry, MultiPolygon, 4269","PG array of distinct FRN","count of distinct FRN","PG array of disctint technology code","Max speed download","Max speed upload","Max speed download when 1k/1k and not fiber","Max speed upload  when 1k/1k and not fiber","Max speed download when 1k/1k and fiber","Max speed upload when 1k/1k and fiber","Max speed download when fiber","Max speed upload when fiber","Max speed download when cable","Max speed upload when cable","Max speed download when adsl","Max speed upload when adsl","Max speed download when wireless (not unlicensed)","Max speed upload when wireless (not unlicensed)","cnt of bcat when 1k/1k and not fiber","cnt of bcat when 1k/1k and fiber","cnt of bcat that is fiber or cable","cnt of bcat that is dsl"],["Yes","Yes","Yes","TBD","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","TBD",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","TBD",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","Yes",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Fields<\/th>\n      <th>Description<\/th>\n      <th>Census.Block<\/th>\n      <th>Census.Tract<\/th>\n      <th>Census.Counties<\/th>\n      <th>Census.Places<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"Fields","targets":0},{"name":"Description","targets":1},{"name":"Census.Block","targets":2},{"name":"Census.Tract","targets":3},{"name":"Census.Counties","targets":4},{"name":"Census.Places","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-cb56881afec749f80033" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-cb56881afec749f80033">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["geoid_st","geoid_cty","geoid_tr","geoid_pl ","geoid_bl","cnt_total_locations","cnt_bcat_locations","cnt_25_3","cnt_100_20","cnt_100_100","cnt_fiber","pct_25_3","pct_100_20","bl_100_20_area","bl_25_3_area","category","pct_is_fiber","pct_is_underserved","pct_is_unserved","geom","distinct_frn","distinct_frn_cnt","tech_code","max_ad_down","max_ad_up","max_ad_down_gig_other","max_ad_up_gig_other","max_ad_down_gig_fiber","max_ad_up_gig_fiber","max_ad_down_all_fiber","max_ad_up_all_fiber","max_ad_down_cable","max_ad_up_cable","max_ad_down_adsl","max_ad_up_adsl","max_ad_down_fixed_wireless","max_ad_up_fixed_wireless","cnt_gig_other","cnt_gig_fiber","cnt_fiber_cable_access","cnt_dsl"],["char(2)","char(5)","char(11)","TBD","char(15)","count of every locations reported","count of every locations that are not:/low_latency = FALSE/max up/down = 0/technology 60-61-70","count of bcat locations that match 25/3 speeds","count of bcat locations that match 100/20 speeds","count of bcat locations that match 100/100 speeds","count of bcat locations with fiber","cnt_100_20/cnt_total_locations","cnt_25_3/cnt_total_locations","Temp logic to determine if block is not_reported/unserved_area/unserved_area/underserved_area/served_area","Temp logic to determine if block is not_reported/unserved_area/unserved_area/underserved_area/served_area","Determine if block is Not Reported/Unserved/Underserved/Served","cnt_fiber_locations / cnt_total_locations","1 - cnt_100_20 / cnt_total_locations","1 - cnt_25_3 / cnt_total_locations","geometry, MultiPolygon, 4269","PG array of distinct FRN","count of distinct FRN","PG array of disctint technology code","Max speed download","Max speed upload","Max speed download when 1k/1k and not fiber","Max speed upload  when 1k/1k and not fiber","Max speed download when 1k/1k and fiber","Max speed upload when 1k/1k and fiber","Max speed download when fiber","Max speed upload when fiber","Max speed download when cable","Max speed upload when cable","Max speed download when adsl","Max speed upload when adsl","Max speed download when wireless (not unlicensed)","Max speed upload when wireless (not unlicensed)","cnt of bcat when 1k/1k and not fiber","cnt of bcat when 1k/1k and fiber","cnt of bcat that is fiber or cable","cnt of bcat that is dsl"],["Yes","Yes","Yes","TBD","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","TBD",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","TBD",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","Yes",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Fields<\/th>\n      <th>Description<\/th>\n      <th>Census.Block<\/th>\n      <th>Census.Tract<\/th>\n      <th>Census.Counties<\/th>\n      <th>Census.Places<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"Fields","targets":0},{"name":"Description","targets":1},{"name":"Census.Block","targets":2},{"name":"Census.Tract","targets":3},{"name":"Census.Counties","targets":4},{"name":"Census.Places","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
+<section id="tests-on-data" class="level3">
+<h3 class="anchored" data-anchor-id="tests-on-data">Tests on data:</h3>
+<ul>
+<li>Eyeballed them</li>
+</ul>
+<p>TODO:</p>
+<ul>
+<li>wrap into an R script/function (should return 0 row): check logic ideas</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_total_locations <span class="op">-</span> cnt_bcat_locations) <span class="kw">as</span> is_positive_dif_tot_bcat, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_bcat_locations <span class="op">-</span> cnt_fiber_locations) <span class="kw">as</span> is_positive_dif_bcat_fiber,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_100_20 <span class="op">-</span> cnt_100_100) <span class="kw">as</span> is_positive_dif_20_100,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_25_3 <span class="op">-</span> cnt_100_20) <span class="kw">as</span> is_positive_dif_25_100,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_fiber_cable <span class="op">-</span> cnt_fiber_locations) <span class="kw">as</span> is_positive_dif_fiber_cable</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> sch_broadband.bb_map_tr_2023dec_data</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sign</span>(cnt_total_locations <span class="op">-</span> cnt_bcat_locations) <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">or</span> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sign</span>(cnt_bcat_locations <span class="op">-</span> cnt_fiber_locations) <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">or</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sign</span>(cnt_100_20 <span class="op">-</span> cnt_100_100) <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">or</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sign</span>(cnt_25_3 <span class="op">-</span> cnt_100_20) <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>;</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_total_locations <span class="op">-</span> cnt_bcat_locations) <span class="kw">as</span> is_positive_dif_tot_bcat, </span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_bcat_locations <span class="op">-</span> cnt_fiber_locations) <span class="kw">as</span> is_positive_dif_bcat_fiber,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_100_20 <span class="op">-</span> cnt_100_100) <span class="kw">as</span> is_positive_dif_20_100,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_25_3 <span class="op">-</span> cnt_100_20) <span class="kw">as</span> is_positive_dif_25_100,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="fu">sign</span>(cnt_fiber_cable <span class="op">-</span> cnt_fiber_locations) <span class="kw">as</span> is_positive_dif_fiber_cable</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> sch_broadband.bb_map_co_2023dec_data</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sign</span>(cnt_total_locations <span class="op">-</span> cnt_bcat_locations) <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">or</span> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sign</span>(cnt_bcat_locations <span class="op">-</span> cnt_fiber_locations) <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">or</span> </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sign</span>(cnt_100_20 <span class="op">-</span> cnt_100_100) <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">or</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sign</span>(cnt_25_3 <span class="op">-</span> cnt_100_20) <span class="op">=</span> <span class="op">-</span><span class="dv">1</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A quick check on 3 counties (also should be wrapped in R)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> sch_broadband.bb_map_co_2023dec_data</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> geoid_co <span class="op">=</span> <span class="kw">any</span>(<span class="dt">array</span>[<span class="st">'06023'</span>, <span class="st">'15009'</span>, <span class="st">'41045'</span>]) ;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(state_abbr) <span class="kw">as</span> state_abbr,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(geoid_st) <span class="kw">as</span> geoid_st,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(geoid_co) <span class="kw">as</span> geoid_co,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_total_locations) <span class="kw">as</span> cnt_bcat_locations,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_bcat_locations) <span class="kw">as</span> cnt_total_locations,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_fiber_locations) <span class="kw">as</span> cnt_fiber_locations,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_100_100) <span class="kw">as</span> cnt_100_100,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_100_20) <span class="kw">as</span> cnt_100_20,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_25_3) <span class="kw">as</span> cnt_25_3,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_gig_other) <span class="kw">as</span>  cnt_gig_other,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_gig_fiber) <span class="kw">as</span>  cnt_gig_fiber,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_fiber_cable) <span class="kw">as</span> cnt_fiber_cable,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_dsl)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    sch_broadband.bb_map_tr_2023dec_data</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> geoid_co <span class="op">=</span> <span class="kw">any</span>(<span class="dt">array</span>[<span class="st">'06023'</span>, <span class="st">'15009'</span>, <span class="st">'41045'</span>])</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="kw">group</span> <span class="kw">by</span> geoid_co</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a> ;</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a> <span class="kw">select</span> </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(state_abbr) <span class="kw">as</span> state_abbr,</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(geoid_st) <span class="kw">as</span> geoid_st,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">min</span>(geoid_co) <span class="kw">as</span> geoid_co,</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">--</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_total_locations) <span class="kw">as</span> cnt_bcat_locations,</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_bcat_locations) <span class="kw">as</span> cnt_total_locations,</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_fiber_locations) <span class="kw">as</span> cnt_fiber_locations,</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_100_100) <span class="kw">as</span> cnt_100_100,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_100_20) <span class="kw">as</span> cnt_100_20,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_25_3) <span class="kw">as</span> cnt_25_3,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_gig_other) <span class="kw">as</span>  cnt_gig_other,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_gig_fiber) <span class="kw">as</span>  cnt_gig_fiber,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_fiber_cable) <span class="kw">as</span> cnt_fiber_cable,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(cnt_dsl)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    sch_broadband.bb_map_bl_2023dec_data</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> geoid_co <span class="op">=</span> <span class="kw">any</span>(<span class="dt">array</span>[<span class="st">'06023'</span>, <span class="st">'15009'</span>, <span class="st">'41045'</span>])</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="kw">group</span> <span class="kw">by</span> geoid_co</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a> ;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 </section>
 <section id="s3-archive" class="level2">
 <h2 class="anchored" data-anchor-id="s3-archive">S3 Archive:</h2>
 <p>We stored the raw data of FCC NBM we downloaded in a s3 bucket.</p>
 <p>This is how the structure of the bucket look likes:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> D22</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 01july2023</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 09august2023</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 10october2023</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── old-api</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> D23</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── 14may2024</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> J22</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 03november2023</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 10may2024</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── old-api</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> J23</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> 14november2023</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> D22</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 01july2023</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 09august2023</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 10october2023</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── old-api</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> D23</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── 14may2024</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> J22</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 03november2023</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> ├── 10may2024</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│&nbsp;&nbsp;</span> └── old-api</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> J23</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> 14november2023</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In each directory we get a zip file per csv (technology/state).</p>
 
 
