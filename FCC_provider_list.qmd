@@ -9,6 +9,10 @@ engine: knitr
 
 ```{r}
 #| label: utility functions
+if (!require("cori.data.fcc")) {
+  remotes::install_github("ruralinnovation/cori.data.fcc")
+}
+
 source("R/table_with_options.R")
 ```
 
