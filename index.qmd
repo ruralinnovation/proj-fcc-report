@@ -1,31 +1,35 @@
 ---
-title: "Data equity and access for the Broadband Equity Access and Deployment (BEAD) Program"
-format: 
+format:
   html:
     code-fold: true
 engine: knitr
 ---
 
-We are using two sources of data from the FCC (Federal Communications Commission):
+At the Center on Rural Innovation, we use two types of data sourced directly from the FCC (Federal Communications Commission):
 
-- National Broadband Map ([NBM](https://broadbandmap.fcc.gov/home))  
+- National Broadband Map ([NBM](https://broadbandmap.fcc.gov/home){.external target="_blank"}) which is the product of the [Broadband Data Collection initiative](https://www.fcc.gov/BroadbandData){.external target="_blank"}
 
-- Broadband Funding Map ([BFM](https://fundingmap.fcc.gov/home))
+- Broadband Funding Map ([BFM](https://fundingmap.fcc.gov/home){.external target="_blank"})
 
-Their license can be found [here](https://broadbandmap.fcc.gov/about) and [here](https://fundingmap.fcc.gov/about), respectively:
+### FCC Broadband Data Collection license and attribution
 
-> ## License and Attribution
+Licensing for Broadband Data Collection data can be found [here](https://broadbandmap.fcc.gov/about){.external target="_blank"} and [here](https://fundingmap.fcc.gov/about){.external target="_blank"} and to summarize, the FCC asks that minimal attribution for each of the above datasets is provided in the form:
+
 >
-> Broadband availability data from the BDC, and data from the U.S. Census Bureau that are presented on this site, are offered free and not subject to copyright restriction. Data and content created by government employees within the scope of their employment are not subject to domestic copyright protection under 17 U.S.C. § 105. See, e.g., [U.S. Government Works](https://www.usa.gov/government-copyright).
->
-> While not required, when using in your own work content, data, documentation, code, and related materials from fcc.gov or broadbandmap.fcc.gov, we ask that you provide proper attribution of the data. Examples include:
+>     Source data: FCC Broadband Data Collection
+>     Map layer based on FCC BDC
 >
 >     Source data: FCC Broadband Funding Map
 >     Map layer based on FCC BFM
 >
-> CostQuest Associates, Inc. and its third-party licensors, as applicable, own all right, title, and interest, including all intellectual property rights, in and to the data for locations reflected in the Fabric (including the Location ID, latitude and longitude, address, unit count, and building type code for each location in the Fabric). CostQuest is granted certain rights to Fabric correction submissions for the purpose of correcting or otherwise modifying BDC Fabric data. Broadband service providers, governmental entities, and other third parties are able to license Fabric data, including any changes to Fabric data that have been made as a result of challenges, at no cost for purposes of their participation in the FCC's Broadband Data Collection.
 
-## What are these two datasets?
+The licenses contain an additional addendum about CostQuest, the third-party that produces and essential input to these datasets, the location Fabric:
+
+>
+> CostQuest Associates, Inc. and its third-party licensors, as applicable, own all right, title, and interest, including all intellectual property rights, in and to the data for locations reflected in the Fabric (including the Location ID, latitude and longitude, address, unit count, and building type code for each location in the Fabric). CostQuest is granted certain rights to Fabric correction submissions for the purpose of correcting or otherwise modifying BDC Fabric data. Broadband service providers, governmental entities, and other third parties are able to license Fabric data, including any changes to Fabric data that have been made as a result of challenges, at no cost for purposes of their participation in the FCC's Broadband Data Collection.
+>
+
+### What are these two datasets?
 
 The first one (NBM) was started by the FCC in November 2022[^fcc_nbm_start] while the second was first published in May 2023[^bfn_da_links] (and documentation[^bfm_doc] in July 2023).
 
@@ -35,27 +39,26 @@ The first one (NBM) was started by the FCC in November 2022[^fcc_nbm_start] whil
 
 [^bfm_doc]: See Changelog [https://us-fcc.app.box.com/v/bfm-data-downloads-output](https://us-fcc.app.box.com/v/bfm-data-downloads-output)
 
-The NBM provides information at the scale of a "service" - a location covered by a provider by a technology with specifics maximum speeds.
+The NBM provides information at the scale of a "service" - a location covered by a provider of a technology with specifics maximum download and upload speeds.
 
 Every location is characterized by:
 
-- Who is providing those services (`frn`, `provider_id`, and `brand_name`)
-- A description of each services (`technology`, `max_advertised_download_speed`, `max_advertised_upload_speed`, `low_latency`)
-- Whether the location associated with residential, business or both
-- ways to localize it (`state_abbr`, `block_geoid`, `h3_res8_id`)
+  - Who is providing those services (`frn`, `provider_id`, and `brand_name`)
+  - A description of each services (`technology`, `max_advertised_download_speed`, `max_advertised_upload_speed`, `low_latency`)
+  - Whether the location associated with residential, business or both
+  - ways to localize it (`state_abbr`, `block_geoid`, `h3_res8_id`)
 
 ::: {.callout-tip}
-A location (see @sec-BSL) can be covered by multiple Internet Services Provides (ISP) with  potentially different services and technologies. Hence, it can represented in the data can by many "rows".
+A location (see @sec-BSL) can be covered by multiple Internet Services Providers (ISP) with  potentially different services and technologies. Hence, a single location can be represented in the data can by multiple "rows".
 :::
 
-Behind the National Broadband Map they are **two** datasets (see @fig-broadbanddata, below). We are using the "Broadband Availability" dataset  that comes from the "Fabric" locations dataset (developed by CostQuest). 
-The locations are determined within the Fabric locations data.
+Behind the National Broadband Map they are **two** datasets (see @fig-broadbanddata, below). We are using the "Broadband Availability" dataset, which is derived from the "Fabric" locations dataset (developed by CostQuest), but the latter is only accessible to parties who enter into a special license agreement with CostQuest. The primary difference between the two data sets is that the "Fabric" data assigns a specific geospatial coordinate to every location, which is intentionally "stripped" out the "Broadband Availability" data set. However, each location has a serial identifier that is (presumably) shared between the two data sets.
 
 :::{.aside}
-Sometimes the process of collecting those two datasets is called **B**roadband **D**ata **C**ollection (BDC)
+The program/process for collecting broadband service information as reported by all ISP's operating within the United States is called **B**roadband **D**ata **C**ollection (BDC).
 :::
 
-The exact coordinates of every locations is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.
+The exact coordinates of every location is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) identifier or a H3 (hexagon) grid location.
 
 !["What on the national broadband map" Source: [https://www.fcc.gov/BroadbandData](https://www.fcc.gov/BroadbandData)](images/whats-on-the-national-broadband-map-113023-1.png){#fig-broadbanddata}
 
@@ -86,7 +89,7 @@ The Broadband Availability data is covering all US States, Puerto Rico and the U
 
 The coverage of the funding map depend on each specific program. 
 
-## What is unserved v.s. underseved?
+### What is unserved v.s. underseved?
 
 Served, Unserved and Underseved are **overlapping** categories at the **location level**. They can be extended at the "**area level**".
 
@@ -102,7 +105,7 @@ FCC could change those definitions and for example move the bar at 100/20: [http
 
 [^pew_list]: Page 4 [https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf](https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf)
 
-## Our products: 
+### Our products:
 
 TODO: improve
 
