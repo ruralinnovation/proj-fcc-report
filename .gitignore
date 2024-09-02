@@ -1,7 +1,10 @@
+*.DS_Store
+*.idea
+/.obsidian/
 /.quarto/
-_site/
+/data/
+/_freeze/
+/_site/
+#docs
+node_modules
 .Rproj.user
-.Rhistory
-*.Rproj
-
-.DS_Store

@@ -11,7 +11,7 @@ At the Center on Rural Innovation, we use two types of data sourced directly fro
 
 - Broadband Funding Map ([BFM](https://fundingmap.fcc.gov/home){.external target="_blank"})
 
-### FCC Broadband Data Collection license and attribution
+#### FCC Broadband Data Collection license and attribution
 
 Licensing for Broadband Data Collection data can be found [here](https://broadbandmap.fcc.gov/about){.external target="_blank"} and [here](https://fundingmap.fcc.gov/about){.external target="_blank"} and to summarize, the FCC asks that minimal attribution for each of the above datasets is provided in the form:
 
@@ -29,7 +29,7 @@ The licenses contain an additional addendum about CostQuest, the third-party tha
 > CostQuest Associates, Inc. and its third-party licensors, as applicable, own all right, title, and interest, including all intellectual property rights, in and to the data for locations reflected in the Fabric (including the Location ID, latitude and longitude, address, unit count, and building type code for each location in the Fabric). CostQuest is granted certain rights to Fabric correction submissions for the purpose of correcting or otherwise modifying BDC Fabric data. Broadband service providers, governmental entities, and other third parties are able to license Fabric data, including any changes to Fabric data that have been made as a result of challenges, at no cost for purposes of their participation in the FCC's Broadband Data Collection.
 >
 
-### What are these two datasets?
+#### What are these two datasets?
 
 The first one (NBM) was started by the FCC in November 2022[^fcc_nbm_start] while the second was first published in May 2023[^bfn_da_links] (and documentation[^bfm_doc] in July 2023).
 
@@ -65,13 +65,13 @@ The exact coordinates of every location is only part of the Fabric dataset and w
 The BFM provides information about "*broadband infrastructure deployment projects funded by the Federal government throughout the United States*". The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have characteristics of each projects with their associated boundaries (territories covered) (see link [https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html](https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html)).
 
 
-### What is a Broadband Service Location (BSL)? {#sec-BSL}
+#### What is a Broadband Service Location (BSL)? {#sec-BSL}
 
 > A broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.”  A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau).  A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC[^fcc_bsl])
 
 [^fcc_bsl]: ["The Fabric data"](https://help.bdc.fcc.gov/hc/en-us/articles/7412732399003-Fabric-FAQs)
 
-### When is this data updated?
+#### When is this data updated?
 
 NBM has two big releases per year (June and December) and have "unofficial" versions every two weeks to take into account challenges[^challenges]. 
 Experience has told us that sometimes their release can be faster (more than one per week) or slower.
@@ -83,13 +83,13 @@ The FCC did not (April 2024) provides a changelog between releases or versions (
 
 BFM seems to follow a schedule of update every two weeks but we have not find any specifications. 
 
-### What is the geographic coverage of those datasets?
+#### What is the geographic coverage of those datasets?
 
 The Broadband Availability data is covering all US States, Puerto Rico and the US territories.  
 
 The coverage of the funding map depend on each specific program. 
 
-### What is unserved v.s. underseved?
+#### What is unserved v.s. underseved?
 
 Served, Unserved and Underseved are **overlapping** categories at the **location level**. They can be extended at the "**area level**".
 
@@ -105,7 +105,7 @@ FCC could change those definitions and for example move the bar at 100/20: [http
 
 [^pew_list]: Page 4 [https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf](https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf)
 
-### Our products:
+#### Our products:
 
 TODO: improve
 
@@ -117,15 +117,15 @@ TODO: improve
 
 - Helping our [Research team](https://ruralinnovation.us/our-work/research_mapping/)
 
-## Quick facts, May 2024:
+### Quick facts, May 2024:
 
-### Broadband Availibility: 
+#### Broadband Availibility: 
 
 - Number of BSL: 115 342 225
 
 - Number of unique `FRN`: 2879 
 
-### Funding Map:
+#### Funding Map:
 
 - 4 agencies are contributing
 
