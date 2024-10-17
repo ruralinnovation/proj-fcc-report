@@ -5,5 +5,3 @@ title: "About"
 Sharing quick EDA about FCC data.
 
 Link: [https://www.fcc.gov/BroadbandData](https://www.fcc.gov/BroadbandData)
-
-FCC BDC: June 2023 release, downloaded 21-11-2023
