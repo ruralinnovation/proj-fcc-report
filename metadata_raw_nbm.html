@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-10-17">
+<meta name="dcterms.date" content="2024-12-16">
 
 <title>FCC NBM CORI metadata and storage – FCC BDC EDA</title>
 <style>
@@ -70,10 +70,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1c7f479efe2ad2cdf46cbe6379f4c799.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -299,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 17, 2024</p>
+      <p class="date">December 16, 2024</p>
     </div>
   </div>
   
@@ -315,9 +315,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="db-fields-descriptions">DB fields Descriptions</h2>
 <p>We are storing a transformed FCC’s NBM version for differents geographyical units:</p>
 <ul>
-<li>Census blocks: <code>sch_broadband.bb_map_bl_2023dec_data</code></li>
-<li>Census tracts: <code>sch_broadband.bb_map_tr_2023dec_data</code></li>
-<li>Census counties: <code>sch_broadband.bb_map_co_2023dec_data</code></li>
+<li>Census blocks: <code>sch_broadband.bb_map_bl_2024june_data</code></li>
+<li>Census tracts: <code>sch_broadband.bb_map_tr_2024june_data</code></li>
+<li>Census counties: <code>sch_broadband.bb_map_co_2024june_data</code></li>
 <li>Census places (Incomming)</li>
 </ul>
 <p>Here we will describe fields used and value stored for each of them:</p>
@@ -329,8 +329,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table_with_options</span>(metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-b00a23f4ba17f4a32f38" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-b00a23f4ba17f4a32f38">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["geoid_st","geoid_cty","geoid_tr","geoid_pl ","geoid_bl","cnt_total_locations","cnt_bcat_locations","cnt_25_3","cnt_100_20","cnt_100_100","cnt_fiber","pct_25_3","pct_100_20","bl_100_20_area","bl_25_3_area","category","pct_is_fiber","pct_is_underserved","pct_is_unserved","geom","distinct_frn","distinct_frn_cnt","tech_code","max_ad_down","max_ad_up","max_ad_down_gig_other","max_ad_up_gig_other","max_ad_down_gig_fiber","max_ad_up_gig_fiber","max_ad_down_all_fiber","max_ad_up_all_fiber","max_ad_down_cable","max_ad_up_cable","max_ad_down_adsl","max_ad_up_adsl","max_ad_down_fixed_wireless","max_ad_up_fixed_wireless","cnt_gig_other","cnt_gig_fiber","cnt_fiber_cable_access","cnt_dsl"],["char(2)","char(5)","char(11)","TBD","char(15)","count of every locations reported","count of every locations that are not:/low_latency = FALSE/max up/down = 0/technology 60-61-70","count of bcat locations that match 25/3 speeds","count of bcat locations that match 100/20 speeds","count of bcat locations that match 100/100 speeds","count of bcat locations with fiber","cnt_100_20/cnt_total_locations","cnt_25_3/cnt_total_locations","Temp logic to determine if block is not_reported/unserved_area/unserved_area/underserved_area/served_area","Temp logic to determine if block is not_reported/unserved_area/unserved_area/underserved_area/served_area","Determine if block is Not Reported/Unserved/Underserved/Served","cnt_fiber_locations / cnt_total_locations","1 - cnt_100_20 / cnt_total_locations","1 - cnt_25_3 / cnt_total_locations","geometry, MultiPolygon, 4269","PG array of distinct FRN","count of distinct FRN","PG array of disctint technology code","Max speed download","Max speed upload","Max speed download when 1k/1k and not fiber","Max speed upload  when 1k/1k and not fiber","Max speed download when 1k/1k and fiber","Max speed upload when 1k/1k and fiber","Max speed download when fiber","Max speed upload when fiber","Max speed download when cable","Max speed upload when cable","Max speed download when adsl","Max speed upload when adsl","Max speed download when wireless (not unlicensed)","Max speed upload when wireless (not unlicensed)","cnt of bcat when 1k/1k and not fiber","cnt of bcat when 1k/1k and fiber","cnt of bcat that is fiber or cable","cnt of bcat that is dsl"],["Yes","Yes","Yes","TBD","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","TBD",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","TBD",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","Yes",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Fields<\/th>\n      <th>Description<\/th>\n      <th>Census.Block<\/th>\n      <th>Census.Tract<\/th>\n      <th>Census.Counties<\/th>\n      <th>Census.Places<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"Fields","targets":0},{"name":"Description","targets":1},{"name":"Census.Block","targets":2},{"name":"Census.Tract","targets":3},{"name":"Census.Counties","targets":4},{"name":"Census.Places","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6a0a2542856819ef65d8" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6a0a2542856819ef65d8">{"x":{"filter":"none","vertical":false,"extensions":["Buttons"],"data":[["geoid_st","geoid_cty","geoid_tr","geoid_pl ","geoid_bl","cnt_total_locations","cnt_bcat_locations","cnt_25_3","cnt_100_20","cnt_100_100","cnt_fiber","pct_25_3","pct_100_20","bl_100_20_area","bl_25_3_area","category","pct_is_fiber","pct_is_underserved","pct_is_unserved","geom","distinct_frn","distinct_frn_cnt","tech_code","max_ad_down","max_ad_up","max_ad_down_gig_other","max_ad_up_gig_other","max_ad_down_gig_fiber","max_ad_up_gig_fiber","max_ad_down_all_fiber","max_ad_up_all_fiber","max_ad_down_cable","max_ad_up_cable","max_ad_down_adsl","max_ad_up_adsl","max_ad_down_fixed_wireless","max_ad_up_fixed_wireless","cnt_gig_other","cnt_gig_fiber","cnt_fiber_cable_access","cnt_dsl"],["char(2)","char(5)","char(11)","TBD","char(15)","count of every locations reported","count of every locations that are not:/low_latency = FALSE/max up/down = 0/technology 60-61-70","count of bcat locations that match 25/3 speeds","count of bcat locations that match 100/20 speeds","count of bcat locations that match 100/100 speeds","count of bcat locations with fiber","cnt_100_20/cnt_total_locations","cnt_25_3/cnt_total_locations","Temp logic to determine if block is not_reported/unserved_area/unserved_area/underserved_area/served_area","Temp logic to determine if block is not_reported/unserved_area/unserved_area/underserved_area/served_area","Determine if block is Not Reported/Unserved/Underserved/Served","cnt_fiber_locations / cnt_total_locations","1 - cnt_100_20 / cnt_total_locations","1 - cnt_25_3 / cnt_total_locations","geometry, MultiPolygon, 4269","PG array of distinct FRN","count of distinct FRN","PG array of disctint technology code","Max speed download","Max speed upload","Max speed download when 1k/1k and not fiber","Max speed upload  when 1k/1k and not fiber","Max speed download when 1k/1k and fiber","Max speed upload when 1k/1k and fiber","Max speed download when fiber","Max speed upload when fiber","Max speed download when cable","Max speed upload when cable","Max speed download when adsl","Max speed upload when adsl","Max speed download when wireless (not unlicensed)","Max speed upload when wireless (not unlicensed)","cnt of bcat when 1k/1k and not fiber","cnt of bcat when 1k/1k and fiber","cnt of bcat that is fiber or cable","cnt of bcat that is dsl"],["Yes","Yes","Yes","TBD","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","TBD",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","TBD",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"],["Yes","Yes","Yes","Yes",null,"Yes","Yes","Yes","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","No","No","No","No","No","No","No","No","No","No","No","No","No","No","Yes","Yes","Yes","Yes"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Fields<\/th>\n      <th>Description<\/th>\n      <th>Census.Block<\/th>\n      <th>Census.Tract<\/th>\n      <th>Census.Counties<\/th>\n      <th>Census.Places<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"Blfrtip","buttons":["copy","print",{"extend":"collection","buttons":["csv","excel"],"text":"Download"}],"columnDefs":[{"name":"Fields","targets":0},{"name":"Description","targets":1},{"name":"Census.Block","targets":2},{"name":"Census.Tract","targets":3},{"name":"Census.Counties","targets":4},{"name":"Census.Places","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <section id="tests-on-data" class="level3">
@@ -523,8 +523,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -635,7 +633,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
