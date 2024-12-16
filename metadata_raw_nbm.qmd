@@ -11,9 +11,9 @@ engine: knitr
 
 We are storing a transformed FCC's NBM version for differents geographyical units:
 
-- Census blocks:  `sch_broadband.bb_map_bl_2023dec_data`
-- Census tracts:  `sch_broadband.bb_map_tr_2023dec_data`
-- Census counties: `sch_broadband.bb_map_co_2023dec_data` 
+- Census blocks:  `sch_broadband.bb_map_bl_2024june_data`
+- Census tracts:  `sch_broadband.bb_map_tr_2024june_data`
+- Census counties: `sch_broadband.bb_map_co_2024june_data` 
 - Census places (Incomming)
 
 Here we will describe fields used and value stored for each of them:
