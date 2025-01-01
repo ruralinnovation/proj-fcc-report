@@ -18,14 +18,16 @@ We have multiple sources from FCC to define a provider.
 
   * The first one from [FCC](https://us-fcc.app.box.com/v/bdcprovideridtable), accessed the 26-04-2024
 
-  * The second is comming from our pipelines of NBM (June 23 release)
+  * The second is comming from our pipelines of NBM (June 2023 release)
 
 - One is comming from the Emergency Broadband Benefit[^ebb] and can be downloaded [here](https://www.fcc.gov/sites/default/files/ebb.provider.list_.xlsx) (accessed the 26-04-2024)    
 
-[^ebb]: The Emergency Broadband Benefit is the successor of the Affordable Connectivity Program, source: [https://www.fcc.gov/broadbandbenefit](https://www.fcc.gov/broadbandbenefit)
+[^ebb]: The Emergency Broadband Benefit is the precursor of the Affordable Connectivity Program, source: [https://www.fcc.gov/broadbandbenefit](https://www.fcc.gov/broadbandbenefit)
 
 ::: {.callout-tip}
-A csv version of each is available in `data/` and the data can be downloaded with the download button. 
+- [cori.data.fcc](https://github.com/ruralinnovation/fcc.utils) is a small R package that contains providers data and is used here
+
+- Data is downlable using the download button
 :::
  
 # What does this data look like?
@@ -34,23 +36,16 @@ A csv version of each is available in `data/` and the data can be downloaded wit
 
 ```{r}
 #|label: read csv
+library("cori.data.fcc")
 
-csv_path <- "data/FCC_Providers_11_03_2024.csv"
-
-col_classe <- c("Provider.Name" = "character", 
-               "Affiliation" = "character",
-               "Operation.Type" = "factor",
-               "FRN" = "character",
-               "Provider.ID" = "character")
-
-isp <- read.csv(csv_path, colClasses = col_classe)
+isp <- cori.data.fcc::fcc_provider
 ```
 
-As we can see this table have 4 341 rows and 5 columns.
+`FCC provider` has 4 341 rows and 5 columns.
 
 Those columns are: 
 
-- `Provider.Name`: Sam than Brand Name?
+- `Provider.Name`: Same than Brand Name?
 
 - `Affiliation`: Same number than `Provider.ID`
 
@@ -58,7 +53,7 @@ Those columns are:
 #| column: margin
 #| label: Operation type
 
-op_type <-as.data.frame(table(isp$Operation.Type, dnn = "Type"), responseName = "Nb." )
+op_type <-as.data.frame(table(isp$operation_type, dnn = "Type"), responseName = "Nb." )
 
 knitr::kable(op_type)
 ```
@@ -74,22 +69,14 @@ knitr::kable(op_type)
 table_with_options(isp)
 ```
 
- 
-# Data set with mail address and phone number
-
-```{r}
-#| label: address and phone
-isp_contact <- read.csv("data/bb-provider_list.csv")
-table_with_options(isp_contact)
-```
-
-
 # EDA / Analysis 
 
-How many unique value do we have per column:
+## How many unique values do we have per column:
 
 ```{r}
-#|label: count me some unique
+#| label: count me some unique
+#| column: margin
+#| tbl-cap: Count of unique values / columns
 sum_table <-  apply(isp, 2, function(x)length(unique(x))) |>
                     as.data.frame()
 names(sum_table) <- c("Count of unique values")
@@ -97,18 +84,91 @@ names(sum_table) <- c("Count of unique values")
 knitr::kable(sum_table)
 ```
 
-A quick check indicate that all `Provider.ID` are 6 characters (hence the one with 7 in FCC NBM is probably an error). `FRN` is also always 10 characters.
+We can confirm that:
 
-### How FRN are split between Affiliations:
+- `FRN` here is unique for every row in this data set (our primary key)
+
+- We have a bit less `Provider.Name` (4321 / 4341) than `FRN`
+
+- We have the same number of `Affiliations` and `Provider.ID`
+
+- The number of `Provider.ID`/`Affiliations` is smaller than FRN. 
+
+A quick check indicate that all `Provider.ID` are 6 characters.
+`FRN` is also always 10 characters.
+
+:::{.aside}
+Hence the one with 7 characters in FCC NBM is probably an error.
+:::
+
+### What are the Provider Name that are sharing multiple `FRN`:
+
+We probably have cases where companies have same name ("Farmers Mutual Telephone company") but we have probably company that have multiple FRN ("Grand Mound Cooperative Telephone Association"). Granted the low numbers I think we are fair to assume it does not matter to much. 
 
 ```{r}
-FRN_by_affiliations <- sapply(split(isp$FRN, isp$Affiliation), function(x) length(unique(x)))
-FRN_by_affiliations.dat <- data.frame(Affiliations = names(FRN_by_affiliations), 
-                                      count_frn = FRN_by_affiliations)
+#| label: case where same name have different FRN
+provider.name_by_FRN <- sapply(split(isp$frn, isp$provider_name), function(x) unique(x))
 
+multiple.frn <- provider.name_by_FRN[lengths(provider.name_by_FRN)> 1]
 
-knitr::kable(table(FRN_by_affiliations.dat$count_frn))
+provider.name_by_FRN.dat <- data.frame(provider_name = names(multiple.frn),
+                                   FRN = sapply(multiple.frn, toString)
+)
+
+table_with_options(provider.name_by_FRN.dat)
 ```
 
 
-Most of it are one for one.
+### How FRN are split between `Affiliations`/`Provider.ID`?
+
+ As expected most of of the relations FRN / provider are one to one (3135) while 387 have more than one FRN. 
+
+```{r}
+#| label: spliting number of affiliation by frn
+#| column: margin
+#| tbl-cap: Affiliation per FRN
+get_me_FRN_affiliations <- function(isp) { 
+  FRN_by_affiliations <- sapply(split(isp[["frn"]], isp[["affiliation"]]), 
+                                function(x) length(unique(x)))
+  FRN_by_affiliations.dat <- data.frame(Affiliations = names(FRN_by_affiliations), 
+                                        count_frn = FRN_by_affiliations)
+  return(FRN_by_affiliations.dat)
+}
+
+FRN_affiliations.dat <- get_me_FRN_affiliations(isp) 
+ 
+cnt_affiliation <- as.data.frame(table(FRN_affiliations.dat$count_frn),
+                                       responseName = "")
+
+cnt_affiliation[["Num. of Affiliations / FRN"]] <- 
+  ifelse(as.numeric(cnt_affiliation[[1]]) < 10,  cnt_affiliation[[1]], "10+")
+
+cnt_affiliation <- aggregate(cnt_affiliation[[2]], 
+                             list(cnt_affiliation[["Num. of Affiliations / FRN"]]), 
+                             sum)
+
+names(cnt_affiliation) <- c("Number of Affiliations / FRN", "Count")
+
+knitr::kable(cnt_affiliation[c(1, 3:9, 2 ),], row.names = FALSE)
+```
+
+
+You can explore those 387 affiliations here: 
+
+```{r}
+#| label: 387 cases wth one affiliation and multiple FR
+dat <- FRN_affiliations.dat[FRN_affiliations.dat[["count_frn"]] > 1 ,]
+
+table_with_options(dat[order(dat[["count_frn"]], decreasing = TRUE), ])
+```
+
+
+# Data set with mail address and phone numbers
+
+This data set is one that is coming from the ACP program.
+
+```{r}
+#| label: address and phone
+isp_contact <- read.csv("data/bb-provider_list.csv")
+table_with_options(isp_contact)
+```
