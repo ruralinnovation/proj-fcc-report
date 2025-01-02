@@ -224,19 +224,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-are-these-two-datasets" id="toc-what-are-these-two-datasets" class="nav-link active" data-scroll-target="#what-are-these-two-datasets">What are these two datasets?</a>
-  <ul class="collapse">
-  <li><a href="#sec-BSL" id="toc-sec-BSL" class="nav-link" data-scroll-target="#sec-BSL">What is a Broadband Service Location (BSL)?</a></li>
+  <li><a href="#what-are-these-two-datasets" id="toc-what-are-these-two-datasets" class="nav-link active" data-scroll-target="#what-are-these-two-datasets">What are these two datasets?</a></li>
+  <li><a href="#sec-BSL" id="toc-sec-BSL" class="nav-link" data-scroll-target="#sec-BSL">What is a Broadband Serviceable Location (BSL)?</a></li>
   <li><a href="#when-is-this-data-updated" id="toc-when-is-this-data-updated" class="nav-link" data-scroll-target="#when-is-this-data-updated">When is this data updated?</a></li>
-  <li><a href="#what-is-the-geographic-coverage-of-those-datasets" id="toc-what-is-the-geographic-coverage-of-those-datasets" class="nav-link" data-scroll-target="#what-is-the-geographic-coverage-of-those-datasets">What is the geographic coverage of those datasets?</a></li>
-  </ul></li>
-  <li><a href="#what-is-unserved-v.s.-underseved" id="toc-what-is-unserved-v.s.-underseved" class="nav-link" data-scroll-target="#what-is-unserved-v.s.-underseved">What is unserved v.s. underseved?</a></li>
-  <li><a href="#our-products" id="toc-our-products" class="nav-link" data-scroll-target="#our-products">Our products:</a></li>
-  <li><a href="#quick-facts-may-2024" id="toc-quick-facts-may-2024" class="nav-link" data-scroll-target="#quick-facts-may-2024">Quick facts, May 2024:</a>
-  <ul class="collapse">
-  <li><a href="#broadband-availibility" id="toc-broadband-availibility" class="nav-link" data-scroll-target="#broadband-availibility">Broadband Availibility:</a></li>
-  <li><a href="#funding-map" id="toc-funding-map" class="nav-link" data-scroll-target="#funding-map">Funding Map:</a></li>
-  </ul></li>
+  <li><a href="#what-is-the-geographic-coverage-of-these-datasets" id="toc-what-is-the-geographic-coverage-of-these-datasets" class="nav-link" data-scroll-target="#what-is-the-geographic-coverage-of-these-datasets">What is the geographic coverage of these datasets?</a></li>
+  <li><a href="#what-is-unserved-vs.-underserved" id="toc-what-is-unserved-vs.-underserved" class="nav-link" data-scroll-target="#what-is-unserved-vs.-underserved">What is “Unserved” vs.&nbsp;“Underserved”?</a></li>
+  <li><a href="#quick-facts-may-2024" id="toc-quick-facts-may-2024" class="nav-link" data-scroll-target="#quick-facts-may-2024">Quick facts, May 2024:</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -262,30 +255,48 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>We are using two sources of data from the FCC (Federal Communications Commission):</p>
+<p>We rely on two key datasets from the Federal Communications Commission (FCC)</p>
+<ol type="1">
+<li><strong>National Broadband Map</strong> (<a href="https://broadbandmap.fcc.gov/home" target="_blank">NBM</a>):</li>
+</ol>
 <ul>
-<li><p>National Broadband Map (<a href="https://broadbandmap.fcc.gov/home">NBM</a>)</p></li>
-<li><p>Broadband Funding Map (<a href="https://fundingmap.fcc.gov/home">BFM</a>)</p></li>
+<li>Provides granular information on broadband service availability at specific locations, including details about service providers, technology types, and advertised speeds.</li>
 </ul>
-<p>Their license can be found <a href="https://broadbandmap.fcc.gov/about">here</a> and <a href="https://fundingmap.fcc.gov/about">here</a>, respectively:</p>
-<blockquote class="blockquote">
-<h2 id="license-and-attribution" class="anchored">License and Attribution</h2>
-<p>Broadband availability data from the BDC, and data from the U.S. Census Bureau that are presented on this site, are offered free and not subject to copyright restriction. Data and content created by government employees within the scope of their employment are not subject to domestic copyright protection under 17 U.S.C. § 105. See, e.g., <a href="https://www.usa.gov/government-copyright">U.S. Government Works</a>.</p>
-<p>While not required, when using in your own work content, data, documentation, code, and related materials from fcc.gov or broadbandmap.fcc.gov, we ask that you provide proper attribution of the data. Examples include:</p>
-<pre><code>Source data: FCC Broadband Funding Map
-Map layer based on FCC BFM</code></pre>
-<p>CostQuest Associates, Inc.&nbsp;and its third-party licensors, as applicable, own all right, title, and interest, including all intellectual property rights, in and to the data for locations reflected in the Fabric (including the Location ID, latitude and longitude, address, unit count, and building type code for each location in the Fabric). CostQuest is granted certain rights to Fabric correction submissions for the purpose of correcting or otherwise modifying BDC Fabric data. Broadband service providers, governmental entities, and other third parties are able to license Fabric data, including any changes to Fabric data that have been made as a result of challenges, at no cost for purposes of their participation in the FCC’s Broadband Data Collection.</p>
-</blockquote>
-<section id="what-are-these-two-datasets" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="what-are-these-two-datasets">What are these two datasets?</h2>
-<p>The first one (NBM) was started by the FCC in November 2022<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> while the second was first published in May 2023<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (and documentation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> in July 2023).</p>
-<p>The NBM provides information at the scale of a “service” - a location covered by a provider by a technology with specifics maximum speeds.</p>
+<ol start="2" type="1">
+<li><strong>Broadband Funding Map</strong> (<a href="https://fundingmap.fcc.gov/home" target="_blank">BFM</a>):</li>
+</ol>
+<ul>
+<li>Offers insights into federally funded broadband infrastructure projects, detailing program boundaries and project-level information.</li>
+</ul>
+<p>Both datasets are publicly available under permissive licensing, making them invaluable tools for analyzing broadband coverage and funding opportunities. Licensing information can be found <a href="https://broadbandmap.fcc.gov/about" target="_blank">here</a> and <a href="https://fundingmap.fcc.gov/about" target="_blank">here</a>, respectively.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="what-are-these-two-datasets" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="what-are-these-two-datasets">What are these two datasets?</h3>
+<p>On March 23, 2020, the Broadband Deployment Accuracy and Technological Availability Act or <em>Broadband DATA Act</em> was enacted<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. This led to the FCC’s creation of the National Broadband Map (NBM) in November 2022<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and the Broadband Funding Map in May 2023<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> (documented in July 2023<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>) as the primary methods of publicly releasing these data sets.</p>
+<section id="national-broadband-map-nbm" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="national-broadband-map-nbm">National Broadband Map (NBM)</h4>
+<p>The NBM offers detailed broadband availability information:</p>
+<ul>
+<li>Identifies providers and technologies at each location.</li>
+<li>Classifies locations as residential, business, or both.</li>
+<li>Localizes data to census blocks or H3 hexagons.</li>
+</ul>
+<p>This dataset is an abstraction of the “Fabric” locations data developed by <strong>CostQuest</strong>. The Fabric provides precise geolocation data for <strong>Broadband Serviceable Locations</strong> (BSLs), which are updated biannually (June and December) with interim updates every two weeks. The exact coordinates for each locations are only inclued in the Fabric dataset, so using the National Broadband Map data we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.</p>
+<div id="fig-broadbanddata" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="thumbnail.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: “What’s on the national broadband map” Source: <a href="https://www.fcc.gov/BroadbandData">https://www.fcc.gov/BroadbandData</a>
+</figcaption>
+</figure>
+</div>
 <p>Every location is characterized by:</p>
 <ul>
 <li>Who is providing those services (<code>frn</code>, <code>provider_id</code>, and <code>brand_name</code>)</li>
-<li>A description of each services (<code>technology</code>, <code>max_advertised_download_speed</code>, <code>max_advertised_upload_speed</code>, <code>low_latency</code>)</li>
-<li>Whether the location associated with residential, business or both</li>
-<li>ways to localize it (<code>state_abbr</code>, <code>block_geoid</code>, <code>h3_res8_id</code>)</li>
+<li>A description of each of the services (<code>technology</code>, <code>max_advertised_download_speed</code>, <code>max_advertised_upload_speed</code>, <code>low_latency</code>)</li>
+<li>Whether the location is characterised as residential, business or both</li>
+<li>Ways to geographically locate it (<code>state_abbr</code>, <code>block_geoid</code>, <code>h3_res8_id</code>)</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -297,98 +308,107 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A location (see <a href="#sec-BSL" class="quarto-xref">Section&nbsp;2.1</a>) can be covered by multiple Internet Services Provides (ISP) with potentially different services and technologies. Hence, it can represented in the data can by many “rows”.</p>
+<p>A location (see <a href="#what-is-a-broadband-serviceable-location-bsl">What is a BSL?</a>) can be covered by multiple Internet Services Provides (ISP) with potentially different services and technologies. Hence, it can represented in the data can by many “rows”.</p>
 </div>
 </div>
-<p>Behind the National Broadband Map they are <strong>two</strong> datasets (see <a href="#fig-broadbanddata" class="quarto-xref">Figure&nbsp;1</a>, below). We are using the “Broadband Availability” dataset that comes from the “Fabric” locations dataset (developed by CostQuest). The locations are determined within the Fabric locations data.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p>Sometimes the process of collecting those two datasets is called <strong>B</strong>roadband <strong>D</strong>ata <strong>C</strong>ollection (BDC)</p>
-</div></div><p>The exact coordinates of every locations is only part of the Fabric dataset and within the Broadband Availability we can only link a record for a location to a Census Block (2020 vintage) or H3 hexagon.</p>
-<div id="fig-broadbanddata" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="img/whats-on-the-national-broadband-map-113023-1.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-broadbanddata-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: “What on the national broadband map” Source: <a href="https://www.fcc.gov/BroadbandData">https://www.fcc.gov/BroadbandData</a>
-</figcaption>
-</figure>
-</div>
-<p>The BFM provides information about “<em>broadband infrastructure deployment projects funded by the Federal government throughout the United States</em>”. The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have characteristics of each projects with their associated boundaries (territories covered) (see link <a href="https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html">https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html</a>).</p>
+</div></div></section>
+<section id="broadband-funding-map-bfm" class="level4">
+<h4 class="anchored" data-anchor-id="broadband-funding-map-bfm">Broadband Funding Map (BFM)</h4>
+<p>The BFM provides information about “<em>broadband infrastructure deployment projects funded by the Federal government throughout the United States</em>”. The public data:</p>
+<ul>
+<li>Categorizes projects by program and geographic boundaries.</li>
+<li>Highlights funding from four federal agencies across 12 programs, including 1,853 projects as of May 2024.</li>
+<li>Provides a critical resource for identifying areas targeted for infrastructure investment.</li>
+</ul>
+<p>The information is structured either at the scale of a specific project inside a program or for the whole program. Hence we have characteristics for each project, including their associated boundaries (territories covered) (see <a href="https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html">https://ruralinnovation.github.io/proj-fcc-report/fcc_funding.html</a>).</p>
+</section>
+</section>
 <section id="sec-BSL" class="level3">
-<h3 class="anchored" data-anchor-id="sec-BSL">What is a Broadband Service Location (BSL)?</h3>
+<h3 class="anchored" data-anchor-id="sec-BSL">What is a Broadband Serviceable Location (BSL)?</h3>
+<p>A Broadband Serviceable Location (BSL) is defined as a location in the U.S. where fixed broadband internet access service is available or can be installed. These include:</p>
+<ul>
+<li>Residential BSLs: Housing units or group quarters as defined by the U.S. Census Bureau.</li>
+<li>Business BSLs: Non-residential structures, such as government or nonprofit facilities, on properties without residential locations.</li>
+</ul>
 <blockquote class="blockquote">
-<p>A broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>)</p>
+<p>A broadband serviceable location is defined as “a business or residential location in the United States at which fixed broadband Internet access service is, or can be, installed.” A residential BSL includes all residential structures, including structures that are (or contain) housing units or group quarters (as those terms are defined by the United States Census Bureau). A business BSL includes “all non-residential (business, government, non-profit, etc.) structures that are on property without residential locations and that would expect to demand Internet access service.” (source FCC<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>)</p>
 </blockquote>
 </section>
 <section id="when-is-this-data-updated" class="level3">
 <h3 class="anchored" data-anchor-id="when-is-this-data-updated">When is this data updated?</h3>
-<p>NBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>).</p>
+<p>NBM has two big releases per year (June and December) and have “unofficial” versions every two weeks to take into account challenges<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. Experience has told us that sometimes their release can be faster (more than one per week) or slower. The FCC did not (April 2024) provides a changelog between releases or versions (but the documentation has some of the major changes<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>).</p>
 <p>BFM seems to follow a schedule of update every two weeks but we have not find any specifications.</p>
 </section>
-<section id="what-is-the-geographic-coverage-of-those-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-geographic-coverage-of-those-datasets">What is the geographic coverage of those datasets?</h3>
-<p>The Broadband Availability data is covering all US States, Puerto Rico and the US territories.</p>
-<p>The coverage of the funding map depend on each specific program.</p>
+<section id="what-is-the-geographic-coverage-of-these-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-geographic-coverage-of-these-datasets">What is the geographic coverage of these datasets?</h3>
+<ul>
+<li><strong>Broadband Availability Data</strong>: Covers all U.S. states, Puerto Rico, and U.S. territories.</li>
+<li><strong>Funding Map Data</strong>: Varies by program, with coverage reflecting specific project boundaries.</li>
+</ul>
 </section>
-</section>
-<section id="what-is-unserved-v.s.-underseved" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-unserved-v.s.-underseved">What is unserved v.s. underseved?</h2>
+<section id="what-is-unserved-vs.-underserved" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-unserved-vs.-underserved">What is “Unserved” vs.&nbsp;“Underserved”?</h3>
 <p>Served, Unserved and Underseved are <strong>overlapping</strong> categories at the <strong>location level</strong>. They can be extended at the “<strong>area level</strong>”.</p>
 <p>If all available internet services at a location have advertised (reported) maximum speeds that are below 25 Mbps downstream speed or below 3 Mbps upstream (25/3 to simplify), then that location is categorized as <strong>unserved</strong>. If a location has at least one service with maximum speeds that are equal to or above 25/3, but no service with maximum speeds that are equal to or above 100/20, it is categorized as <strong>underserved</strong>. If a location has at least one service with maximum speeds that are equal to or above 100/20, then that location is categorized as <strong>served</strong>.</p>
-<p>Those definitions are recommended in the <a href="https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark">FCC’s Broadband Speed Benchmark</a> and can be adapted by every States<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>.</p>
+<p>Those definitions are recommended in the <a href="https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark">FCC’s Broadband Speed Benchmark</a> and can be adapted by every States<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>.</p>
 <!--
 :::{.aside}
 FCC could change those definitions and for example move the bar at 100/20: [https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark](https://www.fcc.gov/document/fcc-increases-broadband-speed-benchmark)
 :::
+
+## Our products: 
+
+TODO: improve
+
+- [Broadband Climate Risk Mitigation Tool](https://broadband-risk.ruralinnovation.us/)
+
+- [Interactive Rural Broadband Map](https://rural-broadband-map.ruralinnovation.us/), 
+
+- Helping our [Broadband team](https://ruralinnovation.us/our-work/broadband/) 
+
+- Helping our [Research team](https://ruralinnovation.us/our-work/research_mapping/)
 -->
 </section>
-<section id="our-products" class="level2">
-<h2 class="anchored" data-anchor-id="our-products">Our products:</h2>
-<p>TODO: improve</p>
-<ul>
-<li><p><a href="https://broadband-risk.ruralinnovation.us/">Broadband Climate Risk Mitigation Tool</a></p></li>
-<li><p><a href="https://rural-broadband-map.ruralinnovation.us/">Interactive Rural Broadband Map</a>,</p></li>
-<li><p>Helping our <a href="https://ruralinnovation.us/our-work/broadband/">Broadband team</a></p></li>
-<li><p>Helping our <a href="https://ruralinnovation.us/our-work/research_mapping/">Research team</a></p></li>
-</ul>
-</section>
-<section id="quick-facts-may-2024" class="level2">
-<h2 class="anchored" data-anchor-id="quick-facts-may-2024">Quick facts, May 2024:</h2>
-<section id="broadband-availibility" class="level3">
-<h3 class="anchored" data-anchor-id="broadband-availibility">Broadband Availibility:</h3>
+<section id="quick-facts-may-2024" class="level3">
+<h3 class="anchored" data-anchor-id="quick-facts-may-2024">Quick facts, May 2024:</h3>
+<section id="broadband-availibility" class="level4">
+<h4 class="anchored" data-anchor-id="broadband-availibility">Broadband Availibility:</h4>
 <ul>
 <li><p>Number of BSL: 115 342 225</p></li>
 <li><p>Number of unique <code>FRN</code>: 2879</p></li>
 </ul>
 </section>
-<section id="funding-map" class="level3">
-<h3 class="anchored" data-anchor-id="funding-map">Funding Map:</h3>
+<section id="funding-map" class="level4">
+<h4 class="anchored" data-anchor-id="funding-map">Funding Map:</h4>
 <ul>
 <li><p>4 agencies are contributing</p></li>
 <li><p>The Funding Map consist of 12 programs (1853 projects) with two specific to Puerto Rico (PR) and US territories.</p></li>
-<li><p>Those projects are classified by FCC in 3 categories: “Area”, “List of locations” and “Midle mile”<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p></li>
+<li><p>Those projects are classified by FCC in 3 categories: “Area”, “List of locations” and “Middle mile”<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p></li>
 </ul>
 
 
 </section>
 </section>
+<em><em>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+</em></em><div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p><a href="https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here">https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><a href="https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf">https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>See Changelog <a href="https://us-fcc.app.box.com/v/bfm-data-downloads-output">https://us-fcc.app.box.com/v/bfm-data-downloads-output</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p><a href="https://help.bdc.fcc.gov/hc/en-us/articles/7412732399003-Fabric-FAQs">“The Fabric data”</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p><a href="https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf">https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>See “Change Log” <a href="https://us-fcc.app.box.com/v/bdc-data-downloads-output">https://us-fcc.app.box.com/v/bdc-data-downloads-output</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>Page 4 <a href="https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf">https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>In May 2024 no “Midle mile” were present<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+<li id="fn1"><p><em>License and Attribution language from the FCC<em>: <br> <br> Broadband availability data from the BDC, and data from the U.S. Census Bureau that are presented on this site, are offered free and not subject to copyright restriction. Data and content created by government employees within the scope of their employment are not subject to domestic copyright protection under 17 U.S.C. § 105. See, e.g., <a href="https://www.usa.gov/government-copyright">U.S. Government Works</a>. <br> <br> While not required, when using in your own work content, data, documentation, code, and related materials from fcc.gov or broadbandmap.fcc.gov, we ask that you provide proper attribution of the data. Examples include: <br> <br> Source data: FCC Broadband Funding Map <br> Map layer based on FCC BFM <br> <br> CostQuest Associates, Inc.&nbsp;and its third-party licensors, as applicable, own all right, title, and interest, including all intellectual property rights, in and to the data for locations reflected in the Fabric (including the Location ID, latitude and longitude, address, unit count, and building type code for each location in the Fabric). CostQuest is granted certain rights to Fabric correction submissions for the purpose of correcting or otherwise modifying BDC Fabric data. Broadband service providers, governmental entities, and other third parties are able to license Fabric data, including any changes to Fabric data that have been made as a result of challenges, at no cost for purposes of their participation in the FCC’s Broadband Data Collection.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></em></em></p></li><em><em>
+<li id="fn2"><p><a href="https://crsreports.congress.gov/product/pdf/r/r45962" target="_blank">Broadband_Data_and_Mapping_Background_and_Issues_for_the_117th_Congress</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here" target="_blank">https://www.fcc.gov/news-events/notes/2022/11/18/new-broadband-maps-are-finally-here</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf" target="_blank">https://docs.fcc.gov/public/attachments/DA-23-410A1.pdf</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://us-fcc.app.box.com/v/bfm-data-downloads-output" target="_blank">https://us-fcc.app.box.com/v/bfm-data-downloads-output</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://help.bdc.fcc.gov/hc/en-us/articles/7412732399003-Fabric-FAQs">“The Fabric data”</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf">https://www.fcc.gov/sites/default/files/bdc-challenge-overview.pdf</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>See “Change Log” <a href="https://us-fcc.app.box.com/v/bdc-data-downloads-output">https://us-fcc.app.box.com/v/bdc-data-downloads-output</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Page 4 <a href="https://www.pewtrusts.org/-/media/assets/2023/06/un--and-underserved-definitions-ta-memo-pdf.pdf">https://www.pewtrusts.org/-/media/assets/2023/06/un–and-underserved-definitions-ta-memo-pdf.pdf</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>In May 2024 no “Middle mile” were present<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</em></em></ol><em><em>
+</em></em></section></div></main><em><em> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -806,9 +826,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
-</div> <!-- /content -->
+</em></em></div><footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer><em><em> <!-- /content -->
 
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ruralinnovation/proj-fcc-report/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ruralinnovation/proj-fcc-report/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+</em></em></body></html>
