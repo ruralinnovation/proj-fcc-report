@@ -4,9 +4,9 @@ title: "FCC workflow"
 
 We are using two sources of data from FCC: 
 
-- National Broadband Map (NBM)  
+- [National Broadband Map (NBM)](https://broadbandmap.fcc.gov/home): our source for speeds by census block  
 
-- Broadband Funding Map (BFM)
+- [Broadband Funding Map (BFM)](https://fundingmap.fcc.gov/home)
 
 What are those two?
 
