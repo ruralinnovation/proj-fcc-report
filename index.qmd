@@ -7,11 +7,13 @@ prefer-html: true
 
 We rely on two key datasets from the Federal Communications Commission (FCC)
 
+
 1) **National Broadband Map** ([NBM](https://broadbandmap.fcc.gov/home){target="_blank"}):
   - Provides granular information on broadband service availability at specific locations, including details about service providers, technology types, and advertised speeds.
 
 2) **Broadband Funding Map** ([BFM](https://fundingmap.fcc.gov/home){target="_blank"}):
   - Offers insights into federally funded broadband infrastructure projects, detailing program boundaries and project-level information.
+
 
 Both datasets are publicly available under permissive licensing, making them invaluable tools for analyzing broadband coverage and funding opportunities. Licensing information can be found [here](https://broadbandmap.fcc.gov/about){target="_blank"} and [here](https://fundingmap.fcc.gov/about){target="_blank"}, respectively.[^license_and_attribution]
 
