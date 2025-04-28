@@ -15,21 +15,30 @@ website:
     style: "docked"
     search: true
     contents:
-      - section: "EDA"
+      - section: "FCC Data"
         contents:
-          - zero_dl_up.qmd
+          - nbm_data.qmd 
+          - FCC_provider_list.qmd
           - isp_eda.qmd
-          - ntia_test.qmd
-          - ms-eda.qmd
-          - road-eda.qmd
-          - rdof.qmd
           - fcc_funding.qmd
-          - hubb.qmd
+          - zero_dl_up.qmd
+          - ntia_test.qmd
+      - section: "Other data sources"
+        contents:
+          - road-eda.qmd
+          - ms-eda.qmd
+      - section: "Metadata and Storage"
+        contents:
+          - metadata_raw_nbm.qmd 
 
 format:
   html:
     theme: cosmo
     css: styles.css
+    grid:
+      sidebar-width: 250px
+      body-width: 1100px
+      margin-width: 250px
     toc: true
 
 

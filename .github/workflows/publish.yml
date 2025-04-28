@@ -30,6 +30,16 @@ jobs:
           packages: |
             any::DT
             any::ggplot2
+            any::remotes
+            any::curl
+            any::jsonlite
+            any::pkgdown
+
+      - name: Install package from GH
+        run: |
+            Rscript -e 'remotes::install_github("ruralinnovation/cori.data.fcc")'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #
 #      - name: Install R Dependencies
 #        uses: r-lib/actions/setup-renv@v2

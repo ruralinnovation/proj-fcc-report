@@ -1,0 +1,142 @@
+---
+title: "FCC NBM CORI metadata and storage"
+date: last-modified
+format: 
+  html:
+    code-fold: true
+engine: knitr
+---
+
+## DB fields Descriptions
+
+We are storing a transformed FCC's NBM version for differents geographyical units:
+
+- Census blocks:  `sch_broadband.bb_map_bl_2024june_data`
+- Census tracts:  `sch_broadband.bb_map_tr_2024june_data`
+- Census counties: `sch_broadband.bb_map_co_2024june_data` 
+- Census places (Incomming)
+
+Here we will describe fields used and value stored for each of them:
+
+```{r}
+#| label: utility functions
+source("R/table_with_options.R")
+metadata <- read.csv("data/metadata_fcc.csv")
+table_with_options(metadata)
+```
+
+
+### Tests on data: 
+
+- Eyeballed them
+
+TODO: 
+
+- wrap into an R script/function (should return 0 row): check logic ideas
+
+```sql
+select 
+sign(cnt_total_locations - cnt_bcat_locations) as is_positive_dif_tot_bcat, 
+sign(cnt_bcat_locations - cnt_fiber_locations) as is_positive_dif_bcat_fiber,
+sign(cnt_100_20 - cnt_100_100) as is_positive_dif_20_100,
+sign(cnt_25_3 - cnt_100_20) as is_positive_dif_25_100,
+sign(cnt_fiber_cable - cnt_fiber_locations) as is_positive_dif_fiber_cable
+from sch_broadband.bb_map_tr_2023dec_data
+where 
+	sign(cnt_total_locations - cnt_bcat_locations) = -1 or 
+	sign(cnt_bcat_locations - cnt_fiber_locations) = -1 or 
+	sign(cnt_100_20 - cnt_100_100) = -1 or
+	sign(cnt_25_3 - cnt_100_20) = -1;
+	
+	
+select 
+sign(cnt_total_locations - cnt_bcat_locations) as is_positive_dif_tot_bcat, 
+sign(cnt_bcat_locations - cnt_fiber_locations) as is_positive_dif_bcat_fiber,
+sign(cnt_100_20 - cnt_100_100) as is_positive_dif_20_100,
+sign(cnt_25_3 - cnt_100_20) as is_positive_dif_25_100,
+sign(cnt_fiber_cable - cnt_fiber_locations) as is_positive_dif_fiber_cable
+from sch_broadband.bb_map_co_2023dec_data
+where 
+	sign(cnt_total_locations - cnt_bcat_locations) = -1 or 
+	sign(cnt_bcat_locations - cnt_fiber_locations) = -1 or 
+	sign(cnt_100_20 - cnt_100_100) = -1 or
+	sign(cnt_25_3 - cnt_100_20) = -1;
+```
+
+A quick check on 3 counties (also should be wrapped in R)
+
+```sql
+select * from sch_broadband.bb_map_co_2023dec_data
+where geoid_co = any(array['06023', '15009', '41045']) ;
+
+select 
+	min(state_abbr) as state_abbr,
+	min(geoid_st) as geoid_st,
+	min(geoid_co) as geoid_co,
+	--
+	sum(cnt_total_locations) as cnt_bcat_locations,
+	sum(cnt_bcat_locations) as cnt_total_locations,
+	sum(cnt_fiber_locations) as cnt_fiber_locations,
+	sum(cnt_100_100) as cnt_100_100,
+	sum(cnt_100_20) as cnt_100_20,
+	sum(cnt_25_3) as cnt_25_3,
+	sum(cnt_gig_other) as  cnt_gig_other,
+	sum(cnt_gig_fiber) as  cnt_gig_fiber,
+	sum(cnt_fiber_cable) as cnt_fiber_cable,
+	sum(cnt_dsl)
+
+from 
+	sch_broadband.bb_map_tr_2023dec_data
+where geoid_co = any(array['06023', '15009', '41045'])
+group by geoid_co
+ ;
+
+ select 
+	min(state_abbr) as state_abbr,
+	min(geoid_st) as geoid_st,
+	min(geoid_co) as geoid_co,
+	--
+	sum(cnt_total_locations) as cnt_bcat_locations,
+	sum(cnt_bcat_locations) as cnt_total_locations,
+	sum(cnt_fiber_locations) as cnt_fiber_locations,
+	sum(cnt_100_100) as cnt_100_100,
+	sum(cnt_100_20) as cnt_100_20,
+	sum(cnt_25_3) as cnt_25_3,
+	sum(cnt_gig_other) as  cnt_gig_other,
+	sum(cnt_gig_fiber) as  cnt_gig_fiber,
+	sum(cnt_fiber_cable) as cnt_fiber_cable,
+	sum(cnt_dsl)
+
+from 
+	sch_broadband.bb_map_bl_2023dec_data
+where geoid_co = any(array['06023', '15009', '41045'])
+group by geoid_co
+ ;
+```
+
+
+
+## S3 Archive:
+
+We stored the raw data of FCC NBM we downloaded in a s3 bucket. 
+
+This is how the structure of the bucket look likes:
+
+```bash
+.
+├── D22
+│   ├── 01july2023
+│   ├── 09august2023
+│   ├── 10october2023
+│   └── old-api
+├── D23
+│   └── 14may2024
+├── J22
+│   ├── 03november2023
+│   ├── 10may2024
+│   └── old-api
+└── J23
+    └── 14november2023
+```
+
+In each directory we get a zip file per csv (technology/state). 
